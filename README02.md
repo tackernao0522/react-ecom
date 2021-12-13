@@ -8,7 +8,7 @@
 {
   "short_name": "Easy Ecommerce",
   "name": "Easy Ecommerce",
-  "description": "Easy Ecommerce Ststem",
+  "description": "Easy Ecommerce System",
   "language": "en-US",
   "start_url": "/",
   "display": "standalone",
@@ -143,7 +143,7 @@ onesignalで生成したコードを貼り付ける<br>
     window.OneSignal = window.OneSignal || [];
     OneSignal.push(function () {
       OneSignal.init({
-        appId: "b4ff1157-c78e-49d3-adcb-13277d5fb846",
+        appId: "b8dfdea1-d119-4b42-902c-219600759118",
       });
     });
   </script>
