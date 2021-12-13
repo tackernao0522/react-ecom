@@ -1,8 +1,8 @@
 {
   "short_name": "Easy Ecommerce",
   "name": "Easy Ecommerce",
-  "description": "Easy Ecommerce Ststem",
-  "language": "en-US",
+  "description": "Easy Ecommerce System",
+  "lang": "en-US",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
