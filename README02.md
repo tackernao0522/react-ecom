@@ -158,3 +158,7 @@ onesignalで生成したコードを貼り付ける<br>
 ```
 
 + 再デプロイする<br>
+
++ `OneSignalSDKUpdaterWorker.js`と`OneSignalSDKWorker.js`を`public`ディレクトリの中に入れる<br>
+
++ 再デプロイする<br>
