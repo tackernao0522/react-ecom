@@ -107,3 +107,54 @@
 ```
 
 + 反映の確認はブラウザ検証ツールのApplicationのManifestで確認できる<br>
+
+## 256 Configure Web Push Notification Part1
+
+
++ `public/index.html`を編集<br>
+
+onesignalで生成したコードを貼り付ける<br>
+
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Easy Express">
+  <meta name="apple-mobile-web-app-title" content="Easy Express">
+  <meta name="theme-color" content="#002e62">
+  <meta name="msapplication-navbutton-color" content="#002e62">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Web site created using create-react-app" />
+
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <title>React App</title>
+
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+  <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function () {
+      OneSignal.init({
+        appId: "b4ff1157-c78e-49d3-adcb-13277d5fb846",
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+</body>
+
+</html>
+```
+
++ 再デプロイする<br>

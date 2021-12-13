@@ -19,6 +19,16 @@
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
   <title>React App</title>
+
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+  <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function () {
+      OneSignal.init({
+        appId: "b4ff1157-c78e-49d3-adcb-13277d5fb846",
+      });
+    });
+  </script>
 </head>
 
 <body>
