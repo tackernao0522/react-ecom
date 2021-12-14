@@ -384,3 +384,40 @@ class AppRoute extends Component {
 
 export default AppRoute
 ```
+
+## 261 Managing CSS Files
+
++ `src/assets/css/navMenuDesktop.css`ファイルを作成<br>
+
++ `src/assets/css/navMenuMobile.css`ファイルを作成<br>
+
++ `src/assets/css/footer.css`ファイルを作成<br>
+
++ `src/assets/css/bigSlider.css`ファイルを作成<br>
+
++ `src/assets/css/card.css`ファイルを作成<br>
+
++ `src/assets/css/button.css`ファイルを作成<br>
+
++ `src/assets/css/typo.css`ファイルを作成<br>
+
++ `src/assets/css/megaMenu.css`ファイルを作成<br>
+
++ `src/assets/css/custom.css`を編集<br>
+
+```
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto+Condensed:ital,wght@0,400;0,700;1,300&display=swap");
+
+@import "bigSlider.css";
+@import "button.css";
+@import "card.css";
+@import "footer.css";
+@import "megaMenu.css";
+@import "navMenuDesktop.css";
+@import "navMenuMobile.css";
+@import "typo.css";
+
+body {
+  background-color: aquamarine;
+}
+```
