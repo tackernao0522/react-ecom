@@ -297,3 +297,90 @@ class NewArrival extends Component {
 
 export default NewArrival
 ```
+
+## 260 Config Routingf
+
++ `$ npm install react-router@5.2.0`を実行<br>
+
++ `$ npm install react-router-dom@5.3.0`を実行<br>
+
++ `src/route/AppRoute.js`ファイルを作成<br>
+
+```
+import React, { Component, Fragment } from 'react'
+
+class AppRoute extends Component {
+  render() {
+    return (
+      <Fragment>
+
+      </Fragment>
+    )
+  }
+}
+
+export default AppRoute
+```
+
++ `src/App.js`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import AppRoute from './route/AppRoute'
+
+
+class App extends Component {
+  render() {
+    return (
+      <Fragment>
+        <BrowserRouter>
+          <AppRoute />
+        </BrowserRouter>
+      </Fragment>
+    )
+  }
+}
+
+export default App
+```
+
++ `src/pages/HomePage.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component } from 'react'
+
+class HomePage extends Component {
+  render() {
+    return (
+      <Fragment>
+        <h1>This is our Home Page</h1>
+      </Fragment>
+    )
+  }
+}
+
+export default HpmePage
+```
+
++ `src/route/AppRoute.js`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Switch, Route } from 'react-router'
+import HomePage from '../pages/HomePage'
+
+class AppRoute extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Switch>
+          <Route exact to="/" component={HomePage} />
+        </Switch>
+      </Fragment>
+    )
+  }
+}
+
+export default AppRoute
+```
