@@ -427,5 +427,3 @@ body {
 + `$ npm install --save react-router-transition react-router-dom --force`を実行<br>
 
 + `src/assets/css`ディレクトリに`animate.min.css`を入れる<br>
-
-
