@@ -111,3 +111,189 @@ body {
   background-color: aquamarine;
 }
 ```
+
+## 259 Creating Necessary Components For Home
+
++ `src/components/home`ディレクトリを作成<br>
+
++ `src/components/common`ディレクトリを作成<br>
+
++ `src/components/common/NavMenuDesktop.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component } from 'react'
+
+class NavMenuDesktop extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+
+export default NavMenuDesktop
+```
+
++ `src/components/common/NavMenuMobile.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component } from 'react'
+
+class NavMenuMobile extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+
+export default NavMenuMobile
+```
+
++ `src/components/common/FooterDesktop.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component } from 'react'
+
+class FooterDesktop extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+
+export default FooterDesktop
+```
+
++ `src/components/common/FooterMobile.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component } from 'react'
+
+class FooterMobile extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+
+export default FooterMobile
+```
+
++ `src/components/home/Slider.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component } from 'react'
+
+class Slider extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+
+export default Slider
+```
+
++ `src/components/home/MegaMenu.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component } from 'react'
+
+class MegaMenu extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+
+export default MegaMenu
+```
+
++ `src/components/home/FeaturedProducts.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component } from 'react'
+
+class FeaturedProducts extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+
+export default FeaturedProducts
+```
+
++ `src/components/home/Categories.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component } from 'react'
+
+class Categories extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+
+export default Categories
+```
+
++ `src/components/home/Collection.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component } from 'react'
+
+class Collection extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+
+export default Collection
+```
+
++ `src/components/home/NewArrival.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component } from 'react'
+
+class NewArrival extends Component {
+  render() {
+    return (
+      <div>
+
+      </div>
+    )
+  }
+}
+
+export default NewArrival
+```
