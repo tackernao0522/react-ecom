@@ -421,3 +421,11 @@ body {
   background-color: aquamarine;
 }
 ```
+
+## 262 Managing Transition and Appearing Animation
+
++ `$ npm install --save react-router-transition react-router-dom --force`を実行<br>
+
++ `src/assets/css`ディレクトリに`animate.min.css`を入れる<br>
+
+
