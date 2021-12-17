@@ -1,3 +1,8 @@
+## 267 Collection Product Component
+
++ `src/components/home/Collection.jsx`を編集<br>
+
+```
 import React, { Component, Fragment } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
 
@@ -139,3 +144,27 @@ class Collection extends Component {
 }
 
 export default Collection
+```
+
++ `src/pages/HomePages.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import Categories from '../components/home/Categories'
+import Collection from '../components/home/Collection'
+import FeaturedProducts from '../components/home/FeaturedProducts'
+
+class HomePage extends Component {
+  render() {
+    return (
+      <Fragment>
+        <FeaturedProducts />
+        <Collection />
+        <Categories />
+      </Fragment>
+    )
+  }
+}
+
+export default HomePage
+```

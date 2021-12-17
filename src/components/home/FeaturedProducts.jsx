@@ -8,8 +8,9 @@ class FeaturedProducts extends Component {
         <Container className="text-center" fluid={true}>
           <div className="section-title text-center mb-55">
             <h2>FEATURED PRODUCT</h2>
-            <p>Some of Our Exclusive Collection, You May Like</p>
+            <p>Some Of Our Exclusive Collection, You May Like</p>
           </div>
+
           <Row>
             <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
               <Card className="image-box card">
@@ -30,11 +31,11 @@ class FeaturedProducts extends Component {
               <Card className="image-box card">
                 <img
                   className="center"
-                  src="https://rukminim1.flixcart.com/image/416/416/ksnjp8w0/mobile/k/o/m/c21y-rmx3261-realme-original-imag65kcytrk8dtr.jpeg?q=70"
+                  src="https://rukminim1.flixcart.com/image/416/416/knm2s280/mobile/j/x/c/hot-10-play-x688b-infinix-original-imag29gxqzuxkmnk.jpeg?q=70"
                 />
                 <Card.Body>
                   <p className="product-name-on-card">
-                    Realme C21Y (Cross Blue, 32 GB)
+                    Realme C21 (Cross Blue, 64 GB)
                   </p>
                   <p className="product-price-on-card">Price : $120</p>
                 </Card.Body>
@@ -49,7 +50,7 @@ class FeaturedProducts extends Component {
                 />
                 <Card.Body>
                   <p className="product-name-on-card">
-                    Realme C21 (Cross Blue, 32 GB)
+                    Realme C21 (Cross Black, 64 GB)
                   </p>
                   <p className="product-price-on-card">Price : $120</p>
                 </Card.Body>
@@ -64,7 +65,7 @@ class FeaturedProducts extends Component {
                 />
                 <Card.Body>
                   <p className="product-name-on-card">
-                    Infinix Hot 10 Play (Morandi Green, 64 GB)
+                    Realme C21 (Cross Black, 64 GB)
                   </p>
                   <p className="product-price-on-card">Price : $120</p>
                 </Card.Body>
@@ -79,21 +80,22 @@ class FeaturedProducts extends Component {
                 />
                 <Card.Body>
                   <p className="product-name-on-card">
-                    Realme 8 5G (Supersonic Black, 64 GB)
+                    Realme C21 (Cross Black, 64 GB)
                   </p>
                   <p className="product-price-on-card">Price : $120</p>
                 </Card.Body>
               </Card>
             </Col>
-            <Col xl={2} lg={2} md={2} sm={4} xs={6}>
+
+            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
               <Card className="image-box card">
                 <img
                   className="center"
-                  src="https://rukminim1.flixcart.com/image/416/416/kd69z0w0/mobile/s/h/p/mi-redmi-note-9-b086982zkf-original-imafu4qfyyyrg8er.jpeg?q=70"
+                  src="https://rukminim1.flixcart.com/image/416/416/kd69z0w0/mobile/a/n/g/mi-redmi-note-9-b086982zkf-original-imafu4qf8gfcutde.jpeg?q=70"
                 />
                 <Card.Body>
                   <p className="product-name-on-card">
-                    REDMI Note 9 (Arctic White, 64 GB)
+                    Realme C21 (Cross Black, 64 GB)
                   </p>
                   <p className="product-price-on-card">Price : $120</p>
                 </Card.Body>
