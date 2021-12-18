@@ -530,7 +530,7 @@ class MegaMenu extends Component {
 export default MegaMenu
 ```
 
-## 272 Accordion Menu Component Part2
+## 271 Accordion Menu Component Part2
 
 + `src/components/home/MegaMenu.jsx`を編集<br>
 
