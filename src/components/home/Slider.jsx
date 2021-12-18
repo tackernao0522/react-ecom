@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 class Slider extends Component {
   render() {
     return (
-      <div>
-        
-      </div>
+      <Fragment>
+        <h1>Slider</h1>
+      </Fragment>
     )
   }
 }
