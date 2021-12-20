@@ -4,6 +4,38 @@ import { Link } from 'react-router-dom'
 import Logo from '../../assets/images/easyshop.png'
 
 class NavMenuMobile extends Component {
+  constructor() {
+    super()
+    this.state = {
+      SideNavState: 'sideNavClose',
+      ContentOverState: 'ContentOverlayClose',
+    }
+  }
+
+  MenuBarClickHandler = () => {
+    this.SideNavOpenClose()
+  }
+
+  ContentOverlayClickHandler = () => {
+    this.SideNavOpenClose()
+  }
+
+  SideNavOpenClose = () => {
+    let SideNavState = this.state.SideNavState
+    let ContentOverState = this.state.ContentOverState
+    if (SideNavState === 'sideNavOpen') {
+      this.setState({
+        SideNavState: 'sideNavClose',
+        ContentOverState: 'ContentOverlayClose',
+      })
+    } else {
+      this.setState({
+        SideNavState: 'sideNavOpen',
+        ContentOverState: 'ContentOverlayOpen',
+      })
+    }
+  }
+
   render() {
     return (
       <Fragment>
@@ -14,7 +46,7 @@ class NavMenuMobile extends Component {
           >
             <Row>
               <Col lg={4} md={4} sm={12} xs={12}>
-                <Button className="btn">
+                <Button onClick={this.MenuBarClickHandler} className="btn">
                   <i className="fa fa-bars"></i>
                 </Button>
                 <Link to="/">
@@ -26,13 +58,11 @@ class NavMenuMobile extends Component {
               </Col>
             </Row>
           </Container>
-          <div className="sideNavOpen">
-            <hr className='w-80' />
-            <div className="list-group">
-              <a className="list-group-item nav-font nav-itemmenu list-group-item-action"><i className='fa mr-2 fa-home'></i>Home</a>
-            </div>
-          </div>
-          <div className="ContentOverlayOpen"></div>
+          <div className={this.state.SideNavState}>ここにメニューが入る</div>
+          <div
+            onClick={this.ContentOverlayClickHandler}
+            className={this.state.ContentOverState}
+          ></div>
         </div>
       </Fragment>
     )
