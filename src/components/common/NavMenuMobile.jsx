@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Logo from '../../assets/images/easyshop.png'
+import MegaMenuMobile from '../home/MegaMenuMobile'
 
 class NavMenuMobile extends Component {
   constructor() {
@@ -58,7 +59,7 @@ class NavMenuMobile extends Component {
               </Col>
             </Row>
           </Container>
-          <div className={this.state.SideNavState}>ここにメニューが入る</div>
+          <div className={this.state.SideNavState}><MegaMenuMobile /></div>
           <div
             onClick={this.ContentOverlayClickHandler}
             className={this.state.ContentOverState}
