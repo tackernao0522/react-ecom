@@ -7,6 +7,7 @@ import HomeTop from '../components/home/HomeTop'
 import NewArrival from '../components/home/NewArrival'
 import NavMenuDeskTop from '../components/common/NavMenuDesktop'
 import HomeTopMobile from '../components/home/HomeTopMobile'
+import FooterDesktop from '../components/common/FooterDesktop'
 
 class HomePage extends Component {
   render() {
@@ -24,6 +25,7 @@ class HomePage extends Component {
         <NewArrival />
         <Categories />
         <Collection />
+        <FooterDesktop />
       </Fragment>
     )
   }
