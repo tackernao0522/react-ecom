@@ -1,3 +1,8 @@
+## 280 Deploy Real Server And Test
+
++ `src/components/common/NavMenuDesktop.jsx`を編集<br>
+
+```
 import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Navbar, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -65,7 +70,7 @@ class NavMenuDesktop extends Component {
                 </Col>
                 <Col className="p-1 mt-1" lg={4} md={4} sm={12} xs={12}>
                   <Link to="/" className="btn">
-                    <i className="fa h4 fa-heart"></i>
+                    <i className="fa h4 fa-heart"></i> // 編集
                     <sup>
                       <span className="badge text-white bg-danger">3</span>
                     </sup>
@@ -103,3 +108,4 @@ class NavMenuDesktop extends Component {
 }
 
 export default NavMenuDesktop
+```
