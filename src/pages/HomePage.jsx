@@ -5,13 +5,21 @@ import Collection from '../components/home/Collection'
 import FeaturedProducts from '../components/home/FeaturedProducts'
 import HomeTop from '../components/home/HomeTop'
 import NewArrival from '../components/home/NewArrival'
+import NavMenuDeskTop from '../components/common/NavMenuDesktop'
+import HomeTopMobile from '../components/home/HomeTopMobile'
 
 class HomePage extends Component {
   render() {
     return (
       <Fragment>
-        <NavMenuMobile />
-        <HomeTop />
+        <div className="Desktop">
+          <NavMenuDeskTop />
+          <HomeTop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+          <HomeTopMobile />
+        </div>
         <FeaturedProducts />
         <NewArrival />
         <Categories />

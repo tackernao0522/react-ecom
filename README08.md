@@ -661,3 +661,141 @@ class NavMenuMobile extends Component {
 export default NavMenuMobile
 ```
 
+## 278 Mobile View Menu Part4
+
++ `src/components/home/HomeTopMobile.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import HomeSlider from './HomeSlider'
+
+class HomeTopMobile extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Container className="p-0 m-0 overflow-hidden" fluid={true}>
+          <Row className="p-0 m-0 overflow-hidden">
+            <Col lg={12} md={12} sm={12}>
+              <HomeSlider />
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default HomeTopMobile
+```
+
++ `src/pages/HomePage.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import Categories from '../components/home/Categories'
+import Collection from '../components/home/Collection'
+import FeaturedProducts from '../components/home/FeaturedProducts'
+import HomeTop from '../components/home/HomeTop'
+import NewArrival from '../components/home/NewArrival'
+import NavMenuDeskTop from '../components/common/NavMenuDesktop'
+import HomeTopMobile from '../components/home/HomeTopMobile'
+
+class HomePage extends Component {
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDeskTop />
+          <HomeTop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+          <HomeTopMobile />
+        </div>
+        <FeaturedProducts />
+        <NewArrival />
+        <Categories />
+        <Collection />
+      </Fragment>
+    )
+  }
+}
+
+export default HomePage
+```
+
++ `src/assets/css/responsive.css`ファイルを作成<br>
+
+
+```
+@media (max-width: 374.98px) {
+  .Mobile {
+  }
+  .Desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 375.98px) and (max-width: 575.98px) {
+  .Mobile {
+  }
+  .Desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .Mobile {
+  }
+  .Desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .Mobile {
+    display: none;
+  }
+  .Desktop {
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .Mobile {
+    display: none;
+  }
+  .Desktop {
+  }
+}
+
+@media (min-width: 1200px) {
+  .Mobile {
+    display: none;
+  }
+  .Desktop {
+  }
+}
+```
+
++ `src/assets/css/custom.css`を編集<br>
+
+```
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto+Condensed:ital,wght@0,400;0,700;1,300&display=swap');
+
+@import 'bigSlider.css';
+@import 'button.css';
+@import 'card.css';
+@import 'footer.css';
+@import 'megaMenu.css';
+@import 'navMenuDesktop.css';
+@import 'navMenuMobile.css';
+@import 'typo.css';
+@import 'megaMenuMobile.css';
+@import 'responsive.css'; // 追記
+
+body {
+  background-color: #ffffff;
+}
+```
