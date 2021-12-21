@@ -39,7 +39,7 @@ class FooterDesktop extends Component {
                   Company Profile
                 </Link>
                 <br />
-                <Link to="/" className="footer-link">
+                <Link to="/contact" className="footer-link">
                   Contact Us
                 </Link>
                 <br />
