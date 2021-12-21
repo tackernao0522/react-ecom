@@ -778,3 +778,738 @@ class Contact extends Component {
 
 export default Contact
 ```
+
+## 286 Other's Page
+
++ `src/pages/HomePage.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import Categories from '../components/home/Categories'
+import Collection from '../components/home/Collection'
+import FeaturedProducts from '../components/home/FeaturedProducts'
+import HomeTop from '../components/home/HomeTop'
+import NewArrival from '../components/home/NewArrival'
+import NavMenuDeskTop from '../components/common/NavMenuDesktop'
+import HomeTopMobile from '../components/home/HomeTopMobile'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+
+class HomePage extends Component {
+  componentDidMount() { // 追記
+    window.scroll(0, 0)
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDeskTop />
+          <HomeTop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+          <HomeTopMobile />
+        </div>
+        <FeaturedProducts />
+        <NewArrival />
+        <Categories />
+        <Collection />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default HomePage
+```
+
++ `src/pages/ContactPage.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import Contact from '../components/common/Contact'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+
+class ContactPage extends Component {
+  componentDidMount() { // 追記
+    window.scroll(0, 0)
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <Contact />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default ContactPage
+```
+
++ `src/pages/UserLoginPage.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import UserLogin from '../components/common/UserLogin'
+
+class UserLoginPage extends Component {
+  componentDidMount() {
+    window.scroll(0, 0)
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <UserLogin />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default UserLoginPage
+```
+
++ `src/components/common/Contact.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+
+class Contact extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Container>
+          <Row className="p-2">
+            <Col
+              className="shadow-sm bg-white mt-2"
+              md={12}
+              lg={12}
+              sm={12}
+              xs={12}
+            >
+              <Row className="text-center">
+                <Col
+                  className="d-flex justify-content-center"
+                  md={6}
+                  lg={6}
+                  sm={12}
+                  xs={12}
+                >
+                  <Form className="onboardForm">
+                    <h4 className="section-title-login">CONTACT WITH US</h4>
+                    <h6 className="section-sub-title">
+                      Please Contact With Us
+                    </h6>
+                    <input
+                      className="form-control m-2"
+                      type="text"
+                      placeholder="Enter Mobile Number"
+                    />
+                    <input
+                      className="form-control m-2"
+                      type="email"
+                      placeholder="Enter Email"
+                    />
+                    <input
+                      className="form-control m-2"
+                      type="text"
+                      placeholder="Enter Your Message"
+                    />
+                    <Button className="btn btn-block m-2 site-btn-login">
+                      Send
+                    </Button>
+                  </Form>
+                </Col>
+                <Col className="p-0 Desktop m-0" md={6} lg={6} sm={6} xs={6}>
+                  <br />
+                  <br />
+                  <p className="section-title-contact">
+                    1635 Franklin Street Montgomery, Near Sherwood Mall. AL
+                    36104
+                    <br />
+                    Email: Support@easylearningbd.com
+                  </p>
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.1583091352!2d-74.11976373946234!3d40.69766374859258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2z44Ki44Oh44Oq44Kr5ZCI6KGG5Zu9IOODi-ODpeODvOODqOODvOOCr-W3niDjg4vjg6Xjg7zjg6jjg7zjgq8!5e0!3m2!1sja!2sjp!4v1640079892734!5m2!1sja!2sjp"
+                    width="550" // 編集
+                    height="450"
+                    styles="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                  ></iframe>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Contact
+```
+
++ `src/pages/PurchasePage.jsx`コンポーネントを作成<br>
+
++ `src/route/AppRoute.js`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Switch, Route } from 'react-router'
+import ContactPage from '../pages/ContactPage'
+import HomePage from '../pages/HomePage'
+import PurchasePage from '../pages/PurchasePage'
+import UserLoginPage from '../pages/UserLoginPage'
+
+class AppRoute extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={UserLoginPage} />
+          <Route exact path="/contact" component={ContactPage} />
+          <Route exact path="/purchase" component={PurchasePage} />
+        </Switch>
+      </Fragment>
+    )
+  }
+}
+
+export default AppRoute
+```
+
++ `src/components/ohters`ディレクトリを作成<br>
+
++ `src/components/ohters/Purchase.jsx`コンポーネントを作成<br>
+
++ `src/pages/PurchasePage.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import Purchase from '../components/ohters/Purchase'
+
+class PurchasePage extends Component {
+  componentDidMount() {
+    window.scroll(0, 0)
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <Purchase />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default PurchasePage
+```
+
++ `src/components/others/Purchase.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+
+class Purchase extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Container>
+          <Row className="p-2">
+            <Col
+              className="shadow-sm bg-white mt-2"
+              md={12}
+              lg={12}
+              sm={12}
+              xs={12}
+            >
+              <h4 className="section-tile-login">Purchase Page</h4>
+              <p className="section-title-contact">
+                Hi! I'm Kazi Ariyan. I'm a web developer with a serious love for
+                teaching I am a founder of easy Learning and a passionate Web
+                Developer, Programmer & Instructor.<br /><br />
+                I am working online for the last 9 years and have created several successful websites
+                running on the internet.<br /><br />
+                I try to create a project-based course that helps you to learn professionally and make you fell as a
+                complete developer. easy learning exists to help you succeed in
+                life. Each course has been hand-tailored to teach a specific
+                skill.<br /><br />
+                I hope you agree! Whether you’re trying to learn a new
+                skill from scratch or want to refresh your memory on something
+                you’ve learned in the past, you’ve come to the right place.
+                Education makes the world a better place. Make your world better
+                with new skills.
+              </p>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Purchase
+```
+
++ `src/components/common/FooterDesktop.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import Apple from '../../assets/images/apple.png'
+import Google from '../../assets/images/google.png'
+
+class FooterDesktop extends Component {
+  render() {
+    return (
+      <Fragment>
+        <div className="footerback m-0 mt-5 pt-3 shadow-sm">
+          <Container>
+            <Row className="px-0 my-5">
+              <Col className="p-2" lg={3} md={3} sm={6} xs={12}>
+                <h5 className="footer-menu-title">OFFIECE ADDRESS</h5>
+                <p>
+                  1635 Franklin Street Montgomery, Near Sherwood Mall. AL 36104
+                  <br />
+                  Email: Support@easylearningbd.com
+                </p>
+                <h5 className="footer-menu-title">SOCIAL LINK</h5>
+                <a href="">
+                  <i className="fab m-1 h4 fa-facebook"></i>
+                </a>
+                <a href="">
+                  <i className="fab m-1 h4 fa-instagram"></i>
+                </a>
+                <a href="">
+                  <i className="fab m-1 h4 fa-twitter"></i>
+                </a>
+              </Col>
+              <Col className="p-2" lg={3} md={3} sm={6} xs={12}>
+                <h5 className="footer-menu-title">THE COMPANY</h5>
+                <Link to="/" className="footer-link">
+                  About Us
+                </Link>
+                <br />
+                <Link to="/" className="footer-link">
+                  Company Profile
+                </Link>
+                <br />
+                <Link to="/contact" className="footer-link">
+                  Contact Us
+                </Link>
+                <br />
+              </Col>
+              <Col className="p-2" lg={3} md={3} sm={6} xs={12}>
+                <h5 className="footer-menu-title">MORE INFO</h5>
+                <Link to="/purchase" className="footer-link"> // 編集
+                  How To Purchase
+                </Link>
+                <br />
+                <Link to="/" className="footer-link">
+                  Privacy Policy
+                </Link>
+                <br />
+                <Link to="/" className="footer-link">
+                  Refund Policy
+                </Link>
+                <br />
+              </Col>
+              <Col className="p-2" lg={3} md={3} sm={6} xs={12}>
+                <h5 className="footer-menu-title">DOWNLOAD APPS</h5>
+                <a>
+                  <img src={Google} />
+                </a>
+                <br />
+                <a>
+                  <img className="mt-2" src={Apple} />
+                </a>
+                <br />
+              </Col>
+            </Row>
+          </Container>
+          <Container fluid={true} className="text-center m-0 pt-3 pb-1 bg-dark">
+            <Container>
+              <Row>
+                <h6 className='text-white'>©︎ Copyright 2021 by easy Shop, All Rights Reserved</h6>
+              </Row>
+            </Container>
+          </Container>
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default FooterDesktop
+```
+
++ `src/pages/PrivacyPage.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import Privacy from '../components/ohters/Privacy'
+
+class PrivacyPage extends Component {
+  componentDidMount() {
+    window.scroll(0, 0)
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <Privacy />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default PrivacyPage
+```
+
++ `src/pages/RefundPage.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import Refund from '../components/ohters/Refund'
+
+class RefundPage extends Component {
+  componentDidMount() {
+    window.scroll(0, 0)
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <Refund />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default RefundPage
+```
+
++ `src/components/ohters/Privacy.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+
+class Privacy extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Container>
+          <Row className="p-2">
+            <Col
+              className="shadow-sm bg-white mt-2"
+              md={12}
+              lg={12}
+              sm={12}
+              xs={12}
+            >
+              <h4 className="section-tile-login">Privacy Page</h4>
+              <p className="section-title-contact">
+                Hi! I'm Kazi Ariyan. I'm a web developer with a serious love for
+                teaching I am a founder of easy Learning and a passionate Web
+                Developer, Programmer & Instructor.
+                <br />
+                <br />
+                I am working online for the last 9 years and have created
+                several successful websites running on the internet.
+                <br />
+                <br />
+                I try to create a project-based course that helps you to learn
+                professionally and make you fell as a complete developer. easy
+                learning exists to help you succeed in life. Each course has
+                been hand-tailored to teach a specific skill.
+                <br />
+                <br />I hope you agree! Whether you’re trying to learn a new
+                skill from scratch or want to refresh your memory on something
+                you’ve learned in the past, you’ve come to the right place.
+                Education makes the world a better place. Make your world better
+                with new skills.
+              </p>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Privacy
+```
+
++ `src/components/ohters/Refund.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+
+class Refund extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Container>
+          <Row className="p-2">
+            <Col
+              className="shadow-sm bg-white mt-2"
+              md={12}
+              lg={12}
+              sm={12}
+              xs={12}
+            >
+              <h4 className="section-tile-login">Refund Page</h4>
+              <p className="section-title-contact">
+                Hi! I'm Kazi Ariyan. I'm a web developer with a serious love for
+                teaching I am a founder of easy Learning and a passionate Web
+                Developer, Programmer & Instructor.
+                <br />
+                <br />
+                I am working online for the last 9 years and have created
+                several successful websites running on the internet.
+                <br />
+                <br />
+                I try to create a project-based course that helps you to learn
+                professionally and make you fell as a complete developer. easy
+                learning exists to help you succeed in life. Each course has
+                been hand-tailored to teach a specific skill.
+                <br />
+                <br />I hope you agree! Whether you’re trying to learn a new
+                skill from scratch or want to refresh your memory on something
+                you’ve learned in the past, you’ve come to the right place.
+                Education makes the world a better place. Make your world better
+                with new skills.
+              </p>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Refund
+```
+
++ `src/route/AppRoute.js`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Switch, Route } from 'react-router'
+import ContactPage from '../pages/ContactPage'
+import HomePage from '../pages/HomePage'
+import PrivacyPage from '../pages/PrivacyPage'
+import PurchasePage from '../pages/PurchasePage'
+import RefundPage from '../pages/RefundPage'
+import UserLoginPage from '../pages/UserLoginPage'
+
+class AppRoute extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={UserLoginPage} />
+          <Route exact path="/contact" component={ContactPage} />
+          <Route exact path="/purchase" component={PurchasePage} />
+          <Route exact path="/privacy" component={PrivacyPage} />
+          <Route exact path="/refund" component={RefundPage} />
+        </Switch>
+      </Fragment>
+    )
+  }
+}
+
+export default AppRoute
+```
+
++ `src/components/common/FooterDesktop.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import Apple from '../../assets/images/apple.png'
+import Google from '../../assets/images/google.png'
+
+class FooterDesktop extends Component {
+  render() {
+    return (
+      <Fragment>
+        <div className="footerback m-0 mt-5 pt-3 shadow-sm">
+          <Container>
+            <Row className="px-0 my-5">
+              <Col className="p-2" lg={3} md={3} sm={6} xs={12}>
+                <h5 className="footer-menu-title">OFFIECE ADDRESS</h5>
+                <p>
+                  1635 Franklin Street Montgomery, Near Sherwood Mall. AL 36104
+                  <br />
+                  Email: Support@easylearningbd.com
+                </p>
+                <h5 className="footer-menu-title">SOCIAL LINK</h5>
+                <a href="">
+                  <i className="fab m-1 h4 fa-facebook"></i>
+                </a>
+                <a href="">
+                  <i className="fab m-1 h4 fa-instagram"></i>
+                </a>
+                <a href="">
+                  <i className="fab m-1 h4 fa-twitter"></i>
+                </a>
+              </Col>
+              <Col className="p-2" lg={3} md={3} sm={6} xs={12}>
+                <h5 className="footer-menu-title">THE COMPANY</h5>
+                <Link to="/" className="footer-link">
+                  About Us
+                </Link>
+                <br />
+                <Link to="/" className="footer-link">
+                  Company Profile
+                </Link>
+                <br />
+                <Link to="/contact" className="footer-link">
+                  Contact Us
+                </Link>
+                <br />
+              </Col>
+              <Col className="p-2" lg={3} md={3} sm={6} xs={12}>
+                <h5 className="footer-menu-title">MORE INFO</h5>
+                <Link to="/purchase" className="footer-link">
+                  How To Purchase
+                </Link>
+                <br />
+                <Link to="/privacy" className="footer-link"> // 編集
+                  Privacy Policy
+                </Link>
+                <br />
+                <Link to="/refund" className="footer-link"> // 編集
+                  Refund Policy
+                </Link>
+                <br />
+              </Col>
+              <Col className="p-2" lg={3} md={3} sm={6} xs={12}>
+                <h5 className="footer-menu-title">DOWNLOAD APPS</h5>
+                <a>
+                  <img src={Google} />
+                </a>
+                <br />
+                <a>
+                  <img className="mt-2" src={Apple} />
+                </a>
+                <br />
+              </Col>
+            </Row>
+          </Container>
+          <Container fluid={true} className="text-center m-0 pt-3 pb-1 bg-dark">
+            <Container>
+              <Row>
+                <h6 className='text-white'>©︎ Copyright 2021 by easy Shop, All Rights Reserved</h6>
+              </Row>
+            </Container>
+          </Container>
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default FooterDesktop
+```
+
+
+
+
