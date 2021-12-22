@@ -68,14 +68,18 @@ class FooterDesktop extends Component {
                 <a>
                   <img className="mt-2" src={Apple} />
                 </a>
-                <br />
+                <br></br>
+                Change Your Language <br />
+                <div id="google_translate_element"> </div>
               </Col>
             </Row>
           </Container>
           <Container fluid={true} className="text-center m-0 pt-3 pb-1 bg-dark">
             <Container>
               <Row>
-                <h6 className='text-white'>©︎ Copyright 2021 by easy Shop, All Rights Reserved</h6>
+                <h6 className="text-white">
+                  ©︎ Copyright 2021 by easy Shop, All Rights Reserved
+                </h6>
               </Row>
             </Container>
           </Container>
