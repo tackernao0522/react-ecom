@@ -1,3 +1,85 @@
+## 291 Update Nave Menu Icon
+
++ `src/assets/images/`ディレクトリに`bars.png`を配置する<br>
+
++ `src/assets/css/card.css`を編集<br>
+
+```
+.card {
+  width: 100% !important;
+  text-decoration: none;
+  border: none !important;
+  border-radius: 0% !important;
+  box-shadow: 0 0 4px 0 rgba(57, 78, 234, 0.1);
+}
+.card:hover {
+  border-radius: 0% !important;
+  text-decoration: none;
+  box-shadow: 0 0 12px 0 rgba(57, 78, 234, 0.1);
+}
+
+.bar-img { // 追記
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.image-box {
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+  width: 100% !important;
+}
+.image-box img {
+  width: 150px !important;
+  transition: all 0.3s;
+  display: block;
+  height: 250px !important;
+  transform: scale(1);
+}
+.image-box:hover img {
+  transform: scale(1.1);
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.section-title h2 {
+  font-size: 30px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+}
+
+.section-title h2:before {
+  position: absolute;
+  top: 17px;
+  left: -100px;
+  width: 80px;
+  height: 2px;
+  content: '';
+  background-color: #000;
+}
+
+.section-title h2:after {
+  position: absolute;
+  top: 17px;
+  right: -100px;
+  width: 80px;
+  height: 2px;
+  content: '';
+  background-color: #000;
+}
+```
+
++ `src/components/common/NavMenuDesktop.jsx`を編集<br>
+
+```
 import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Navbar, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -49,7 +131,7 @@ class NavMenuDesktop extends Component {
             >
               <Row>
                 <Col lg={4} md={4} sm={12} xs={12}>
-                  <img onClick={this.MenuBarClickHandler} src={Bars} className='bar-img' />
+                  <img onClick={this.MenuBarClickHandler} src={Bars} className='bar-img' /> // 編集
                   <Link to="/">
                     <img className="nav-logo" src={Logo} />
                   </Link>
@@ -102,3 +184,4 @@ class NavMenuDesktop extends Component {
 }
 
 export default NavMenuDesktop
+```
