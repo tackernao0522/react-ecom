@@ -335,3 +335,349 @@ class FooterDesktop extends Component {
 
 export default FooterDesktop
 ```
+
+# Section25: Design Cart List Component
+
+## 294 Cart List Part1
+
++ `src/pages/CartPage.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import Cart from '../components/cart/Cart'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+
+class CartPage extends Component {
+  componentDidMount() {
+    window.scroll(0, 0)
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <Cart />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default CartPage
+```
+
++ `src/components/cart`ディレクトリを作成<br>
+
++ `src/components/cart/Cart.jsx`コンポーネントを作成<br>
+
++ `src/route/AppRoute.js`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Switch, Route } from 'react-router'
+import CartPage from '../pages/CartPage'
+import ContactPage from '../pages/ContactPage'
+import FavoritePage from '../pages/FavoritePage'
+import HomePage from '../pages/HomePage'
+import NotificationPage from '../pages/NotificationPage'
+import PrivacyPage from '../pages/PrivacyPage'
+import ProductDetailsPage from '../pages/ProductDetailsPage'
+import PurchasePage from '../pages/PurchasePage'
+import RefundPage from '../pages/RefundPage'
+import UserLoginPage from '../pages/UserLoginPage'
+
+class AppRoute extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={UserLoginPage} />
+          <Route exact path="/contact" component={ContactPage} />
+          <Route exact path="/purchase" component={PurchasePage} />
+          <Route exact path="/privacy" component={PrivacyPage} />
+          <Route exact path="/refund" component={RefundPage} />
+          <Route exact path="/productdetails" component={ProductDetailsPage} />
+          <Route exact path="/notification" component={NotificationPage} />
+          <Route exact path="/favorite" component={FavoritePage} />
+          <Route exact path="/cart" component={CartPage} />
+        </Switch>
+      </Fragment>
+    )
+  }
+}
+
+export default AppRoute
+```
+
++ `src/components/cart/Cart.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Button, Card, Col, Container, Row } from 'react-bootstrap'
+import Product1 from '../../assets/images/product/product1.png'
+
+class Cart extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Container>
+          <div className="section-title text-center mb-55">
+            <h2>Product Cart List</h2>
+          </div>
+
+          <Row>
+            <Col className="p-1" lg={12} md={12} sm={12} xs={12}>
+              <Card>
+                <Card.Body>
+                  <Row>
+                    <Col md={3} lg={3} sm={6} xs={6}>
+                      <img className="w-100 h-100" src={Product1} />
+                    </Col>
+
+                    <Col md={6} lg={6} sm={6} xs={6}>
+                      <h5 className="product-name">
+                        ASUS TUF A15 FA506IU Ryzen 7 4800H GTX
+                      </h5>
+                      <h6> Quantity = 05 </h6>
+                      <h6>Price = 05 x 100 = 5000$</h6>
+                    </Col>
+
+                    <Col md={3} lg={3} sm={12} xs={12}>
+                      <input
+                        placeholder="2"
+                        className="form-control text-center"
+                        type="number"
+                      />
+                      <Button className="btn btn-block w-100 mt-3  site-btn">
+                        <i className="fa fa-trash-alt"></i> Remove
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-1" lg={12} md={12} sm={12} xs={12}>
+              <Card>
+                <Card.Body>
+                  <Row>
+                    <Col md={3} lg={3} sm={6} xs={6}>
+                      <img className="w-100 h-100" src={Product1} />
+                    </Col>
+
+                    <Col md={6} lg={6} sm={6} xs={6}>
+                      <h5 className="product-name">
+                        ASUS TUF A15 FA506IU Ryzen 7 4800H GTX
+                      </h5>
+                      <h6> Quantity = 05 </h6>
+                      <h6>Price = 05 x 100 = 5000$</h6>
+                    </Col>
+
+                    <Col md={3} lg={3} sm={12} xs={12}>
+                      <input
+                        placeholder="2"
+                        className="form-control text-center"
+                        type="number"
+                      />
+                      <Button className="btn btn-block w-100 mt-3  site-btn">
+                        <i className="fa fa-trash-alt"></i> Remove
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-1" lg={12} md={12} sm={12} xs={12}>
+              <Card>
+                <Card.Body>
+                  <Row>
+                    <Col md={3} lg={3} sm={6} xs={6}>
+                      <img className="w-100 h-100" src={Product1} />
+                    </Col>
+
+                    <Col md={6} lg={6} sm={6} xs={6}>
+                      <h5 className="product-name">
+                        ASUS TUF A15 FA506IU Ryzen 7 4800H GTX
+                      </h5>
+                      <h6> Quantity = 05 </h6>
+                      <h6>Price = 05 x 100 = 5000$</h6>
+                    </Col>
+
+                    <Col md={3} lg={3} sm={12} xs={12}>
+                      <input
+                        placeholder="2"
+                        className="form-control text-center"
+                        type="number"
+                      />
+                      <Button className="btn btn-block w-100 mt-3  site-btn">
+                        <i className="fa fa-trash-alt"></i> Remove
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-1" lg={12} md={12} sm={12} xs={12}>
+              <Card>
+                <Card.Body>
+                  <Row>
+                    <Col md={3} lg={3} sm={6} xs={6}>
+                      <img className="w-100 h-100" src={Product1} />
+                    </Col>
+
+                    <Col md={6} lg={6} sm={6} xs={6}>
+                      <h5 className="product-name">
+                        ASUS TUF A15 FA506IU Ryzen 7 4800H GTX
+                      </h5>
+                      <h6> Quantity = 05 </h6>
+                      <h6>Price = 05 x 100 = 5000$</h6>
+                    </Col>
+
+                    <Col md={3} lg={3} sm={12} xs={12}>
+                      <input
+                        placeholder="2"
+                        className="form-control text-center"
+                        type="number"
+                      />
+                      <Button className="btn btn-block w-100 mt-3  site-btn">
+                        <i className="fa fa-trash-alt"></i> Remove
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Cart
+```
+
++ `src/components/common/NavMenuDesktop.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Button, Col, Container, Navbar, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import Logo from '../../assets/images/easyshop.png'
+import Bars from '../../assets/images/bars.png'
+import MegaMenuAll from '../home/MegaMenuAll'
+
+class NavMenuDesktop extends Component {
+  constructor() {
+    super()
+    this.state = {
+      SideNavState: 'sideNavClose',
+      ContentOverState: 'ContentOverlayClose',
+    }
+  }
+
+  MenuBarClickHandler = () => {
+    this.SideNavOpenClose()
+  }
+
+  ContentOverlayClickHandler = () => {
+    this.SideNavOpenClose()
+  }
+
+  SideNavOpenClose = () => {
+    let SideNavState = this.state.SideNavState
+    let ContentOverState = this.state.ContentOverState
+    if (SideNavState === 'sideNavOpen') {
+      this.setState({
+        SideNavState: 'sideNavClose',
+        ContentOverState: 'ContentOverlayClose',
+      })
+    } else {
+      this.setState({
+        SideNavState: 'sideNavOpen',
+        ContentOverState: 'ContentOverlayOpen',
+      })
+    }
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="TopSectionDown">
+          <Navbar fixed={'top'} className="navbar" bg="light">
+            <Container
+              fluid={'true'}
+              className="fixed-top shadow-sm p-2 mb-0 bg-white"
+            >
+              <Row>
+                <Col lg={4} md={4} sm={12} xs={12}>
+                  <img onClick={this.MenuBarClickHandler} src={Bars} className='bar-img' />
+                  <Link to="/">
+                    <img className="nav-logo" src={Logo} />
+                  </Link>
+                </Col>
+                <Col className="p-1 mt-1" lg={4} md={4} sm={12} xs={12}>
+                  <div className="input-group w-100">
+                    <input type="text" className="form-control" />
+                    <Button type="button" className="btn site-btn">
+                      <i className="fa fa-search"></i>
+                    </Button>
+                  </div>
+                </Col>
+                <Col className="p-1 mt-1" lg={4} md={4} sm={12} xs={12}>
+                  <Link to="/favorite" className="btn">
+                    <i className="fa h4 fa-heart"></i>
+                    <sup>
+                      <span className="badge text-white bg-danger">3</span>
+                    </sup>
+                  </Link>
+                  <Link to="/notification" className="btn">
+                    <i className="fa h4 fa-bell"></i>
+                    <sup>
+                      <span className="badge text-white bg-danger">5</span>
+                    </sup>
+                  </Link>
+                  <a className="btn">
+                    <i className="fa h4 fa-mobile-alt"></i>
+                  </a>
+                  <Link to="/login" className="h4 btn">
+                    LOGIN
+                  </Link>
+                  <Link to="/cart" className="cart-btn"> // 編集
+                    <i className="fa fa-shopping-cart"></i> 3 Items
+                  </Link>
+                </Col>
+              </Row>
+            </Container>
+          </Navbar>
+        </div>
+        <div className={this.state.SideNavState}>
+          <MegaMenuAll />
+        </div>
+        <div
+          onClick={this.ContentOverlayClickHandler}
+          className={this.state.ContentOverState}
+        ></div>
+      </Fragment>
+    )
+  }
+}
+
+export default NavMenuDesktop
+```
