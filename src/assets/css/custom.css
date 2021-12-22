@@ -15,6 +15,7 @@
 @import 'common.css';
 @import 'productDetails.css';
 @import 'notification.css';
+@import 'cartList.css';
 
 body {
   background-color: #ffffff;
