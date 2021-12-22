@@ -4,6 +4,7 @@ import FooterMobile from '../components/common/FooterMobile'
 import NavMenuDesktop from '../components/common/NavMenuDesktop'
 import NavMenuMobile from '../components/common/NavMenuMobile'
 import ProductDetials from '../components/productDetails/ProductDetials'
+import SuggestedProduct from '../components/productDetails/SuggestedProduct'
 
 class ProductDetailsPage extends Component {
   componentDidMount() {
@@ -20,6 +21,7 @@ class ProductDetailsPage extends Component {
           <NavMenuMobile />
         </div>
         <ProductDetials />
+        <SuggestedProduct />
         <div className="Desktop">
           <FooterDesktop />
         </div>
