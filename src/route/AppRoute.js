@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Switch, Route } from 'react-router'
 import ContactPage from '../pages/ContactPage'
+import FavoritePage from '../pages/FavoritePage'
 import HomePage from '../pages/HomePage'
 import NotificationPage from '../pages/NotificationPage'
 import PrivacyPage from '../pages/PrivacyPage'
@@ -22,6 +23,7 @@ class AppRoute extends Component {
           <Route exact path="/refund" component={RefundPage} />
           <Route exact path="/productdetails" component={ProductDetailsPage} />
           <Route exact path="/notification" component={NotificationPage} />
+          <Route exact path="/favorite" component={FavoritePage} />
         </Switch>
       </Fragment>
     )

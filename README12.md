@@ -353,3 +353,272 @@ class Notification extends Component {
 
 export default Notification
 ```
+
+## 290 Favorite Items Page
+
++ `src/pages/FavoritePage.jsx`コンポーネントを作成<br>
+
++ `src/components/favorite`ディレクトリを作成<br>
+
++ `src/components/favorite/Favorite.jsx`コンポーネントを作成<br>
+
++ `src/pages/FavoritePage.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import Favorite from '../components/favorite/Favorite'
+
+class FavoritePage extends Component {
+  componentDidMount() {
+    window.scroll(0, 0)
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <Favorite />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default FavoritePage
+```
+
++ `src/components/favorite/Favorite.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+
+class Favorite extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Container className="text-center" fluid={true}>
+          <div className="section-title text-center mb-55">
+            <h2>MY FAVORITE ITEMS</h2>
+            <p>Some Of Our Exclusive Collection, You May Like</p>
+          </div>
+
+          <Row>
+            <Col className="p-0" xl={3} lg={3} md={3} sm={6} xs={6}>
+              <Card className="image-box card w-100">
+                <img
+                  className="center w-75"
+                  src="https://rukminim1.flixcart.com/image/800/960/kf1fo280hlty2aw-0/t-shirt/w/s/e/-original-imafdfvvr8hqdu65.jpeg?q=50"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Striped Men Hooded Neck Red
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-0" xl={3} lg={3} md={3} sm={6} xs={6}>
+              <Card className="image-box card w-100">
+                <img
+                  className="center w-75"
+                  src="https://rukminim1.flixcart.com/image/800/960/keykscw0-0/t-shirt/l/d/q/3xl-bmrgyrnful-z12-blive-original-imafvgzkyjghf7ba.jpeg?q=50"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Striped Men Round Neck Maroon, Grey
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-0" xl={3} lg={3} md={3} sm={6} xs={6}>
+              <Card className="image-box card w-100">
+                <img
+                  className="center w-75"
+                  src="https://rukminim1.flixcart.com/image/800/960/jt4olu80/t-shirt/v/7/v/xl-t-shirt-0068-eg-original-imafejrfpzjkxvkq.jpeg?q=50"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Color Block Men Round Neck Grey
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-0" xl={3} lg={3} md={3} sm={6} xs={6}>
+              <Card className="image-box card w-100">
+                <img
+                  className="center w-75"
+                  src="https://rukminim1.flixcart.com/image/800/960/kljrvrk0/t-shirt/q/r/0/l-trdhdful-d32-tripr-original-imagynnpg2fh62ht.jpeg?q=50"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Printed Men Hooded Neck Red T-Shirt
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Favorite
+```
+
++ `src/route/AppRoute.js`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Switch, Route } from 'react-router'
+import ContactPage from '../pages/ContactPage'
+import FavoritePage from '../pages/FavoritePage'
+import HomePage from '../pages/HomePage'
+import NotificationPage from '../pages/NotificationPage'
+import PrivacyPage from '../pages/PrivacyPage'
+import ProductDetailsPage from '../pages/ProductDetailsPage'
+import PurchasePage from '../pages/PurchasePage'
+import RefundPage from '../pages/RefundPage'
+import UserLoginPage from '../pages/UserLoginPage'
+
+class AppRoute extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={UserLoginPage} />
+          <Route exact path="/contact" component={ContactPage} />
+          <Route exact path="/purchase" component={PurchasePage} />
+          <Route exact path="/privacy" component={PrivacyPage} />
+          <Route exact path="/refund" component={RefundPage} />
+          <Route exact path="/productdetails" component={ProductDetailsPage} />
+          <Route exact path="/notification" component={NotificationPage} />
+          <Route exact path="/favorite" component={FavoritePage} /> // 追記
+        </Switch>
+      </Fragment>
+    )
+  }
+}
+
+export default AppRoute
+```
+
++ `src/components/common/NavMenuDesktop.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Button, Card, Col, Container, Row } from 'react-bootstrap'
+
+class Favorite extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Container className="text-center" fluid={true}>
+          <div className="section-title text-center mb-55">
+            <h2>MY FAVORITE ITEMS</h2>
+            <p>Some Of Our Exclusive Collection, You May Like</p>
+          </div>
+
+          <Row>
+            <Col className="p-0" xl={3} lg={3} md={3} sm={6} xs={6}>
+              <Card className="image-box card w-100">
+                <img
+                  className="center w-75"
+                  src="https://rukminim1.flixcart.com/image/800/960/kf1fo280hlty2aw-0/t-shirt/w/s/e/-original-imafdfvvr8hqdu65.jpeg?q=50"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Striped Men Hooded Neck Red
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                  <Button className="btn btn-sm">
+                    <i className="fa fa-trash-alt"></i> Remove
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-0" xl={3} lg={3} md={3} sm={6} xs={6}>
+              <Card className="image-box card w-100">
+                <img
+                  className="center w-75"
+                  src="https://rukminim1.flixcart.com/image/800/960/keykscw0-0/t-shirt/l/d/q/3xl-bmrgyrnful-z12-blive-original-imafvgzkyjghf7ba.jpeg?q=50"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Striped Men Round Neck Maroon, Grey
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                  <Button className="btn btn-sm">
+                    <i className="fa fa-trash-alt"></i> Remove
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-0" xl={3} lg={3} md={3} sm={6} xs={6}>
+              <Card className="image-box card w-100">
+                <img
+                  className="center w-75"
+                  src="https://rukminim1.flixcart.com/image/800/960/jt4olu80/t-shirt/v/7/v/xl-t-shirt-0068-eg-original-imafejrfpzjkxvkq.jpeg?q=50"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Color Block Men Round Neck Grey
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                  <Button className="btn btn-sm">
+                    <i className="fa fa-trash-alt"></i> Remove
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-0" xl={3} lg={3} md={3} sm={6} xs={6}>
+              <Card className="image-box card w-100">
+                <img
+                  className="center w-75"
+                  src="https://rukminim1.flixcart.com/image/800/960/kljrvrk0/t-shirt/q/r/0/l-trdhdful-d32-tripr-original-imagynnpg2fh62ht.jpeg?q=50"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Printed Men Hooded Neck Red T-Shirt
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                  <Button className="btn btn-sm">
+                    <i className="fa fa-trash-alt"></i> Remove
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Favorite
+```
