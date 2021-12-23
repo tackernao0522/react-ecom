@@ -2,6 +2,38 @@ import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 
 class Contact extends Component {
+  constructor() {
+    super()
+    this.state = {
+      name: '',
+      email: '',
+      message: '',
+    }
+  }
+
+  nameOnChange = (e) => {
+    let name = e.target.value
+    // alert(name)
+    this.setState({ name: name })
+  }
+
+  emailOnChange = (e) => {
+    let email = e.target.value
+    // alert(email)
+    this.setState({ email: email })
+  }
+
+  messageOnChange = (e) => {
+    let message = e.target.value
+    // alert(message)
+    this.setState({ message: message })
+  }
+
+  onFormSubmit = (e) => {
+    alert("Hello hi")
+    e.preventDefault();
+  }
+
   render() {
     return (
       <Fragment>
@@ -22,27 +54,34 @@ class Contact extends Component {
                   sm={12}
                   xs={12}
                 >
-                  <Form className="onboardForm">
+                  <Form onSubmit={this.onFormSubmit} className="onboardForm">
                     <h4 className="section-title-login">CONTACT WITH US</h4>
                     <h6 className="section-sub-title">
                       Please Contact With Us
                     </h6>
                     <input
+                      onChange={this.nameOnChange}
                       className="form-control m-2"
                       type="text"
-                      placeholder="Enter Mobile Number"
+                      placeholder="Enter Your Name"
                     />
                     <input
+                      onChange={this.emailOnChange}
                       className="form-control m-2"
                       type="email"
                       placeholder="Enter Email"
                     />
-                    <input
+                    <Form.Control
+                      onChange={this.messageOnChange}
                       className="form-control m-2"
-                      type="text"
-                      placeholder="Enter Your Message"
+                      as="textarea"
+                      rows={3}
+                      placeholder="Enter Message"
                     />
-                    <Button className="btn btn-block m-2 site-btn-login">
+                    <Button
+                      type="submit"
+                      className="btn btn-block m-2 site-btn-login"
+                    >
                       Send
                     </Button>
                   </Form>
