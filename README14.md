@@ -200,3 +200,29 @@ class Contact extends Component {
 
 export default Contact
 ```
+
+## 301 Consume Contact Rest API From Client Side Part2
+
++ `src/validation`ディレクトリを作成<br>
+
++ `src/validation/Validation.jsx`コンポーネントを作成<br>
+
+```
+class Validation {
+  static NameRegex = /^[A-Za-z\'\s\.\:\-]+$/
+}
+
+export default Validation
+```
+
++ `src/api/AppURL.jsx`を編集<br>
+
+```
+class AppURL {
+  static BaseURL = "http://localhost/api"
+  static VisitorDetails = this.BaseURL + "/getvisitor"
+  static PostContact = this.BaseURL + "/postcontact"
+}
+
+export default AppURL
+```
