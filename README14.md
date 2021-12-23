@@ -1,3 +1,23 @@
+## 298 Consume Visitor Details API Form Client
+
++ `$ npm install axios`を実行<br>
+
++ `src/api`ディレクトリを作成<br>
+
++ `src/api/AppURL.jsx`コンポーネントを作成<br>
+
+```
+class AppURL {
+  static BaseURL = "http://localhost/api"
+  static VisitorDetails = this.BaseURL + "/getvisitor"
+}
+
+export default AppURL
+```
+
++ `src/pages/HomePage.jsx`を編集<br>
+
+```
 import React, { Component, Fragment } from 'react'
 import NavMenuMobile from '../components/common/NavMenuMobile'
 import Categories from '../components/home/Categories'
@@ -52,3 +72,4 @@ class HomePage extends Component {
 }
 
 export default HomePage
+```
