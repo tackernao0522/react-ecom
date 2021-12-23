@@ -36,6 +36,8 @@ class Contact extends Component {
     let name = this.state.name
     let email = this.state.email
     let message = this.state.message
+    let sendBtn = document.getElementById('sendBtn')
+    let contactForm = document.getElementById('contactForm')
 
     if (message.length == 0) {
       alert('Please Write your message')
@@ -46,6 +48,7 @@ class Contact extends Component {
     } else if (!Validation.NameRegex.test(name)) {
       alert('Invalid Name')
     } else {
+      sendBtn.innerHTML = 'Sending...'
       let MyFormData = new FormData()
       MyFormData.append('name', name)
       MyFormData.append('email', email)
@@ -56,12 +59,16 @@ class Contact extends Component {
         .then((resp) => {
           if (resp.status == 200 && resp.data == 1) {
             alert('Message Send Successfully')
+            sendBtn.innerHTML = 'Send'
+            contactForm.reset()
           } else {
             alert('error')
+            sendBtn.innerHTML = 'Send'
           }
         })
         .catch((error) => {
           alert(error)
+          sendBtn.innerHTML = 'Send'
         })
     }
 
@@ -88,7 +95,11 @@ class Contact extends Component {
                   sm={12}
                   xs={12}
                 >
-                  <Form onSubmit={this.onFormSubmit} className="onboardForm">
+                  <Form
+                    id="contactForm"
+                    onSubmit={this.onFormSubmit}
+                    className="onboardForm"
+                  >
                     <h4 className="section-title-login">CONTACT WITH US</h4>
                     <h6 className="section-sub-title">
                       Please Contact With Us
@@ -113,6 +124,7 @@ class Contact extends Component {
                       placeholder="Enter Message"
                     />
                     <Button
+                      id="sendBtn"
                       type="submit"
                       className="btn btn-block m-2 site-btn-login"
                     >
