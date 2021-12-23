@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import AppURL from '../../api/AppURL'
 import Validation from '../../validation/Validation'
 
@@ -40,13 +42,13 @@ class Contact extends Component {
     let contactForm = document.getElementById('contactForm')
 
     if (message.length == 0) {
-      alert('Please Write your message')
+      toast.error('Please Write your message')
     } else if (name.length == 0) {
-      alert('Please Write down your name')
+      toast.error('Please Write down your name')
     } else if (email.length == 0) {
-      alert('Please Write down our Email')
+      toast.error('Please Write down our Email')
     } else if (!Validation.NameRegex.test(name)) {
-      alert('Invalid Name')
+      toast.error('Invalid Name')
     } else {
       sendBtn.innerHTML = 'Sending...'
       let MyFormData = new FormData()
@@ -58,16 +60,16 @@ class Contact extends Component {
         .post(AppURL.PostContact, MyFormData)
         .then((resp) => {
           if (resp.status == 200 && resp.data == 1) {
-            alert('Message Send Successfully')
+            toast.success('Message Send Successfully')
             sendBtn.innerHTML = 'Send'
             contactForm.reset()
           } else {
-            alert('error')
+            toast.error('error')
             sendBtn.innerHTML = 'Send'
           }
         })
         .catch((error) => {
-          alert(error)
+          toast.error(error)
           sendBtn.innerHTML = 'Send'
         })
     }
@@ -154,6 +156,7 @@ class Contact extends Component {
             </Col>
           </Row>
         </Container>
+        <ToastContainer />
       </Fragment>
     )
   }
