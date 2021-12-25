@@ -3,8 +3,50 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Apple from '../../assets/images/apple.png'
 import Google from '../../assets/images/google.png'
+import ReactHtmlParser from 'react-html-parser'
+import axios from 'axios'
+import AppURL from '../../api/AppURL'
 
 class FooterDesktop extends Component {
+  constructor() {
+    super()
+    this.state = {
+      address: '',
+      android_app_link: '',
+      ios_app_link: '',
+      facebook_link: '',
+      twitter_link: '',
+      instagram_link: '',
+      copyright_text: '',
+      loaderDiv: '',
+      mainDiv: 'd-none',
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.AllSiteInfo)
+      .then((resp) => {
+        let StatusCode = resp.status
+        if (StatusCode == 200) {
+          let JsonData = resp.data[0]
+          this.setState({
+            address: JsonData.address,
+            android_app_link: JsonData.android_app_link,
+            ios_app_link: JsonData.ios_app_link,
+            facebook_link: JsonData.facebook_link,
+            twitter_link: JsonData.twitter_link,
+            instagram_link: JsonData.instagram_link,
+            copyright_text: JsonData.copyright_text,
+            loaderDiv: 'd-none',
+            mainDiv: '',
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
   render() {
     return (
       <Fragment>
@@ -12,20 +54,34 @@ class FooterDesktop extends Component {
           <Container>
             <Row className="px-0 my-5">
               <Col className="p-2" lg={3} md={3} sm={6} xs={12}>
-                <h5 className="footer-menu-title">OFFIECE ADDRESS</h5>
-                <p>
-                  1635 Franklin Street Montgomery, Near Sherwood Mall. AL 36104
-                  <br />
-                  Email: Support@easylearningbd.com
-                </p>
+                <div className={this.state.loaderDiv}>
+                  <div className="ph-item">
+                    <div className="ph-col-12">
+                      <div className="ph-row">
+                        <div className="ph-col-4"></div>
+                        <div className="ph-col-8 empty"></div>
+                        <div className="ph-col-6"></div>
+                        <div className="ph-col-6 empty"></div>
+                        <div className="ph-col-12"></div>
+                        <div className="ph-col-12"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={this.state.mainDiv}>
+                  <h5 className="footer-menu-title">OFFIECE ADDRESS</h5>
+                  <p>{ReactHtmlParser(this.state.address)}</p>
+                </div>
+
                 <h5 className="footer-menu-title">SOCIAL LINK</h5>
-                <a href="">
+                <a href={this.state.facebook_link} target="_blank">
                   <i className="fab m-1 h4 fa-facebook"></i>
                 </a>
-                <a href="">
+                <a href={this.state.instagram_link} target="_blank">
                   <i className="fab m-1 h4 fa-instagram"></i>
                 </a>
-                <a href="">
+                <a href={this.state.twitter_link} target="_blank">
                   <i className="fab m-1 h4 fa-twitter"></i>
                 </a>
               </Col>
@@ -61,11 +117,11 @@ class FooterDesktop extends Component {
               </Col>
               <Col className="p-2" lg={3} md={3} sm={6} xs={12}>
                 <h5 className="footer-menu-title">DOWNLOAD APPS</h5>
-                <a>
+                <a href={this.state.android_app_link} target="_blank">
                   <img src={Google} />
                 </a>
                 <br />
-                <a>
+                <a href={this.state.ios_app_link} target="_blank">
                   <img className="mt-2" src={Apple} />
                 </a>
                 <br></br>
@@ -78,7 +134,7 @@ class FooterDesktop extends Component {
             <Container>
               <Row>
                 <h6 className="text-white">
-                  ©︎ Copyright 2021 by easy Shop, All Rights Reserved
+                  {ReactHtmlParser(this.state.copyright_text)}
                 </h6>
               </Row>
             </Container>
