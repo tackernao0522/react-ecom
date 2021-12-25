@@ -235,3 +235,74 @@ export default FooterDesktop
 ## 306 Create Site Info API
 
 + `Laravel Project`を編集<br>
+
+
+## 307 Consume Site Info API in Client Side Part1
+
++ `src/api/AppURL.jsx`を編集<br>
+
+```
+class AppURL {
+  static BaseURL = "http://localhost/api"
+  static VisitorDetails = this.BaseURL + "/getvisitor"
+  static PostContact = this.BaseURL + "/postcontact"
+  static AllSiteInfo = this.BaseURL + "/allsiteinfo"
+}
+
+export default AppURL
+```
+
++ `src/components/others/About.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import AppURL from '../../api/AppURL'
+
+class About extends Component {
+  constructor() {
+    super()
+    this.state = {
+      about: '',
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.AllSiteInfo)
+      .then((resp) => {
+        let StatusCode = resp.status
+        if (StatusCode == 200) {
+          let JsonData = resp.data[0].about
+          this.setState({ about: JsonData })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <Container>
+          <Row className="p-2">
+            <Col
+              className="shadow-sm bg-white mt-2"
+              md={12}
+              lg={12}
+              sm={12}
+              xs={12}
+            >
+              {this.state.about}
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default About
+```
