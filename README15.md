@@ -231,3 +231,7 @@ class FooterDesktop extends Component {
 
 export default FooterDesktop
 ```
+
+## 306 Create Site Info API
+
++ `Laravel Project`を編集<br>
