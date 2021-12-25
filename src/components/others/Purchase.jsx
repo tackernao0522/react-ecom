@@ -10,7 +10,9 @@ class Purchase extends Component {
   constructor() {
     super()
     this.state = {
-      parchase: '',
+      purchase: '',
+      loaderDiv: '',
+      mainDiv: 'd-none',
     }
   }
 
@@ -24,7 +26,11 @@ class Purchase extends Component {
           let StatusCode = resp.status
           if (StatusCode == 200) {
             let JsonData = resp.data[0]['parchase_guide']
-            this.setState({ parchase: JsonData })
+            this.setState({
+              purchase: JsonData,
+              loaderDiv: 'd-none',
+              mainDiv: '',
+            })
 
             sessionStorage.setItem('SiteInfoPurchase', JsonData)
           } else {
@@ -39,7 +45,11 @@ class Purchase extends Component {
           })
         })
     } else {
-      this.setState({ purchase: SiteInfoPurchase })
+      this.setState({
+        purchase: SiteInfoPurchase,
+        loaderDiv: 'd-none',
+        mainDiv: '',
+      })
     }
   }
 
@@ -55,7 +65,44 @@ class Purchase extends Component {
               sm={12}
               xs={12}
             >
-              {ReactHtmlParser(this.state.parchase)}
+              <div className={this.state.loaderDiv}>
+                <div className="ph-item">
+                  <div className="ph-col-12">
+                    <div className="ph-row">
+                      <div className="ph-col-4"></div>
+                      <div className="ph-col-8 empty"></div>
+                      <div className="ph-col-6"></div>
+                      <div className="ph-col-6 empty"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ph-item">
+                  <div className="ph-col-12">
+                    <div className="ph-row">
+                      <div className="ph-col-4"></div>
+                      <div className="ph-col-8 empty"></div>
+                      <div className="ph-col-6"></div>
+                      <div className="ph-col-6 empty"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={this.state.mainDiv}>
+                <h4 className="section-title-login">Purchase Page </h4>
+                <p className="section-title-contact">
+                  {ReactHtmlParser(this.state.purchase)}
+                </p>
+              </div>
             </Col>
           </Row>
         </Container>
