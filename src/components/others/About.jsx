@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import AppURL from '../../api/AppURL'
+import ReactHtmlParser from 'react-html-parser'
 
 class About extends Component {
   constructor() {
@@ -38,7 +39,7 @@ class About extends Component {
               sm={12}
               xs={12}
             >
-              {this.state.about}
+              {ReactHtmlParser(this.state.about)}
             </Col>
           </Row>
         </Container>
