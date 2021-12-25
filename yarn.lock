@@ -8475,6 +8475,11 @@
   dependencies:
     "find-up" "^3.0.0"
 
+"placeholder-loading@^0.5.0":
+  "integrity" "sha512-7nhBjcdyhj/mdNiom0k3UBbwVL7M8jJj9uz9nODsWS319KJ+yWyhgFSc+Mwzf/oR/sprcQlcmEw43iqZ/I6rPw=="
+  "resolved" "https://registry.npmjs.org/placeholder-loading/-/placeholder-loading-0.5.0.tgz"
+  "version" "0.5.0"
+
 "pnp-webpack-plugin@1.6.4":
   "integrity" "sha512-7Wjy+9E3WwLOEL30D+m8TSTF7qJJUJLONBnwQp0518siuMxUQUbgZwssaFX+QKlZkjHZcw/IpZCt/H0srrntSg=="
   "resolved" "https://registry.npmjs.org/pnp-webpack-plugin/-/pnp-webpack-plugin-1.6.4.tgz"
