@@ -340,3 +340,9 @@ class FooterDesktop extends Component {
 
 export default FooterDesktop
 ```
+
+# Seciton29: Create and Consume Category and Subcategory and Table
+
+## 313 Create Category and Subcategory Table
+
++ `Laravel Project`を編集<br>
