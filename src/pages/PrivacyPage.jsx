@@ -3,7 +3,7 @@ import FooterDesktop from '../components/common/FooterDesktop'
 import FooterMobile from '../components/common/FooterMobile'
 import NavMenuDesktop from '../components/common/NavMenuDesktop'
 import NavMenuMobile from '../components/common/NavMenuMobile'
-import Privacy from '../components/ohters/Privacy'
+import Privacy from '../components/others/Privacy.jsx'
 
 class PrivacyPage extends Component {
   componentDidMount() {

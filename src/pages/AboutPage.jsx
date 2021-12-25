@@ -3,9 +3,9 @@ import FooterDesktop from '../components/common/FooterDesktop'
 import FooterMobile from '../components/common/FooterMobile'
 import NavMenuDesktop from '../components/common/NavMenuDesktop'
 import NavMenuMobile from '../components/common/NavMenuMobile'
-import Purchase from '../components/others/Purchase'
+import About from '../components/others/About'
 
-class PurchasePage extends Component {
+class AboutPage extends Component {
   componentDidMount() {
     window.scroll(0, 0)
   }
@@ -19,7 +19,7 @@ class PurchasePage extends Component {
         <div className="Mobile">
           <NavMenuMobile />
         </div>
-        <Purchase />
+        <About />
         <div className="Desktop">
           <FooterDesktop />
         </div>
@@ -31,4 +31,4 @@ class PurchasePage extends Component {
   }
 }
 
-export default PurchasePage
+export default AboutPage
