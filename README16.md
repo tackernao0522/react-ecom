@@ -346,3 +346,131 @@ export default FooterDesktop
 ## 313 Create Category and Subcategory Table
 
 + `Laravel Project`を編集<br>
+
+## 315 Consume Category Subcategory API Part1
+
++ `src/api/AppURL.jsx`を編集<br>
+
+```
+class AppURL {
+  static BaseURL = "http://localhost/api"
+  static VisitorDetails = this.BaseURL + "/getvisitor"
+  static AllSiteInfo = this.BaseURL + "/allsiteinfo"
+  static AllCategoryDetails = this.BaseURL + "/allcategory" // 追記
+}
+
+export default AppURL
+```
+
++ `src/components/home/HomeTop.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import AppURL from '../../api/AppURL'
+import HomeSlider from './HomeSlider'
+import MegaMenu from './MegaMenu'
+
+class HomeTop extends Component {
+  constructor() {
+    super()
+    this.state = {
+      MenuData: [],
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.AllCategoryDetails)
+      .then((resp) => {
+        this.setState({ MenuData: resp.data })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <Container className="p-0 m-0 overflow-hidden" fluid={true}>
+          <Row>
+            <Col lg={3} md={3} sm={12}>
+              <MegaMenu data={this.state.MenuData} />
+            </Col>
+            <Col lg={9} md={9} sm={12}>
+              <HomeSlider />
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default HomeTop
+```
+
++ `src/components/home/MegaMenu.jsx`を編集<br>
+
+```
+import React, { Component } from 'react'
+
+class MegaMenu extends Component {
+  constructor(props) {
+    super()
+  }
+
+  MegaMenu() {
+    var acc = document.getElementsByClassName('accordion')
+    var accNum = acc.length
+    var i
+    for (i = 0; i < accNum; i++) {
+      acc[i].addEventListener('click', function () {
+        this.classList.toggle('active')
+        var panel = this.nextElementSibling
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + 'px'
+        }
+      })
+    }
+  }
+
+  render() {
+    const CatList = this.props.data
+    const MyView = CatList.map((CatList, i) => (
+      <div key={i.toString()}>
+        <button className="accordion">
+          <img className="accordionMenuIcon" src={CatList.category_image} />
+          &nbsp; {CatList.category_name}
+        </button>
+        <div className="panel">
+          <ul>
+            <li>
+              <a href="#" className="accordionItem">
+                Mans Tshirt 1
+              </a>
+            </li>
+            <li>
+              <a href="#" className="accordionItem">
+                Mans Tshirt 2
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    ))
+
+    return (
+      <div className="accordionMenuDiv">
+        <div className="accordionMenuDivInside">{MyView}</div>
+      </div>
+    )
+  }
+}
+
+export default MegaMenu
+```
