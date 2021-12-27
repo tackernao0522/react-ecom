@@ -325,3 +325,239 @@ class NewArrival extends Component {
 
 export default NewArrival
 ```
+
+## 324 Create Product List API
+
++ `src/pages/ProductCategoryPage.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import Category from '../components/productDetails/Category'
+
+class ProductCategoryPage extends Component {
+  componentDidMount() {
+    window.scroll(0, 0)
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <Category />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default ProductCategoryPage
+```
+
++ `src/components/productDetails/Category.jsx`コンポーネントを作成<br>
+
+```
+import React, { Component, Fragment } from 'react'
+
+class Category extends Component {
+  render() {
+    return (
+      <Fragment>
+
+      </Fragment>
+    )
+  }
+}
+
+export default Category
+```
+
++ `src/route/AppRoute.js`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Switch, Route } from 'react-router'
+import AboutPage from '../pages/AboutPage'
+import CartPage from '../pages/CartPage'
+import ContactPage from '../pages/ContactPage'
+import FavoritePage from '../pages/FavoritePage'
+import HomePage from '../pages/HomePage'
+import NotificationPage from '../pages/NotificationPage'
+import PrivacyPage from '../pages/PrivacyPage'
+import ProductCategoryPage from '../pages/ProductCategoryPage'
+import ProductDetailsPage from '../pages/ProductDetailsPage'
+import PurchasePage from '../pages/PurchasePage'
+import RefundPage from '../pages/RefundPage'
+import UserLoginPage from '../pages/UserLoginPage'
+
+class AppRoute extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={UserLoginPage} />
+          <Route exact path="/contact" component={ContactPage} />
+          <Route exact path="/purchase" component={PurchasePage} />
+          <Route exact path="/privacy" component={PrivacyPage} />
+          <Route exact path="/refund" component={RefundPage} />
+          <Route exact path="/about" component={AboutPage} />
+          <Route exact path="/productdetails" component={ProductDetailsPage} />
+          <Route exact path="/notification" component={NotificationPage} />
+          <Route exact path="/favorite" component={FavoritePage} />
+          <Route exact path="/cart" component={CartPage} />
+          <Route exact path="/productcategory/:category" component={ProductCategoryPage} />
+        </Switch>
+      </Fragment>
+    )
+  }
+}
+
+export default AppRoute
+```
+
++ `src/components/home/Categories.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import AppURL from '../../api/AppURL'
+
+class Categories extends Component {
+  constructor() {
+    super()
+    this.state = {
+      MenuData: [],
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.AllCategoryDetails)
+      .then((resp) => {
+        this.setState({ MenuData: resp.data })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    const CatList = this.state.MenuData
+    const MyView = CatList.map((CatList, i) => (
+      <Col
+        key={i.toString()}
+        className="p-0"
+        key={1}
+        xl={2}
+        lg={2}
+        md={2}
+        sm={6}
+        xs={6}
+      >
+        <Link to={`/productcategory/${CatList.category_name}`}>
+          <Card className="h-100 w-100 text-center">
+            <Card.Body>
+              <img className="center" src={CatList.category_image} />
+              <h5 className="category-name">{CatList.category_name}</h5>
+            </Card.Body>
+          </Card>
+        </Link>
+      </Col>
+    ))
+
+    return (
+      <Fragment>
+        <Container className="text-center" fluid={true}>
+          <div className="section-title text-center mb-55">
+            <h2>CATEGORIES</h2>
+            <p>Some Of Our Exclusive Collection, You May Like</p>
+          </div>
+
+          <Row>
+            <Row>{MyView}</Row>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Categories
+```
+
++ `src/pages/ProductCategoryPage.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import AppURL from '../api/AppURL'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import Category from '../components/productDetails/Category'
+
+class ProductCategoryPage extends Component {
+  constructor({ match }) {
+    super()
+    this.state = {
+      Category: match.params.category,
+      ProductData: [],
+    }
+  }
+
+  componentDidMount() {
+    window.scroll(0, 0)
+    // alert(this.state.Category);
+    axios
+      .get(AppURL.ProductListByCategory(this.state.Category))
+      .then((resp) => {
+        this.setState({ ProductData: resp.data })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <Category
+          Category={this.state.Category}
+          ProductData={this.state.ProductData}
+        />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default ProductCategoryPage
+```
