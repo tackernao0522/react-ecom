@@ -24,55 +24,36 @@ class Collection extends Component {
 
   render() {
     const CollectionList = this.state.ProductData
-    const MyView = CollectionList.map((CollectionList, i) => {
-      if (CollectionList.special_price == 'na') {
-        return (
-          <Col
-            key={i.toString()}
-            className="p-0"
-            xl={3}
-            lg={3}
-            md={3}
-            sm={6}
-            xs={6}
-          >
-            <Card className="image-box card w-100">
-              <img className="center w-75" src={CollectionList.image} />
-              <Card.Body>
-                <p className="product-name-on-card">{CollectionList.title}</p>
-                <p className="product-price-on-card">
-                  Price : ${CollectionList.price}
-                </p>
-              </Card.Body>
-            </Card>
-          </Col>
-        )
-      } else {
-        return (
-          <Col
-            key={i.toString()}
-            className="p-0"
-            xl={3}
-            lg={3}
-            md={3}
-            sm={6}
-            xs={6}
-          >
-            <Card className="image-box card w-100">
-              <img className="center w-75" src={CollectionList.image} />
-              <Card.Body>
-                <p className="product-name-on-card">{CollectionList.title}</p>
-                <p className="product-price-on-card">
-                  {`Price : `}
-                  <strike>${`${CollectionList.price} `}</strike>$
-                  {CollectionList.special_price}
-                </p>
-              </Card.Body>
-            </Card>
-          </Col>
-        )
-      }
-    })
+    const MyView = CollectionList.map((CollectionList, i) => (
+      <Col
+        key={i.toString()}
+        className="p-0"
+        xl={3}
+        lg={3}
+        md={3}
+        sm={6}
+        xs={6}
+      >
+        <Card className="image-box card w-100">
+          <img className="center w-75" src={CollectionList.image} />
+          <Card.Body>
+            <p className="product-name-on-card">{CollectionList.title}</p>
+            {CollectionList.special_price == 'na' ? (
+              <p className="product-price-on-card">
+                Price : ${CollectionList.price}
+              </p>
+            ) : (
+              <p className="product-price-on-card">
+                {`Price : `}
+                <strike>${`${CollectionList.price} `}</strike>$
+                {CollectionList.special_price}
+              </p>
+            )}
+          </Card.Body>
+        </Card>
+      </Col>
+    ))
+
     return (
       <Fragment>
         <Container className="text-center" fluid={true}>
