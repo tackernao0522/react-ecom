@@ -16,7 +16,6 @@ class FeaturedProducts extends Component {
     axios
       .get(AppURL.ProductListByRemark('FEATURED'))
       .then((resp) => {
-        console.log(resp)
         this.setState({ ProductData: resp.data })
       })
       .catch((error) => {
@@ -26,7 +25,6 @@ class FeaturedProducts extends Component {
 
   render() {
     const FeaturedList = this.state.ProductData
-    // console.log(FeaturedList)
     const MyView = FeaturedList.map((FeaturedList, i) => {
       if (FeaturedList.special_price == 'na') {
         return (
