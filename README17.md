@@ -741,8 +741,6 @@ export default ProductSubCategoryPage
 ```
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Category from '../productDetails/Category'
-import SubCategory from '../productDetails/SubCategory'
 
 class MegaMenu extends Component {
   constructor(props) {
@@ -794,4 +792,140 @@ class MegaMenu extends Component {
 }
 
 export default MegaMenu
+```
+
+## 327 Consume Product List API Part3
+
++ `src/components/productDetails/SubCategory.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+
+class SubCategory extends Component {
+  render() {
+    const MyList = this.props.ProductData
+    const Category = this.props.Category
+    const SubCategory = this.props.SubCategory
+    const MyView = MyList.map((ProductList, i) => (
+      <Col
+        key={i.toString()}
+        className="p-0"
+        xl={3}
+        lg={3}
+        md={3}
+        sm={6}
+        xs={6}
+      >
+        <Card className="image-box card w-100">
+          <img className="center w-75" src={ProductList.image} />
+          <Card.Body>
+            <p className="product-name-on-card">{ProductList.title}</p>
+            {ProductList.special_price == 'na' ? (
+              <p className="product-price-on-card">
+                Price : ${ProductList.price}
+              </p>
+            ) : (
+              <p className="product-price-on-card">
+                {`Price : `}
+                <strike className="text-secondary">
+                  ${`${ProductList.price} `}
+                </strike>
+                ${ProductList.special_price}
+              </p>
+            )}
+          </Card.Body>
+        </Card>
+      </Col>
+    ))
+
+    return (
+      <Fragment>
+        <Container className="text-center">
+          <div className="section-title text-center mb-55">
+            <h2>{Category} / {SubCategory}</h2>
+          </div>
+
+          <Row>{MyView}</Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default SubCategory
+```
+
++ `src/components/home/MegaMenuAll.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import AppURL from '../../api/AppURL'
+
+class MegaMenuAll extends Component {
+  constructor() {
+    super()
+    this.state = {
+      MenuData: [],
+    }
+    this.MenuItemClick = this.MenuItemClick.bind(this)
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.AllCategoryDetails)
+      .then((resp) => {
+        this.setState({ MenuData: resp.data })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  MenuItemClick = (event) => {
+    event.target.classList.toggle('active')
+    var panel = event.target.nextElementSibling
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + 'px'
+    }
+  }
+
+  render() {
+    const CatList = this.state.MenuData
+    const MyView = CatList.map((CatList, i) => (
+      <div key={i.toString()}>
+        <button onClick={this.MenuItemClick} className="accordionAll">
+          <img className="accordionMenuIconAll" src={CatList.category_image} />
+          &nbsp; {CatList.category_name}
+        </button>
+        <div className="panelAll">
+          <ul>
+            {CatList.subcategory_name.map((SubList, i) => (
+              <li>
+                <Link
+                  key={i.toString()}
+                  to={`/productsubcategory/${CatList.category_name}/${SubList.subcategory_name}`}
+                  className="accordionItem"
+                >
+                  {SubList.subcategory_name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))
+    return (
+      <div className="accordionMenuDivAll">
+        <div className="accordionMenuDivInsideAll">{MyView}</div>
+      </div>
+    )
+  }
+}
+
+export default MegaMenuAll
 ```

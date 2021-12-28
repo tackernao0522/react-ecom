@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Category from '../productDetails/Category'
-import SubCategory from '../productDetails/SubCategory'
 
 class MegaMenu extends Component {
   constructor(props) {
