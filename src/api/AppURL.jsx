@@ -9,7 +9,7 @@ class AppURL {
   static ProductListByCategory(category) {
     return this.BaseURL + '/productlistbycategory/' + category
   }
-  static Productlistbysubcategory(category, subcategory) {
+  static ProductlistBySubcategory(category, subcategory) {
     return (
       this.BaseURL + '/productlistbysubcategory/' + category + '/' + subcategory
     )
