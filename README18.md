@@ -184,3 +184,113 @@ class HomeTopMobile extends Component {
 
 export default HomeTopMobile
 ```
+
+## 330 Consume API For Home Slider for Mobile
+
++ `src/components/home/HomeTopMobile.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import AppURL from '../../api/AppURL'
+import HomeSlider from './HomeSlider'
+
+class HomeTopMobile extends Component {
+  constructor() {
+    super()
+    this.state = {
+      SliderData: [],
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.AllSlider)
+      .then((resp) => {
+        this.setState({ SliderData: resp.data })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <Container className="p-0 m-0 overflow-hidden" fluid={true}>
+          <Row className="p-0 m-0 overflow-hidden">
+            <Col lg={12} md={12} sm={12}>
+              <HomeSlider data={this.state.SliderData} />
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default HomeTopMobile
+```
+
++ `src/assets/css/responsive.css`を編集<br>
+
+```
+@media (max-width: 374.98px) {
+  .slider-img {
+    width: 100% !important;
+    height: 226px;
+  }
+
+  .Mobile {
+  }
+  .Desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 375.98px) and (max-width: 575.98px) {
+  .slider-img {
+    width: 100% !important;
+    height: 226px;
+  }
+
+  .Mobile {
+  }
+  .Desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .Mobile {
+  }
+  .Desktop {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .Mobile {
+    display: none;
+  }
+  .Desktop {
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .Mobile {
+    display: none;
+  }
+  .Desktop {
+  }
+}
+
+@media (min-width: 1200px) {
+  .Mobile {
+    display: none;
+  }
+  .Desktop {
+  }
+}
+```
