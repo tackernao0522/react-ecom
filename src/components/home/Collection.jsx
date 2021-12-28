@@ -45,7 +45,7 @@ class Collection extends Component {
             ) : (
               <p className="product-price-on-card">
                 {`Price : `}
-                <strike>${`${CollectionList.price} `}</strike>$
+                <strike className="text-secondary">${`${CollectionList.price} `}</strike>$
                 {CollectionList.special_price}
               </p>
             )}
