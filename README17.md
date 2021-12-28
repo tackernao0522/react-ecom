@@ -620,3 +620,178 @@ class Category extends Component {
 
 export default Category
 ```
+
+## 326 Consume Product List API Part2
+
++ `src/pages/ProductSubCategoryPage.jsx`コンポーネントを作成<br>
+
++ `src/components/ProductDetails/SubCategory.jsx`コンポーネントを作成<br>
+
++ `src/route/AppRoute.js`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Switch, Route } from 'react-router'
+import AboutPage from '../pages/AboutPage'
+import CartPage from '../pages/CartPage'
+import ContactPage from '../pages/ContactPage'
+import FavoritePage from '../pages/FavoritePage'
+import HomePage from '../pages/HomePage'
+import NotificationPage from '../pages/NotificationPage'
+import PrivacyPage from '../pages/PrivacyPage'
+import ProductCategoryPage from '../pages/ProductCategoryPage'
+import ProductDetailsPage from '../pages/ProductDetailsPage'
+import ProductSubCategoryPage from '../pages/ProductSubCategoryPage'
+import PurchasePage from '../pages/PurchasePage'
+import RefundPage from '../pages/RefundPage'
+import UserLoginPage from '../pages/UserLoginPage'
+
+class AppRoute extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={UserLoginPage} />
+          <Route exact path="/contact" component={ContactPage} />
+          <Route exact path="/purchase" component={PurchasePage} />
+          <Route exact path="/privacy" component={PrivacyPage} />
+          <Route exact path="/refund" component={RefundPage} />
+          <Route exact path="/about" component={AboutPage} />
+          <Route exact path="/productdetails" component={ProductDetailsPage} />
+          <Route exact path="/notification" component={NotificationPage} />
+          <Route exact path="/favorite" component={FavoritePage} />
+          <Route exact path="/cart" component={CartPage} />
+          <Route exact path="/productcategory/:category" component={ProductCategoryPage} />
+          <Route exact path="/productsubcategory/:category/:subcategory" component={ProductSubCategoryPage} />
+        </Switch>
+      </Fragment>
+    )
+  }
+}
+
+export default AppRoute
+```
+
++ `src/pages/ProductSubCategoryPage.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import AppURL from '../api/AppURL'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import SubCategory from '../components/productDetails/SubCategory'
+
+class ProductSubCategoryPage extends Component {
+  constructor({ match }) {
+    super()
+    this.state = {
+      Category: match.params.category,
+      SubCategory: match.params.subcategory,
+      ProductData: [],
+    }
+  }
+
+  componentDidMount() {
+    window.scroll(0, 0)
+    // alert(this.state.Category);
+    axios
+      .get(AppURL.ProductlistBySubcategory(this.state.Category, this.state.SubCategory))
+      .then((resp) => {
+        this.setState({ ProductData: resp.data })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <SubCategory
+          Category={this.state.Category}
+          SubCategory={this.state.SubCategory}
+          ProductData={this.state.ProductData}
+        />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default ProductSubCategoryPage
+```
+
++ `src/components/home/MegaMenu.jsx`を編集<br>
+
+```
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import Category from '../productDetails/Category'
+import SubCategory from '../productDetails/SubCategory'
+
+class MegaMenu extends Component {
+  constructor(props) {
+    super()
+  }
+
+  MenuItemClick = (event) => {
+    event.target.classList.toggle('active')
+    var panel = event.target.nextElementSibling
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + 'px'
+    }
+  }
+
+  render() {
+    const CatList = this.props.data
+    const MyView = CatList.map((CatList, i) => (
+      <div key={i.toString()}>
+        <button onClick={this.MenuItemClick} className="accordion">
+          <img className="accordionMenuIcon" src={CatList.category_image} />
+          &nbsp; {CatList.category_name}
+        </button>
+        <div className="panel">
+          <ul>
+            {CatList.subcategory_name.map((SubList, i) => (
+              <li>
+                <Link
+                  key={i.toString()}
+                  to={`/productsubcategory/${CatList.category_name}/${SubList.subcategory_name}`}
+                  className="accordionItem"
+                >
+                  {SubList.subcategory_name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))
+
+    return (
+      <div className="accordionMenuDiv">
+        <div className="accordionMenuDivInside">{MyView}</div>
+      </div>
+    )
+  }
+}
+
+export default MegaMenu
+```
