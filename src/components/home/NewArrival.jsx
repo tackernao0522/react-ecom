@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import axios from 'axios'
 import AppURL from '../../api/AppURL'
+import NewArrivalLoading from '../placeholder/NewArrivalLoading'
 
 class NewArrival extends Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class NewArrival extends Component {
     this.previous = this.previous.bind(this)
     this.state = {
       ProductData: [],
+      isLoading: '',
+      mainDiv: 'd-none',
     }
   }
 
@@ -20,7 +23,7 @@ class NewArrival extends Component {
     axios
       .get(AppURL.ProductListByRemark('NEW'))
       .then((resp) => {
-        this.setState({ ProductData: resp.data })
+        this.setState({ ProductData: resp.data, isLoading: 'd-none', mainDiv: '' })
       })
       .catch((error) => {
         console.log(error)
@@ -99,26 +102,29 @@ class NewArrival extends Component {
 
     return (
       <Fragment>
-        <Container className="text-center" fluid={true}>
-          <div className="section-title text-center mb-55">
-            <h2>
-              NEW ARRIVAL &nbsp;
-              <a className="btn btn-sm ml-2 site-btn" onClick={this.previous}>
-                <i className="fa fa-angle-left"></i>
-              </a>
-              &nbsp;
-              <a className="btn btn-sm ml-2 site-btn" onClick={this.next}>
-                <i className="fa fa-angle-right"></i>
-              </a>
-            </h2>
-            <p>Some Of Our Exclusive Collection, You May Like</p>
-          </div>
-          <Row>
-            <Slider ref={(c) => (this.slider = c)} {...settings}>
-              {MyView}
-            </Slider>
-          </Row>
-        </Container>
+        <NewArrivalLoading isLoading={this.state.isLoading} />
+        <div className={this.state.mainDiv}>
+          <Container className="text-center" fluid={true}>
+            <div className="section-title text-center mb-55">
+              <h2>
+                NEW ARRIVAL &nbsp;
+                <a className="btn btn-sm ml-2 site-btn" onClick={this.previous}>
+                  <i className="fa fa-angle-left"></i>
+                </a>
+                &nbsp;
+                <a className="btn btn-sm ml-2 site-btn" onClick={this.next}>
+                  <i className="fa fa-angle-right"></i>
+                </a>
+              </h2>
+              <p>Some Of Our Exclusive Collection, You May Like</p>
+            </div>
+            <Row>
+              <Slider ref={(c) => (this.slider = c)} {...settings}>
+                {MyView}
+              </Slider>
+            </Row>
+          </Container>
+        </div>
       </Fragment>
     )
   }
