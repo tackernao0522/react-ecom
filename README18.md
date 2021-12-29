@@ -1300,3 +1300,9 @@ class NewArrival extends Component {
 
 export default NewArrival
 ```
+
+# Section33: Create and Consume Product Details Rest API
+
+## 336 Create Product Details API Part1
+
++ `Laravel Project`を編集<br>
