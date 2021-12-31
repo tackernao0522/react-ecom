@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import AppURL from '../../api/AppURL'
 import CollectionLoading from '../placeholder/CollectionLoading'
 
@@ -18,7 +19,11 @@ class Collection extends Component {
     axios
       .get(AppURL.ProductListByRemark('COLLECTION'))
       .then((resp) => {
-        this.setState({ ProductData: resp.data, isLoading: 'd-none', mainDiv: '' })
+        this.setState({
+          ProductData: resp.data,
+          isLoading: 'd-none',
+          mainDiv: '',
+        })
       })
       .catch((error) => {
         console.log(error)
@@ -37,25 +42,27 @@ class Collection extends Component {
         sm={6}
         xs={6}
       >
-        <Card className="image-box card w-100">
-          <img className="center w-75" src={CollectionList.image} />
-          <Card.Body>
-            <p className="product-name-on-card">{CollectionList.title}</p>
-            {CollectionList.special_price == 'na' ? (
-              <p className="product-price-on-card">
-                Price : ${CollectionList.price}
-              </p>
-            ) : (
-              <p className="product-price-on-card">
-                {`Price : `}
-                <strike className="text-secondary">
-                  ${`${CollectionList.price} `}
-                </strike>
-                ${CollectionList.special_price}
-              </p>
-            )}
-          </Card.Body>
-        </Card>
+        <Link to={`/productdetails/${CollectionList.id}`}>
+          <Card className="image-box card w-100">
+            <img className="center w-75" src={CollectionList.image} />
+            <Card.Body>
+              <p className="product-name-on-card">{CollectionList.title}</p>
+              {CollectionList.special_price == 'na' ? (
+                <p className="product-price-on-card">
+                  Price : ${CollectionList.price}
+                </p>
+              ) : (
+                <p className="product-price-on-card">
+                  {`Price : `}
+                  <strike className="text-secondary">
+                    ${`${CollectionList.price} `}
+                  </strike>
+                  ${CollectionList.special_price}
+                </p>
+              )}
+            </Card.Body>
+          </Card>
+        </Link>
       </Col>
     ))
 

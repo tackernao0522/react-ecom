@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import axios from 'axios'
 import AppURL from '../../api/AppURL'
 import NewArrivalLoading from '../placeholder/NewArrivalLoading'
+import { Link } from 'react-router-dom'
 
 class NewArrival extends Component {
   constructor(props) {
@@ -23,7 +24,11 @@ class NewArrival extends Component {
     axios
       .get(AppURL.ProductListByRemark('NEW'))
       .then((resp) => {
-        this.setState({ ProductData: resp.data, isLoading: 'd-none', mainDiv: '' })
+        this.setState({
+          ProductData: resp.data,
+          isLoading: 'd-none',
+          mainDiv: '',
+        })
       })
       .catch((error) => {
         console.log(error)
@@ -80,23 +85,27 @@ class NewArrival extends Component {
     const NewList = this.state.ProductData
     const MyView = NewList.map((NewList, i) => (
       <div key={i.toString()}>
-        <Card className="image-box card">
-          <img className="center" src={NewList.image} />
-          <Card.Body>
-            <p className="product-name-on-card">{NewList.title}</p>
-            {NewList.special_price == 'na' ? (
-              <p className="product-price-on-card">Price : ${NewList.price}</p>
-            ) : (
-              <p className="product-price-on-card">
-                {`Price : `}
-                <strike className="text-secondary">
-                  ${`${NewList.price} `}
-                </strike>
-                ${NewList.special_price}
-              </p>
-            )}
-          </Card.Body>
-        </Card>
+        <Link to={`/productdetails/${NewList.id}`}>
+          <Card className="image-box card">
+            <img className="center" src={NewList.image} />
+            <Card.Body>
+              <p className="product-name-on-card">{NewList.title}</p>
+              {NewList.special_price == 'na' ? (
+                <p className="product-price-on-card">
+                  Price : ${NewList.price}
+                </p>
+              ) : (
+                <p className="product-price-on-card">
+                  {`Price : `}
+                  <strike className="text-secondary">
+                    ${`${NewList.price} `}
+                  </strike>
+                  ${NewList.special_price}
+                </p>
+              )}
+            </Card.Body>
+          </Card>
+        </Link>
       </div>
     ))
 
