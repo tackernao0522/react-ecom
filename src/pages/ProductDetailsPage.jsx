@@ -6,7 +6,7 @@ import FooterMobile from '../components/common/FooterMobile'
 import NavMenuDesktop from '../components/common/NavMenuDesktop'
 import NavMenuMobile from '../components/common/NavMenuMobile'
 import SliderLoading from '../components/placeholder/SliderLoading'
-import ProductDetials from '../components/productDetails/ProductDetials'
+import ProductDetails from '../components/productDetails/ProductDetails'
 import SuggestedProduct from '../components/productDetails/SuggestedProduct'
 
 class ProductDetailsPage extends Component {
@@ -49,7 +49,7 @@ class ProductDetailsPage extends Component {
           <SliderLoading isLoading={this.state.isLoading} />
         ) : (
           <>
-            <ProductDetials data={this.state.ProductData} />
+            <ProductDetails data={this.state.ProductData} />
             <SuggestedProduct />
           </>
         )}
