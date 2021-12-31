@@ -2217,3 +2217,9 @@ class SuggestedProduct extends Component {
 
 export default SuggestedProduct
 ```
+
+# Section34: Create and Consume Notification Rest API
+
+## 345 Create Notification History API
+
++ `Laravel Projectを編集`<br>
