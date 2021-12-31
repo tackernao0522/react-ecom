@@ -1250,3 +1250,5 @@ class ProductDetails extends Component {
 
 export default ProductDetails
 ```
+
+## 343 Consume Product Details API Part6
