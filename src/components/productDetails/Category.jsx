@@ -16,7 +16,7 @@ class Category extends Component {
         sm={6}
         xs={6}
       >
-        <Link to={`/productdetails/${ProductList.id}`}>
+        <Link className='text-link' to={`/productdetails/${ProductList.id}`}>
           <Card className="image-box card w-100">
             <img className="center w-75" src={ProductList.image} />
             <Card.Body>

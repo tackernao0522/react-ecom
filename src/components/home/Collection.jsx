@@ -42,7 +42,7 @@ class Collection extends Component {
         sm={6}
         xs={6}
       >
-        <Link to={`/productdetails/${CollectionList.id}`}>
+        <Link className='text-link' to={`/productdetails/${CollectionList.id}`}>
           <Card className="image-box card w-100">
             <img className="center w-75" src={CollectionList.image} />
             <Card.Body>
