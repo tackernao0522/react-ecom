@@ -1,3 +1,36 @@
+## 338 Consume Product Details API Part1
+
++ `src/api/AppURL.jsx`を編集<br>
+
+```
+class AppURL {
+  static BaseURL = 'http://localhost/api'
+  static VisitorDetails = this.BaseURL + '/getvisitor'
+  static AllSiteInfo = this.BaseURL + '/allsiteinfo'
+  static AllCategoryDetails = this.BaseURL + '/allcategory'
+  static ProductListByRemark(remark) {
+    return this.BaseURL + '/productlistbyremark/' + remark
+  }
+  static ProductListByCategory(category) {
+    return this.BaseURL + '/productlistbycategory/' + category
+  }
+  static ProductlistBySubcategory(category, subcategory) {
+    return (
+      this.BaseURL + '/productlistbysubcategory/' + category + '/' + subcategory
+    )
+  }
+  static AllSlider = this.BaseURL + '/allslider'
+  static ProductDetails(code) {
+    return this.BaseURL + '/productdetails/' + code
+  }
+}
+
+export default AppURL
+```
+
++ `src/pages/ProductDetailsPage.jsx`を編集<br>
+
+```
 import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import AppURL from '../api/AppURL'
@@ -65,3 +98,4 @@ class ProductDetailsPage extends Component {
 }
 
 export default ProductDetailsPage
+```
