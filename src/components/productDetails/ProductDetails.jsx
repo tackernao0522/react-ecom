@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import reactDom from 'react-dom'
 
-class ProductDetials extends Component {
+class ProductDetails extends Component {
   constructor() {
     super()
-    this.imgOnClick = this.imgOnClick.bind(this)
   }
 
   imgOnClick(event) {
@@ -27,7 +26,7 @@ class ProductDetials extends Component {
     let remark = ProductAllData.productList[0].remark
     let star = ProductAllData.productList[0].star
 
-    let imageAne = ProductAllData.productDetails[0].image_one
+    let imageOne = ProductAllData.productDetails[0].image_one
     let imageTwo = ProductAllData.productDetails[0].image_two
     let imageThree = ProductAllData.productDetails[0].image_three
     let imageFour = ProductAllData.productDetails[0].image_four
@@ -36,6 +35,32 @@ class ProductDetials extends Component {
     let productId = ProductAllData.productDetails[0].product_id
     let shortDescription = ProductAllData.productDetails[0].short_description
     let longDescription = ProductAllData.productDetails[0].long_description
+
+    var ColorDiv = 'd-none'
+    if (color != 'na') {
+      let ColorArray = color.split(',')
+      var ColorOption = ColorArray.map((ColorList, i) => (
+        <option key={i} value={ColorList}>
+          {ColorList}
+        </option>
+      ))
+      ColorDiv = ''
+    } else {
+      ColorDiv = 'd-none'
+    }
+
+    var SizeDiv = 'd-none'
+    if (size != 'na') {
+      let SizeArray = size.split(',')
+      var SizeOption = SizeArray.map((SizeList, i) => (
+        <option key={i} value={SizeList}>
+          {SizeList}
+        </option>
+      ))
+      SizeDiv = ''
+    } else {
+      SizeDiv = 'd-none'
+    }
 
     return (
       <Fragment>
@@ -50,14 +75,14 @@ class ProductDetials extends Component {
             >
               <Row>
                 <Col className="p-3" md={6} lg={6} sm={12} xs={12}>
-                  <img id="previewImg" className="bigimage" src={imageAne} />
+                  <img id="previewImg" className="bigimage" src={imageOne} />
                   <Container className="my-3">
                     <Row>
                       <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
                         <img
                           onClick={this.imgOnClick}
                           className="w-100 smallimage product-sm-img"
-                          src={imageAne}
+                          src={imageOne}
                         />
                       </Col>
                       <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
@@ -85,8 +110,8 @@ class ProductDetials extends Component {
                   </Container>
                 </Col>
                 <Col className="p-3 " md={6} lg={6} sm={12} xs={12}>
-                  <h5 className="Product-Name">{title}</h5>
-                  <h6 className="section-sub-title">{shortDescription}</h6>
+                  <h5 className="Product-Name"> {title} </h5>
+                  <h6 className="section-sub-title"> {shortDescription} </h6>
                   <div className="input-group">
                     <div className="Product-price-card d-inline ">
                       Reguler Price ${price}
@@ -114,17 +139,47 @@ class ProductDetials extends Component {
                     Product Code : <b>{productCode}</b>
                   </h6>
 
+                  <div className={ColorDiv}>
+                    <h6 className="mt-2"> Choose Color </h6>
+                    <select className="form-control form-select">
+                      <option>Choose Color</option>
+                      {ColorOption}
+                    </select>
+                  </div>
+
+                  <div className={SizeDiv}>
+                    <h6 className="mt-2"> Choose Size </h6>
+                    <select className="form-control form-select">
+                      <option>Choose Size</option>
+                      {SizeOption}
+                    </select>
+                  </div>
+
+                  <div className="">
+                    <h6 className="mt-2"> Choose Quantity </h6>
+                    <select className="form-control form-select">
+                      <option>Choose Quantity</option>
+                      <option value="01">01</option>
+                      <option value="02">02</option>
+                      <option value="03">03</option>
+                      <option value="04">04</option>
+                      <option value="05">05</option>
+                      <option value="06">06</option>
+                      <option value="07">07</option>
+                      <option value="08">08</option>
+                      <option value="09">09</option>
+                      <option value="10">10</option>
+                    </select>
+                  </div>
+
                   <div className="input-group mt-3">
                     <button className="btn site-btn m-1 ">
-                      {' '}
                       <i className="fa fa-shopping-cart"></i> Add To Cart
                     </button>
                     <button className="btn btn-primary m-1">
-                      {' '}
                       <i className="fa fa-car"></i> Order Now
                     </button>
                     <button className="btn btn-primary m-1">
-                      {' '}
                       <i className="fa fa-heart"></i> Favourite
                     </button>
                   </div>
@@ -134,7 +189,7 @@ class ProductDetials extends Component {
               <Row>
                 <Col className="" md={6} lg={6} sm={12} xs={12}>
                   <h6 className="mt-2">DETAILS</h6>
-                  <p>{longDescription}</p>
+                  <p> {longDescription} </p>
                 </Col>
 
                 <Col className="" md={6} lg={6} sm={12} xs={12}>
@@ -193,4 +248,4 @@ class ProductDetials extends Component {
   }
 }
 
-export default ProductDetials
+export default ProductDetails
