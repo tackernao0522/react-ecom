@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 class SubCategory extends Component {
   render() {
@@ -16,25 +17,27 @@ class SubCategory extends Component {
         sm={6}
         xs={6}
       >
-        <Card className="image-box card w-100">
-          <img className="center w-75" src={ProductList.image} />
-          <Card.Body>
-            <p className="product-name-on-card">{ProductList.title}</p>
-            {ProductList.special_price == 'na' ? (
-              <p className="product-price-on-card">
-                Price : ${ProductList.price}
-              </p>
-            ) : (
-              <p className="product-price-on-card">
-                {`Price : `}
-                <strike className="text-secondary">
-                  ${`${ProductList.price} `}
-                </strike>
-                ${ProductList.special_price}
-              </p>
-            )}
-          </Card.Body>
-        </Card>
+        <Link to={`/productdetails/${ProductList.id}`}>
+          <Card className="image-box card w-100">
+            <img className="center w-75" src={ProductList.image} />
+            <Card.Body>
+              <p className="product-name-on-card">{ProductList.title}</p>
+              {ProductList.special_price == 'na' ? (
+                <p className="product-price-on-card">
+                  Price : ${ProductList.price}
+                </p>
+              ) : (
+                <p className="product-price-on-card">
+                  {`Price : `}
+                  <strike className="text-secondary">
+                    ${`${ProductList.price} `}
+                  </strike>
+                  ${ProductList.special_price}
+                </p>
+              )}
+            </Card.Body>
+          </Card>
+        </Link>
       </Col>
     ))
 
@@ -42,7 +45,9 @@ class SubCategory extends Component {
       <Fragment>
         <Container className="text-center">
           <div className="section-title text-center mb-55">
-            <h2>{Category} / {SubCategory}</h2>
+            <h2>
+              {Category} / {SubCategory}
+            </h2>
           </div>
 
           <Row>{MyView}</Row>
