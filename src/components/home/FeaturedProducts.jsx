@@ -43,7 +43,7 @@ class FeaturedProducts extends Component {
         sm={4}
         xs={6}
       >
-        <Link to={`/productdetails/${FeaturedList.id}`}>
+        <Link className='text-link' to={`/productdetails/${FeaturedList.id}`}>
           <Card className="image-box card">
             <img className="center" src={FeaturedList.image} />
             <Card.Body>

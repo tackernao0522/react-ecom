@@ -1507,3 +1507,713 @@ class ProductDetails extends Component {
 
 export default ProductDetails
 ```
+
+## 344 Remove Underline from Link Route
+
++ `src/assets/type.css`を編集<br>
+
+```
+.section-title {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: #051b35;
+  font-size: 20px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 400;
+}
+.section-title-contact {
+  font-size: 18px;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #051b35;
+  font-weight: 400;
+}
+.section-title-login {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  color: #051b35;
+  font-size: 30px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+}
+.section-sub-title {
+  color: #212121;
+  font-size: 15px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 300;
+}
+.product-name-on-card {
+  color: #051b35;
+  font-size: 16px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 400;
+}
+.product-price-on-card {
+  color: #e43023;
+  font-size: 14px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+}
+.category-name {
+  color: #000000;
+  font-size: 13px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+}
+.text-link { // 追記
+  color: inherit;
+  text-decoration: inherit;
+}
+```
+
++ `src/components/home/FeaturedProducts.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import AppURL from '../../api/AppURL'
+import FeaturedLoading from '../placeholder/FeaturedLoading'
+
+class FeaturedProducts extends Component {
+  constructor() {
+    super()
+    this.state = {
+      ProductData: [],
+      isLoading: '',
+      mainDiv: 'd-none',
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.ProductListByRemark('FEATURED'))
+      .then((resp) => {
+        this.setState({
+          ProductData: resp.data,
+          isLoading: 'd-none',
+          mainDiv: '',
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    const FeaturedList = this.state.ProductData
+    const MyView = FeaturedList.map((FeaturedList, i) => (
+      <Col
+        key={i.toString()}
+        className="p-1"
+        key={1}
+        xl={2}
+        lg={2}
+        md={2}
+        sm={4}
+        xs={6}
+      >
+        <Link className='text-link' to={`/productdetails/${FeaturedList.id}`}> // 編集
+          <Card className="image-box card">
+            <img className="center" src={FeaturedList.image} />
+            <Card.Body>
+              <p className="product-name-on-card">{FeaturedList.title}</p>
+              {FeaturedList.special_price == 'na' ? (
+                <p className="product-price-on-card">
+                  Price : ${FeaturedList.price}
+                </p>
+              ) : (
+                <p className="product-price-on-card">
+                  {`Price : `}
+                  <strike className="text-secondary">
+                    ${`${FeaturedList.price} `}
+                  </strike>
+                  ${FeaturedList.special_price}
+                </p>
+              )}
+            </Card.Body>
+          </Card>
+        </Link>
+      </Col>
+    ))
+
+    return (
+      <Fragment>
+        <FeaturedLoading isLoading={this.state.isLoading} />
+        <div className={this.state.mainDiv}>
+          <Container className="text-center" fluid={true}>
+            <div className="section-title text-center mb-55">
+              <h2>FEATURED PRODUCT</h2>
+              <p>Some Of Our Exclusive Collection, You May Like</p>
+            </div>
+
+            <Row>{MyView}</Row>
+          </Container>
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default FeaturedProducts
+```
+
++ `src/components/home/NewArrival.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Card, Container, Row } from 'react-bootstrap'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import axios from 'axios'
+import AppURL from '../../api/AppURL'
+import NewArrivalLoading from '../placeholder/NewArrivalLoading'
+import { Link } from 'react-router-dom'
+
+class NewArrival extends Component {
+  constructor(props) {
+    super(props)
+    this.next = this.next.bind(this)
+    this.previous = this.previous.bind(this)
+    this.state = {
+      ProductData: [],
+      isLoading: '',
+      mainDiv: 'd-none',
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.ProductListByRemark('NEW'))
+      .then((resp) => {
+        this.setState({
+          ProductData: resp.data,
+          isLoading: 'd-none',
+          mainDiv: '',
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  next() {
+    this.slider.slickNext()
+  }
+
+  previous() {
+    this.slider.slickPrev()
+  }
+
+  render() {
+    var settings = {
+      dots: false,
+      infinite: true,
+      speed: 500,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      initialSlide: 0,
+      arrows: false,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            infinite: true,
+            dots: true,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            initialSlide: 2,
+          },
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
+        },
+      ],
+    }
+
+    const NewList = this.state.ProductData
+    const MyView = NewList.map((NewList, i) => (
+      <div key={i.toString()}>
+        <Link className='text-link' to={`/productdetails/${NewList.id}`}> // 編集
+          <Card className="image-box card">
+            <img className="center" src={NewList.image} />
+            <Card.Body>
+              <p className="product-name-on-card">{NewList.title}</p>
+              {NewList.special_price == 'na' ? (
+                <p className="product-price-on-card">
+                  Price : ${NewList.price}
+                </p>
+              ) : (
+                <p className="product-price-on-card">
+                  {`Price : `}
+                  <strike className="text-secondary">
+                    ${`${NewList.price} `}
+                  </strike>
+                  ${NewList.special_price}
+                </p>
+              )}
+            </Card.Body>
+          </Card>
+        </Link>
+      </div>
+    ))
+
+    return (
+      <Fragment>
+        <NewArrivalLoading isLoading={this.state.isLoading} />
+        <div className={this.state.mainDiv}>
+          <Container className="text-center" fluid={true}>
+            <div className="section-title text-center mb-55">
+              <h2>
+                NEW ARRIVAL &nbsp;
+                <a className="btn btn-sm ml-2 site-btn" onClick={this.previous}>
+                  <i className="fa fa-angle-left"></i>
+                </a>
+                &nbsp;
+                <a className="btn btn-sm ml-2 site-btn" onClick={this.next}>
+                  <i className="fa fa-angle-right"></i>
+                </a>
+              </h2>
+              <p>Some Of Our Exclusive Collection, You May Like</p>
+            </div>
+            <Row>
+              <Slider ref={(c) => (this.slider = c)} {...settings}>
+                {MyView}
+              </Slider>
+            </Row>
+          </Container>
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default NewArrival
+```
+
++ `src/components/home/Categories.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import AppURL from '../../api/AppURL'
+import CategoryLoading from '../placeholder/CategoryLoading'
+
+class Categories extends Component {
+  constructor() {
+    super()
+    this.state = {
+      MenuData: [],
+      isLoading: '',
+      mainDiv: 'd-none',
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.AllCategoryDetails)
+      .then((resp) => {
+        this.setState({ MenuData: resp.data, isLoading: 'd-none', mainDiv: '' })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    const CatList = this.state.MenuData
+    const MyView = CatList.map((CatList, i) => (
+      <Col
+        key={i.toString()}
+        className="p-0"
+        key={1}
+        xl={2}
+        lg={2}
+        md={2}
+        sm={6}
+        xs={6}
+      >
+        <Link className='text-link' to={`/productcategory/${CatList.category_name}`}> // 編集
+          <Card className="h-100 w-100 text-center">
+            <Card.Body>
+              <img className="center" src={CatList.category_image} />
+              <h5 className="category-name">{CatList.category_name}</h5>
+            </Card.Body>
+          </Card>
+        </Link>
+      </Col>
+    ))
+
+    return (
+      <Fragment>
+        <CategoryLoading isLoading={this.state.isLoading} />
+        <div className={this.state.mainDiv}>
+          <Container className="text-center" fluid={true}>
+            <div className="section-title text-center mb-55">
+              <h2>CATEGORIES</h2>
+              <p>Some Of Our Exclusive Collection, You May Like</p>
+            </div>
+
+            <Row>
+              <Row>{MyView}</Row>
+            </Row>
+          </Container>
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default Categories
+```
+
++ `src/components/home/Collection.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import AppURL from '../../api/AppURL'
+import CollectionLoading from '../placeholder/CollectionLoading'
+
+class Collection extends Component {
+  constructor() {
+    super()
+    this.state = {
+      ProductData: [],
+      isLoading: '',
+      mainDiv: 'd-none',
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.ProductListByRemark('COLLECTION'))
+      .then((resp) => {
+        this.setState({
+          ProductData: resp.data,
+          isLoading: 'd-none',
+          mainDiv: '',
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    const CollectionList = this.state.ProductData
+    const MyView = CollectionList.map((CollectionList, i) => (
+      <Col
+        key={i.toString()}
+        className="p-0"
+        xl={3}
+        lg={3}
+        md={3}
+        sm={6}
+        xs={6}
+      >
+        <Link className='text-link' to={`/productdetails/${CollectionList.id}`}> // 編集<br>
+          <Card className="image-box card w-100">
+            <img className="center w-75" src={CollectionList.image} />
+            <Card.Body>
+              <p className="product-name-on-card">{CollectionList.title}</p>
+              {CollectionList.special_price == 'na' ? (
+                <p className="product-price-on-card">
+                  Price : ${CollectionList.price}
+                </p>
+              ) : (
+                <p className="product-price-on-card">
+                  {`Price : `}
+                  <strike className="text-secondary">
+                    ${`${CollectionList.price} `}
+                  </strike>
+                  ${CollectionList.special_price}
+                </p>
+              )}
+            </Card.Body>
+          </Card>
+        </Link>
+      </Col>
+    ))
+
+    return (
+      <Fragment>
+        <CollectionLoading isLoading={this.state.isLoading} />
+        <div className={this.state.mainDiv}>
+          <Container className="text-center" fluid={true}>
+            <div className="section-title text-center mb-55">
+              <h2> PRODUCT COLLECTION</h2>
+              <p>Some Of Our Exclusive Collection, You May Like</p>
+            </div>
+
+            <Row>{MyView}</Row>
+          </Container>
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default Collection
+```
+
++ `src/components/home/Category.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+
+class Category extends Component {
+  render() {
+    const MyList = this.props.ProductData
+    const Category = this.props.Category
+    const MyView = MyList.map((ProductList, i) => (
+      <Col
+        key={i.toString()}
+        className="p-0"
+        xl={3}
+        lg={3}
+        md={3}
+        sm={6}
+        xs={6}
+      >
+        <Link className='text-link' to={`/productdetails/${ProductList.id}`}> // 編集
+          <Card className="image-box card w-100">
+            <img className="center w-75" src={ProductList.image} />
+            <Card.Body>
+              <p className="product-name-on-card">{ProductList.title}</p>
+              {ProductList.special_price == 'na' ? (
+                <p className="product-price-on-card">
+                  Price : ${ProductList.price}
+                </p>
+              ) : (
+                <p className="product-price-on-card">
+                  {`Price : `}
+                  <strike className="text-secondary">
+                    ${`${ProductList.price} `}
+                  </strike>
+                  ${ProductList.special_price}
+                </p>
+              )}
+            </Card.Body>
+          </Card>
+        </Link>
+      </Col>
+    ))
+
+    return (
+      <Fragment>
+        <Container className="text-center">
+          <div className="section-title text-center mb-55">
+            <h2>{Category}</h2>
+          </div>
+
+          <Row>{MyView}</Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Category
+```
+
++ `src/components/productDetails/Category.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+
+class Category extends Component {
+  render() {
+    const MyList = this.props.ProductData
+    const Category = this.props.Category
+    const MyView = MyList.map((ProductList, i) => (
+      <Col
+        key={i.toString()}
+        className="p-0"
+        xl={3}
+        lg={3}
+        md={3}
+        sm={6}
+        xs={6}
+      >
+        <Link className='text-link' to={`/productdetails/${ProductList.id}`}> // 編集
+          <Card className="image-box card w-100">
+            <img className="center w-75" src={ProductList.image} />
+            <Card.Body>
+              <p className="product-name-on-card">{ProductList.title}</p>
+              {ProductList.special_price == 'na' ? (
+                <p className="product-price-on-card">
+                  Price : ${ProductList.price}
+                </p>
+              ) : (
+                <p className="product-price-on-card">
+                  {`Price : `}
+                  <strike className="text-secondary">
+                    ${`${ProductList.price} `}
+                  </strike>
+                  ${ProductList.special_price}
+                </p>
+              )}
+            </Card.Body>
+          </Card>
+        </Link>
+      </Col>
+    ))
+
+    return (
+      <Fragment>
+        <Container className="text-center">
+          <div className="section-title text-center mb-55">
+            <h2>{Category}</h2>
+          </div>
+
+          <Row>{MyView}</Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Category
+```
+
++ `src/components/productDetails/SuggestedProduct.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+
+class SuggestedProduct extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Container className="text-center" fluid={true}>
+          <div className="section-title text-center mb-55">
+            <h2>YOU MAY ALSO LIKE</h2>
+            <p>Some Of Our Exclusive Collection, You May Like</p>
+          </div>
+
+          <Row>
+            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
+              <Link className='text-link' to="/productdetails"> // 編集
+                <Card className="image-box card">
+                  <img
+                    className="center"
+                    src="https://rukminim1.flixcart.com/image/416/416/kn7sdjk0/mobile/q/j/x/c21-rmx3201-realme-original-imagfxfwbszrxkvu.jpeg?q=70"
+                  />
+                  <Card.Body>
+                    <p className="product-name-on-card">
+                      Realme C21 (Cross Black, 64 GB)
+                    </p>
+                    <p className="product-price-on-card">Price : $120</p>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
+
+            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
+              <Card className="image-box card">
+                <img
+                  className="center"
+                  src="https://rukminim1.flixcart.com/image/416/416/knm2s280/mobile/j/x/c/hot-10-play-x688b-infinix-original-imag29gxqzuxkmnk.jpeg?q=70"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Realme C21 (Cross Blue, 64 GB)
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
+              <Card className="image-box card">
+                <img
+                  className="center"
+                  src="https://rukminim1.flixcart.com/image/416/416/kn7sdjk0/mobile/g/r/g/c21-rmx3201-realme-original-imagfxfwn9aryyda.jpeg?q=70"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Realme C21 (Cross Black, 64 GB)
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
+              <Card className="image-box card">
+                <img
+                  className="center"
+                  src="https://rukminim1.flixcart.com/image/416/416/knm2s280/mobile/v/l/u/hot-10-play-x688b-infinix-original-imag29hfaedkgdfe.jpeg?q=70"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Realme C21 (Cross Black, 64 GB)
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
+              <Card className="image-box card">
+                <img
+                  className="center"
+                  src="https://rukminim1.flixcart.com/image/416/416/knrsjgw0/mobile/f/o/w/8-5g-rmx3241-realme-original-imag2d8eksc2szzy.jpeg?q=70"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Realme C21 (Cross Black, 64 GB)
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
+              <Card className="image-box card">
+                <img
+                  className="center"
+                  src="https://rukminim1.flixcart.com/image/416/416/kd69z0w0/mobile/a/n/g/mi-redmi-note-9-b086982zkf-original-imafu4qf8gfcutde.jpeg?q=70"
+                />
+                <Card.Body>
+                  <p className="product-name-on-card">
+                    Realme C21 (Cross Black, 64 GB)
+                  </p>
+                  <p className="product-price-on-card">Price : $120</p>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default SuggestedProduct
+```

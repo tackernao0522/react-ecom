@@ -85,7 +85,7 @@ class NewArrival extends Component {
     const NewList = this.state.ProductData
     const MyView = NewList.map((NewList, i) => (
       <div key={i.toString()}>
-        <Link to={`/productdetails/${NewList.id}`}>
+        <Link className='text-link' to={`/productdetails/${NewList.id}`}>
           <Card className="image-box card">
             <img className="center" src={NewList.image} />
             <Card.Body>

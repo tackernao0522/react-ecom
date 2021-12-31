@@ -14,7 +14,7 @@ class SuggestedProduct extends Component {
 
           <Row>
             <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-              <Link to="/productdetails">
+              <Link className='text-link' to="/productdetails">
                 <Card className="image-box card">
                   <img
                     className="center"
