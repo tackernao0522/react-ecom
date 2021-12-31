@@ -1,7 +1,19 @@
 import React, { Component, Fragment } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
+import reactDom from 'react-dom'
 
 class ProductDetials extends Component {
+  constructor() {
+    super()
+    this.imgOnClick = this.imgOnClick.bind(this)
+  }
+
+  imgOnClick(event) {
+    let imgSrc = event.target.getAttribute('src')
+    let previewImg = document.getElementById('previewImg')
+    reactDom.findDOMNode(previewImg).setAttribute('src', imgSrc)
+  }
+
   render() {
     let ProductAllData = this.props.data
     let title = ProductAllData.productList[0].title
@@ -38,20 +50,36 @@ class ProductDetials extends Component {
             >
               <Row>
                 <Col className="p-3" md={6} lg={6} sm={12} xs={12}>
-                  <img className="w-100" src={imageAne} />
+                  <img id="previewImg" className="bigimage" src={imageAne} />
                   <Container className="my-3">
                     <Row>
                       <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                        <img className="w-100" src={imageAne} />
+                        <img
+                          onClick={this.imgOnClick}
+                          className="w-100 smallimage product-sm-img"
+                          src={imageAne}
+                        />
                       </Col>
                       <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                        <img className="w-100" src={imageTwo} />
+                        <img
+                          onClick={this.imgOnClick}
+                          className="w-100 smallimage product-sm-img"
+                          src={imageTwo}
+                        />
                       </Col>
                       <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                        <img className="w-100" src={imageThree} />
+                        <img
+                          onClick={this.imgOnClick}
+                          className="w-100 smallimage product-sm-img"
+                          src={imageThree}
+                        />
                       </Col>
                       <Col className="p-0 m-0" md={3} lg={3} sm={3} xs={3}>
-                        <img className="w-100" src={imageFour} />
+                        <img
+                          onClick={this.imgOnClick}
+                          className="w-100 smallimage product-sm-img"
+                          src={imageFour}
+                        />
                       </Col>
                     </Row>
                   </Container>
@@ -70,13 +98,21 @@ class ProductDetials extends Component {
                       New Price ${specialPrice}
                     </div>
                   </div>
-                  <h6 className="mt-2">Category : <b>{category}</b></h6>
+                  <h6 className="mt-2">
+                    Category : <b>{category}</b>
+                  </h6>
 
-                  <h6 className="mt-2">SubCategory : <b>{subcategory}</b></h6>
+                  <h6 className="mt-2">
+                    SubCategory : <b>{subcategory}</b>
+                  </h6>
 
-                  <h6 className="mt-2">Brand : <b>{brand}</b></h6>
+                  <h6 className="mt-2">
+                    Brand : <b>{brand}</b>
+                  </h6>
 
-                  <h6 className="mt-2">Product Code : <b>{productCode}</b></h6>
+                  <h6 className="mt-2">
+                    Product Code : <b>{productCode}</b>
+                  </h6>
 
                   <div className="input-group mt-3">
                     <button className="btn site-btn m-1 ">
