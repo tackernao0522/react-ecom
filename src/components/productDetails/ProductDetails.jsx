@@ -112,17 +112,16 @@ class ProductDetails extends Component {
                 <Col className="p-3 " md={6} lg={6} sm={12} xs={12}>
                   <h5 className="Product-Name"> {title} </h5>
                   <h6 className="section-sub-title"> {shortDescription} </h6>
-                  <div className="input-group">
-                    <div className="Product-price-card d-inline ">
-                      Reguler Price ${price}
-                    </div>
-                    <div className="Product-price-card d-inline ">
-                      50% Discount
-                    </div>
-                    <div className="Product-price-card d-inline ">
-                      New Price ${specialPrice}
-                    </div>
-                  </div>
+
+                  {specialPrice == 'na' ? (
+                    <p className="product-price-on-card">Price : ${price}</p>
+                  ) : (
+                    <p className="product-price-on-card">
+                      Price : <strike class="text-secondary">${price}</strike> $
+                      {specialPrice}
+                    </p>
+                  )}
+
                   <h6 className="mt-2">
                     Category : <b>{category}</b>
                   </h6>
