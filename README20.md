@@ -299,3 +299,514 @@ class AppRoute extends Component {
 
 export default AppRoute
 ```
+
+# Section35: Setup Breadcrumbs Navigation
+
+## 349 Breadcrumbs Navigation Part1
+
++ `src/assets/css/typo.css`を編集<br>
+
+```
+.section-title {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: #051b35;
+  font-size: 20px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 400;
+}
+.section-title-contact {
+  font-size: 18px;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #051b35;
+  font-weight: 400;
+}
+.section-title-login {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  color: #051b35;
+  font-size: 30px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+}
+.section-sub-title {
+  color: #212121;
+  font-size: 15px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 300;
+}
+.product-name-on-card {
+  color: #051b35;
+  font-size: 16px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 400;
+}
+.product-price-on-card {
+  color: #e43023;
+  font-size: 14px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+}
+.category-name {
+  color: #000000;
+  font-size: 13px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+}
+.text-link {
+  color: inherit;
+  text-decoration: inherit;
+}
+.breadbody {
+  background-color: #e6e6e6;
+  padding-top: 20px;
+  padding-bottom: 7px;
+  padding-left: 30px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+```
+
++ `src/components/others/About.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap'
+import AppURL from '../../api/AppURL'
+import ReactHtmlParser from 'react-html-parser'
+import { Link } from 'react-router-dom'
+
+class About extends Component {
+  constructor() {
+    super()
+    this.state = {
+      about: '',
+      loaderDiv: '',
+      mainDiv: 'd-none',
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.AllSiteInfo)
+      .then((resp) => {
+        let StatusCode = resp.status
+        if (StatusCode == 200) {
+          let JsonData = resp.data[0].about
+          this.setState({ about: JsonData, loaderDiv: 'd-none', mainDiv: '' })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <Container>
+          <div className="breadbody">
+            <Breadcrumb>
+              <Breadcrumb.Item>
+                <Link to="/">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to="/about">About</Link>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+          <Row className="p-2">
+            <Col
+              className="shadow-sm bg-white mt-2"
+              md={12}
+              lg={12}
+              sm={12}
+              xs={12}
+            >
+              <div className={this.state.loaderDiv}>
+                <div className="ph-item">
+                  <div className="ph-col-12">
+                    <div className="ph-row">
+                      <div className="ph-col-4"></div>
+                      <div className="ph-col-8 empty"></div>
+                      <div className="ph-col-6"></div>
+                      <div className="ph-col-6 empty"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="ph-item">
+                  <div className="ph-col-12">
+                    <div className="ph-row">
+                      <div className="ph-col-4"></div>
+                      <div className="ph-col-8 empty"></div>
+                      <div className="ph-col-6"></div>
+                      <div className="ph-col-6 empty"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={this.state.mainDiv}>
+                <h4 className="section-title-login">About Us Page </h4>
+                <p className="section-title-contact">
+                  {ReactHtmlParser(this.state.about)}
+                </p>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default About
+```
+
++ `src/components/others/Privacy.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap'
+import AppURL from '../../api/AppURL'
+import ReactHtmlParser from 'react-html-parser'
+import { Link } from 'react-router-dom'
+
+class Privacy extends Component {
+  constructor() {
+    super()
+    this.state = {
+      privacy: '',
+      loaderDiv: '',
+      mainDiv: 'd-none',
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.AllSiteInfo)
+      .then((resp) => {
+        let StatusCode = resp.status
+        if (StatusCode == 200) {
+          let JsonData = resp.data[0].privacy
+          this.setState({ privacy: JsonData, loaderDiv: 'd-none', mainDiv: '' })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+  render() {
+    return (
+      <Fragment>
+        <Container>
+          <div className="breadbody">
+            <Breadcrumb>
+              <Breadcrumb.Item>
+                <Link to="/">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to="/privacy">Privacy</Link>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+          <Row className="p-2">
+            <Col
+              className="shadow-sm bg-white mt-2"
+              md={12}
+              lg={12}
+              sm={12}
+              xs={12}
+            >
+              <div className={this.state.loaderDiv}>
+                <div className="ph-item">
+                  <div className="ph-col-12">
+                    <div className="ph-row">
+                      <div className="ph-col-4"></div>
+                      <div className="ph-col-8 empty"></div>
+                      <div className="ph-col-6"></div>
+                      <div className="ph-col-6 empty"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="ph-item">
+                  <div className="ph-col-12">
+                    <div className="ph-row">
+                      <div className="ph-col-4"></div>
+                      <div className="ph-col-8 empty"></div>
+                      <div className="ph-col-6"></div>
+                      <div className="ph-col-6 empty"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={this.state.mainDiv}>
+                <h4 className="section-title-login">Privacy Page</h4>
+                <p className="section-title-contact">
+                  {ReactHtmlParser(this.state.privacy)}
+                </p>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Privacy
+```
+
++ `src/components/others/Purchase.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap'
+import ReactHtmlParser from 'react-html-parser'
+import AppURL from '../../api/AppURL'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { Link } from 'react-router-dom'
+
+class Purchase extends Component {
+  constructor() {
+    super()
+    this.state = {
+      purchase: '',
+      loaderDiv: '',
+      mainDiv: 'd-none',
+    }
+  }
+
+  componentDidMount() {
+    let SiteInfoPurchase = sessionStorage.getItem('AllSiteInfo')
+
+    if (SiteInfoPurchase == null) {
+      axios
+        .get(AppURL.AllSiteInfo)
+        .then((resp) => {
+          let StatusCode = resp.status
+          if (StatusCode == 200) {
+            let JsonData = resp.data[0]['parchase_guide']
+            this.setState({
+              purchase: JsonData,
+              loaderDiv: 'd-none',
+              mainDiv: '',
+            })
+
+            sessionStorage.setItem('SiteInfoPurchase', JsonData)
+          } else {
+            toast.error('Something Went Wrong', {
+              position: 'bottom-center',
+            })
+          }
+        })
+        .catch((error) => {
+          toast.error('Something Went Wrong', {
+            position: 'bottom-center',
+          })
+        })
+    } else {
+      this.setState({
+        purchase: SiteInfoPurchase,
+        loaderDiv: 'd-none',
+        mainDiv: '',
+      })
+    }
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <Container>
+        <div className="breadbody">
+            <Breadcrumb>
+              <Breadcrumb.Item>
+                <Link to="/">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to="/purchase">Purchase</Link>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+          <Row className="p-2">
+            <Col
+              className="shadow-sm bg-white mt-2"
+              md={12}
+              lg={12}
+              sm={12}
+              xs={12}
+            >
+              <div className={this.state.loaderDiv}>
+                <div className="ph-item">
+                  <div className="ph-col-12">
+                    <div className="ph-row">
+                      <div className="ph-col-4"></div>
+                      <div className="ph-col-8 empty"></div>
+                      <div className="ph-col-6"></div>
+                      <div className="ph-col-6 empty"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="ph-item">
+                  <div className="ph-col-12">
+                    <div className="ph-row">
+                      <div className="ph-col-4"></div>
+                      <div className="ph-col-8 empty"></div>
+                      <div className="ph-col-6"></div>
+                      <div className="ph-col-6 empty"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={this.state.mainDiv}>
+                <h4 className="section-title-login">Purchase Page </h4>
+                <p className="section-title-contact">
+                  {ReactHtmlParser(this.state.purchase)}
+                </p>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        <ToastContainer />
+      </Fragment>
+    )
+  }
+}
+
+export default Purchase
+```
+
++ `src/components/others/Refund.jsx`を編集<br>
+
+```
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap'
+import ReactHtmlParser from 'react-html-parser'
+import { Link } from 'react-router-dom'
+import AppURL from '../../api/AppURL'
+
+class Refund extends Component {
+  constructor() {
+    super()
+    this.state = {
+      refund: '',
+      loaderDiv: '',
+      mainDiv: 'd-done',
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.AllSiteInfo)
+      .then((resp) => {
+        let StatusCode = resp.status
+        if (StatusCode == 200) {
+          let JsonData = resp.data[0].refund
+          this.setState({ refund: JsonData, loaderDiv: 'd-none', mainDiv: '' })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+  render() {
+    return (
+      <Fragment>
+        <Container>
+          <div className="breadbody">
+            <Breadcrumb>
+              <Breadcrumb.Item>
+                <Link to="/">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to="/refund">Refund</Link>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+          <Row className="p-2">
+            <Col
+              className="shadow-sm bg-white mt-2"
+              md={12}
+              lg={12}
+              sm={12}
+              xs={12}
+            >
+              <div className={this.state.loaderDiv}>
+                <div className="ph-item">
+                  <div className="ph-col-12">
+                    <div className="ph-row">
+                      <div className="ph-col-4"></div>
+                      <div className="ph-col-8 empty"></div>
+                      <div className="ph-col-6"></div>
+                      <div className="ph-col-6 empty"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="ph-item">
+                  <div className="ph-col-12">
+                    <div className="ph-row">
+                      <div className="ph-col-4"></div>
+                      <div className="ph-col-8 empty"></div>
+                      <div className="ph-col-6"></div>
+                      <div className="ph-col-6 empty"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                      <div className="ph-col-12"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={this.state.mainDiv}>
+                <h4 className="section-title-login">Refund Page</h4>
+                <p className="section-title-contact">
+                  {ReactHtmlParser(this.state.refund)}
+                </p>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Refund
+```
