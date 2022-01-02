@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Breadcrumb, Card, Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 class SubCategory extends Component {
@@ -17,7 +17,7 @@ class SubCategory extends Component {
         sm={6}
         xs={6}
       >
-        <Link className='text-link' to={`/productdetails/${ProductList.id}`}>
+        <Link className="text-link" to={`/productdetails/${ProductList.id}`}>
           <Card className="image-box card w-100">
             <img className="center w-75" src={ProductList.image} />
             <Card.Body>
@@ -44,7 +44,22 @@ class SubCategory extends Component {
     return (
       <Fragment>
         <Container className="text-center">
-          <div className="section-title text-center mb-55">
+          <div className="breadbody">
+            <Breadcrumb>
+              <Breadcrumb.Item>
+                <Link to="/">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to={`/productcategory/${Category}`}>{Category}</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to={`/productsubcategory/${Category}/${SubCategory}`}>
+                  {SubCategory}
+                </Link>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </div>
+          <div className="section-title text-center mb-40 mt-2">
             <h2>
               {Category} / {SubCategory}
             </h2>
