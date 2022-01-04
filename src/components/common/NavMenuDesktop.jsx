@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Navbar, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import Logo from '../../assets/images/easyshop.png'
 import Bars from '../../assets/images/bars.png'
 import MegaMenuAll from '../home/MegaMenuAll'
@@ -19,6 +19,7 @@ class NavMenuDesktop extends Component {
     this.MenuBarClickHandler = this.MenuBarClickHandler.bind(this)
     this.ContentOverlayClickHandler = this.ContentOverlayClickHandler.bind(this)
     this.SideNavOpenClose = this.SideNavOpenClose.bind(this)
+    this.searchRedirect = this.searchRedirect.bind(this)
   }
 
   SearchOnChange(event) {
@@ -30,6 +31,12 @@ class NavMenuDesktop extends Component {
   SearchOnClick() {
     if (this.state.SearchKey.length >= 2) {
       this.setState({ SearchRedirectStatus: true })
+    }
+  }
+
+  searchRedirect() {
+    if (this.state.SearchRedirectStatus === true) {
+      return <Redirect to={`/productbysearch/${this.state.SearchKey}`} />
     }
   }
 
@@ -117,6 +124,7 @@ class NavMenuDesktop extends Component {
                   </Link>
                 </Col>
               </Row>
+              {this.searchRedirect()}
             </Container>
           </Navbar>
         </div>
