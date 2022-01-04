@@ -11,6 +11,25 @@ class NavMenuDesktop extends Component {
     this.state = {
       SideNavState: 'sideNavClose',
       ContentOverState: 'ContentOverlayClose',
+      SearchKey: '',
+      SearchRedirectStatus: false,
+    }
+    this.SearchOnChange = this.SearchOnChange.bind(this)
+    this.SearchOnClick = this.SearchOnClick.bind(this)
+    this.MenuBarClickHandler = this.MenuBarClickHandler.bind(this)
+    this.ContentOverlayClickHandler = this.ContentOverlayClickHandler.bind(this)
+    this.SideNavOpenClose = this.SideNavOpenClose.bind(this)
+  }
+
+  SearchOnChange(event) {
+    let SearchKey = event.target.value
+    // alert(SearchKey)
+    this.setState({ SearchKey: SearchKey })
+  }
+
+  SearchOnClick() {
+    if (this.state.SearchKey.length >= 2) {
+      this.setState({ SearchRedirectStatus: true })
     }
   }
 
@@ -49,15 +68,27 @@ class NavMenuDesktop extends Component {
             >
               <Row>
                 <Col lg={4} md={4} sm={12} xs={12}>
-                  <img onClick={this.MenuBarClickHandler} src={Bars} className='bar-img' />
+                  <img
+                    onClick={this.MenuBarClickHandler}
+                    src={Bars}
+                    className="bar-img"
+                  />
                   <Link to="/">
                     <img className="nav-logo" src={Logo} />
                   </Link>
                 </Col>
                 <Col className="p-1 mt-1" lg={4} md={4} sm={12} xs={12}>
                   <div className="input-group w-100">
-                    <input type="text" className="form-control" />
-                    <Button type="button" className="btn site-btn">
+                    <input
+                      onChange={this.SearchOnChange}
+                      type="text"
+                      className="form-control"
+                    />
+                    <Button
+                      onClick={this.SearchOnClick}
+                      type="button"
+                      className="btn site-btn"
+                    >
                       <i className="fa fa-search"></i>
                     </Button>
                   </div>
