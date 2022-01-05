@@ -408,3 +408,127 @@ class ResetPassword extends Component {
 
 export default ResetPassword
 ```
+
+## 358 Design User Profile Page
+
++ `src/pages/ProfilePage.jsx`コンポーネントを作成<br>
+
++ `src/components/common/Profile.jsx`コンポーネントを作成<br>
+
++ `src/pages/ProfilePage.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import Profile from '../components/common/Profile'
+
+class ProfilePage extends Component {
+  componentDidMount() {
+    window.scroll(0, 0)
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <Profile />
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default ProfilePage
+```
+
++ `src/components/common/Profile.jsx`を編集(静的で仮)<br>
+
+```
+import React, { Component, Fragment } from 'react'
+
+class Profile extends Component {
+  render() {
+    return (
+      <Fragment>
+        <h1>User Profile Page</h1>
+        <ul className="list-group">
+          <li className="list-group-item">Name : Name</li>
+          <li className="list-group-item">Email : Email</li>
+        </ul>
+      </Fragment>
+    )
+  }
+}
+
+export default Profile
+```
+
++ `src/route/AppRoute.js`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import { Switch, Route } from 'react-router'
+import AboutPage from '../pages/AboutPage'
+import CartPage from '../pages/CartPage'
+import ContactPage from '../pages/ContactPage'
+import FavoritePage from '../pages/FavoritePage'
+import ForgetPasswordPage from '../pages/ForgetPasswordPage'
+import HomePage from '../pages/HomePage'
+import NotificationPage from '../pages/NotificationPage'
+import PrivacyPage from '../pages/PrivacyPage'
+import ProductCategoryPage from '../pages/ProductCategoryPage'
+import ProductDetailsPage from '../pages/ProductDetailsPage'
+import ProductSubCategoryPage from '../pages/ProductSubCategoryPage'
+import ProfilePage from '../pages/ProfilePage'
+import PurchasePage from '../pages/PurchasePage'
+import RefundPage from '../pages/RefundPage'
+import RegisterPage from '../pages/RegisterPage'
+import ResetPasswordPage from '../pages/ResetPasswordPage'
+import SearchPage from '../pages/SearchPage'
+import UserLoginPage from '../pages/UserLoginPage'
+
+class AppRoute extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Switch>
+          <Route exact path="/" render={(props) => <HomePage {...props} key={Date.now()} />} />
+          <Route exact path="/login" render={(props) => <UserLoginPage {...props} key={Date.now()} />} />
+          <Route exact path="/register" render={(props) => <RegisterPage {...props} key={Date.now()} />} />
+          <Route exact path="/forget" render={(props) => <ForgetPasswordPage {...props} key={Date.now()} />} />
+          <Route exact path="/reset/:id" render={(props) => <ResetPasswordPage {...props} key={Date.now()} />} />
+          <Route exact path="/profile" render={(props) => <ProfilePage {...props} key={Date.now()} />} /> // 追記
+          <Route exact path="/contact" render={(props) => <ContactPage {...props} key={Date.now()} />} />
+          <Route exact path="/purchase" render={(props) => <PurchasePage {...props} key={Date.now()} />} />
+          <Route exact path="/privacy" render={(props) => <PrivacyPage {...props} key={Date.now()} />} />
+          <Route exact path="/refund" render={(props) => <RefundPage {...props} key={Date.now()} />} />
+          <Route exact path="/about" render={(props) => <AboutPage {...props} key={Date.now()} />} />
+          <Route exact path="/productdetails/:code" render={(props) => <ProductDetailsPage {...props} key={Date.now()} />} />
+          <Route exact path="/notification" render={(props) => <NotificationPage {...props} key={Date.now()} />} />
+          <Route exact path="/favorite" render={(props) => <FavoritePage {...props} key={Date.now()} />} />
+          <Route exact path="/cart" render={(props) => <CartPage {...props} key={Date.now()} />} />
+          <Route exact path="/productcategory/:category" render={(props) => <ProductCategoryPage {...props} key={Date.now()} />} />
+          <Route exact path="/productsubcategory/:category/:subcategory" render={(props) => <ProductSubCategoryPage {...props} key={Date.now()} />} />
+          <Route exact path="/productbysearch/:searchkey" render={(props) => <SearchPage {...props} key={Date.now()} />} />
+        </Switch>
+      </Fragment>
+    )
+  }
+}
+
+export default AppRoute
+```
+
