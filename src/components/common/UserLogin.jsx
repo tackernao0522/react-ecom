@@ -20,7 +20,7 @@ class UserLogin extends Component {
                     <br />
                     <br />
                     <hr />
-                    <p><b>Forget My Password? </b><Link><b>Forget Password</b></Link></p>
+                    <p><b>Forget My Password? </b><Link to="/forget"><b>Forget Password</b></Link></p>
                     <p><b>Don't Have An Account? </b><Link to="/register"><b>Register</b></Link></p>
                   </Form>
                 </Col>
