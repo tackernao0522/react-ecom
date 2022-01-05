@@ -3,7 +3,7 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Login from '../../assets/images/login.png'
 
-class UserLogin extends Component {
+class Register extends Component {
   render() {
     return (
       <Fragment>
@@ -13,15 +13,17 @@ class UserLogin extends Component {
               <Row className='text-center'>
                 <Col className='d-flex justify-content-center' md={6} lg={6} sm={12} xs={12}>
                   <Form className='onboardForm'>
-                    <h4 className='section-title-login'>USER SING IN</h4>
+                    <h4 className='section-title-login'>USER REGISTER</h4>
+                    <input className='form-control m-2' type="text" placeholder='Enter Your Name' />
                     <input className='form-control m-2' type="email" placeholder='Enter Your Email' />
                     <input className='form-control m-2' type="password" placeholder='Enter Your Password' />
-                    <Button className='btn btn-block m-2 site-btn-login'>Login</Button>
+                    <input className='form-control m-2' type="password" placeholder='Confirm Your Password' />
+                    <Button className='btn btn-block m-2 site-btn-login'>Sign Up</Button>
                     <br />
                     <br />
                     <hr />
                     <p><b>Forget My Password? </b><Link><b>Forget Password</b></Link></p>
-                    <p><b>Don't Have An Account? </b><Link to="/register"><b>Register</b></Link></p>
+                    <p><b>Already Have An Account? </b><Link to="/login"><b>Login</b></Link></p>
                   </Form>
                 </Col>
                 <Col className='p-0 Desktop m-0' md={6} lg={6} sm={6} xs={6}>
@@ -36,4 +38,4 @@ class UserLogin extends Component {
   }
 }
 
-export default UserLogin
+export default Register
