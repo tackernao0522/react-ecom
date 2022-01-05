@@ -22,7 +22,7 @@ class Register extends Component {
                     <br />
                     <br />
                     <hr />
-                    <p><b>Forget My Password? </b><Link><b>Forget Password</b></Link></p>
+                    <p><b>Forget My Password? </b><Link to="/forget"><b>Forget Password</b></Link></p>
                     <p><b>Already Have An Account? </b><Link to="/login"><b>Login</b></Link></p>
                   </Form>
                 </Col>
