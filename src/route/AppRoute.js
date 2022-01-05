@@ -11,6 +11,7 @@ import PrivacyPage from '../pages/PrivacyPage'
 import ProductCategoryPage from '../pages/ProductCategoryPage'
 import ProductDetailsPage from '../pages/ProductDetailsPage'
 import ProductSubCategoryPage from '../pages/ProductSubCategoryPage'
+import ProfilePage from '../pages/ProfilePage'
 import PurchasePage from '../pages/PurchasePage'
 import RefundPage from '../pages/RefundPage'
 import RegisterPage from '../pages/RegisterPage'
@@ -28,6 +29,7 @@ class AppRoute extends Component {
           <Route exact path="/register" render={(props) => <RegisterPage {...props} key={Date.now()} />} />
           <Route exact path="/forget" render={(props) => <ForgetPasswordPage {...props} key={Date.now()} />} />
           <Route exact path="/reset/:id" render={(props) => <ResetPasswordPage {...props} key={Date.now()} />} />
+          <Route exact path="/profile" render={(props) => <ProfilePage {...props} key={Date.now()} />} />
           <Route exact path="/contact" render={(props) => <ContactPage {...props} key={Date.now()} />} />
           <Route exact path="/purchase" render={(props) => <PurchasePage {...props} key={Date.now()} />} />
           <Route exact path="/privacy" render={(props) => <PrivacyPage {...props} key={Date.now()} />} />
