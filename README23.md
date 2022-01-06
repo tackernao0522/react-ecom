@@ -532,3 +532,8 @@ class AppRoute extends Component {
 export default AppRoute
 ```
 
+# Section38: Laravel Passport Authentication
+
+## 360 Laravel passport Authentication Passport Install
+
++ `Laravel Project`を編集<br>
