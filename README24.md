@@ -1,3 +1,43 @@
+# Section38: Laravel Passport Authentication
+
+## 365 Consume User Authentication Login Credentials Part1
+
+- `src/api/AppURL.jsx`を編集<br>
+
+```
+class AppURL {
+  static BaseURL = 'http://localhost/api'
+  static VisitorDetails = this.BaseURL + '/getvisitor'
+  static AllSiteInfo = this.BaseURL + '/allsiteinfo'
+  static AllCategoryDetails = this.BaseURL + '/allcategory'
+  static ProductListByRemark(remark) {
+    return this.BaseURL + '/productlistbyremark/' + remark
+  }
+  static ProductListByCategory(category) {
+    return this.BaseURL + '/productlistbycategory/' + category
+  }
+  static ProductlistBySubcategory(category, subcategory) {
+    return (
+      this.BaseURL + '/productlistbysubcategory/' + category + '/' + subcategory
+    )
+  }
+  static AllSlider = this.BaseURL + '/allslider'
+  static ProductDetails(code) {
+    return this.BaseURL + '/productdetails/' + code
+  }
+  static NotificationHistory = this.BaseURL + '/notification'
+  static ProductBySearch(searchkey) {
+    return this.BaseURL + '/search/' + searchkey
+  }
+  static UserLogin = this.BaseURL + '/login' // 追記
+}
+
+export default AppURL
+```
+
+- `src/components/common/UserLogin.jsx`を編集<br>
+
+```
 import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
@@ -106,3 +146,4 @@ class UserLogin extends Component {
 }
 
 export default UserLogin
+```
