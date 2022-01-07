@@ -14,6 +14,7 @@ class UserLogin extends Component {
       message: '',
       loggedIn: false,
     }
+    this.formSubmit = this.formSubmit.bind(this)
   }
 
   // Login Form Submit

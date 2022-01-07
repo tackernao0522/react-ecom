@@ -420,7 +420,7 @@ ReactDOM.render(
 reportWebVitals();
 ```
 
-+ `src/route/AppRoute.js`を編集<br>
+- `src/route/AppRoute.js`を編集<br>
 
 ```
 import axios from 'axios'
@@ -501,4 +501,77 @@ class AppRoute extends Component {
 }
 
 export default AppRoute
+```
+
+## 368 Consume User Authentication Login after Profile Part2
+
+- `src/pages/ProfilePage.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import Profile from '../components/common/Profile'
+
+class ProfilePage extends Component {
+  componentDidMount() {
+    window.scroll(0, 0)
+  }
+
+  render() {
+    const User = this.props.user // 追記
+
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <Profile user = {User} /> // 編集
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default ProfilePage
+```
+
+- `src/components/common/Profile.jsx`を編集<br>
+
+```
+import React, { Component, Fragment } from 'react'
+
+class Profile extends Component {
+  render() {
+    let name
+    let email
+
+    if (this.props.user) {
+      name = this.props.user.name
+      email = this.props.user.email
+    }
+
+    return (
+      <Fragment>
+        <h1>User Profile Page</h1>
+        <ul className="list-group">
+          <li className="list-group-item">Name : {name}</li>
+          <li className="list-group-item">Email : {email}</li>
+        </ul>
+      </Fragment>
+    )
+  }
+}
+
+export default Profile
 ```

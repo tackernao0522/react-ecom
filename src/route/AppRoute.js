@@ -28,6 +28,7 @@ class AppRoute extends Component {
     this.state = {
       user: {},
     }
+    this.setUser = this.setUser.bind(this)
   }
 
   componentDidMount() {
