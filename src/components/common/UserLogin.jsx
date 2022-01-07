@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import AppURL from '../../api/AppURL'
 import Login from '../../assets/images/login.png'
 
@@ -12,6 +12,7 @@ class UserLogin extends Component {
       email: '',
       password: '',
       message: '',
+      loggedIn: false,
     }
   }
 
@@ -24,16 +25,25 @@ class UserLogin extends Component {
       password: this.state.password,
     }
 
-    axios.post(AppURL.UserLogin, data)
-    .then((resp) => {
-
-    })
-    .catch((error) => {
-
-    })
+    axios
+      .post(AppURL.UserLogin, data)
+      .then((resp) => {
+        localStorage.setItem('token', resp.data.token)
+        this.setState({
+          loggedIn: true,
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   render() {
+    // After Login Redirect to Profile
+    if (this.state.loggedIn) {
+      return <Redirect to={'/profile'} />
+    }
+
     return (
       <Fragment>
         <Container>
@@ -73,7 +83,10 @@ class UserLogin extends Component {
                         this.setState({ password: e.target.value })
                       }}
                     />
-                    <Button type="submit" className="btn btn-block m-2 site-btn-login">
+                    <Button
+                      type="submit"
+                      className="btn btn-block m-2 site-btn-login"
+                    >
                       Login
                     </Button>
                     <br />
