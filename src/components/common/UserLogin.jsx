@@ -30,9 +30,8 @@ class UserLogin extends Component {
       .post(AppURL.UserLogin, data)
       .then((resp) => {
         localStorage.setItem('token', resp.data.token)
-        this.setState({
-          loggedIn: true,
-        })
+        this.setState({ loggedIn: true })
+        this.props.setUser(resp.data.user)
       })
       .catch((error) => {
         console.log(error)
