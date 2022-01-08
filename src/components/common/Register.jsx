@@ -36,6 +36,7 @@ class Register extends Component {
         this.setState({
           loggedIn: true,
         })
+        this.props.setUser(resp.data.user)
       })
       .catch((error) => {
         console.log(error)
