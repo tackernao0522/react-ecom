@@ -20,6 +20,11 @@ class NavMenuDesktop extends Component {
     this.ContentOverlayClickHandler = this.ContentOverlayClickHandler.bind(this)
     this.SideNavOpenClose = this.SideNavOpenClose.bind(this)
     this.searchRedirect = this.searchRedirect.bind(this)
+    this.logout = this.logout.bind(this)
+  }
+
+  logout = () => {
+    localStorage.clear()
   }
 
   SearchOnChange(event) {
@@ -118,7 +123,7 @@ class NavMenuDesktop extends Component {
                       <Link to="/profile" className="h4 btn">
                         PROFILE
                       </Link>
-                      <Link to="/register" className="h4 btn">
+                      <Link to="/" onClick={this.logout} className="h4 btn">
                         LOGOUT
                       </Link>
                     </>
