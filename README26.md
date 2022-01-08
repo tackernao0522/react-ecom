@@ -1,3 +1,8 @@
+## 371 Update Top Bar Menu
+
+- `src/components/common/NavMenuDesktop.jsx`を編集<br>
+
+```
 import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Navbar, Row } from 'react-bootstrap'
 import { Link, Redirect } from 'react-router-dom'
@@ -154,3 +159,4 @@ class NavMenuDesktop extends Component {
 }
 
 export default NavMenuDesktop
+```
