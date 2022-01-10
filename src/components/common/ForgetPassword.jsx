@@ -1,8 +1,34 @@
+import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import Forget from '../../assets/images/forget.jpg'
+import AppURL from '../../api/AppURL'
 
 class ForgetPassword extends Component {
+  constructor() {
+    super()
+    this.state = {
+      email: '',
+    }
+    this.formSubmit = this.formSubmit.bind(this)
+  }
+
+  // Forget Password Form Submit
+  formSubmit = (e) => {
+    e.preventDefault()
+    const data = {
+      email: this.state.email,
+    }
+    axios
+      .post(AppURL.UserForgetPassword, data)
+      .then((resp) => {
+        console.log(resp)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   render() {
     return (
       <Fragment>
@@ -23,14 +49,18 @@ class ForgetPassword extends Component {
                   sm={12}
                   xs={12}
                 >
-                  <Form className="onboardForm">
+                  <Form className="onboardForm" onSubmit={this.formSubmit}>
                     <h4 className="section-title-login">FORGET PASSWORD ?</h4>
                     <input
                       className="form-control m-2"
                       type="email"
                       placeholder="Enter Your Email"
+                      required
+                      onChange={(e) => {
+                        this.setState({ email: e.target.value })
+                      }}
                     />
-                    <Button className="btn btn-block m-2 site-btn-login">
+                    <Button type="submit" className="btn btn-block m-2 site-btn-login">
                       Reset Password
                     </Button>
                   </Form>
