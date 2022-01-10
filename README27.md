@@ -1,3 +1,8 @@
+## 374 Consume User Authentication Error Showing
+
+- `src/components/common/ForgetPassword.jsx`を編集<br>
+
+```jsx:ForgetPassword.jsx
 import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
@@ -92,3 +97,4 @@ class ForgetPassword extends Component {
 }
 
 export default ForgetPassword
+```
