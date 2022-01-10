@@ -64,7 +64,7 @@ class UserLogin extends Component {
                   xs={12}
                 >
                   <Form className="onboardForm" onSubmit={this.formSubmit}>
-                    <h4 className="section-title-login">USER SING IN</h4>
+                    <h4 className="section-title-login">USER SIGN IN</h4>
                     <input
                       className="form-control m-2"
                       type="email"
