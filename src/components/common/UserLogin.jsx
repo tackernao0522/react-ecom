@@ -44,6 +44,10 @@ class UserLogin extends Component {
       return <Redirect to={'/profile'} />
     }
 
+    if (localStorage.getItem('token')) {
+      return <Redirect to="/profile" />
+    }
+
     return (
       <Fragment>
         <Container>
