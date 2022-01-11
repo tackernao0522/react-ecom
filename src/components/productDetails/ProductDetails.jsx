@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import { Container, Row, Col, Breadcrumb } from 'react-bootstrap'
-import reactDom from 'react-dom'
 import { Link } from 'react-router-dom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css'
 import InnerImageZoom from 'react-inner-image-zoom'
@@ -8,12 +7,15 @@ import InnerImageZoom from 'react-inner-image-zoom'
 class ProductDetails extends Component {
   constructor() {
     super()
+    this.state = {
+      previewImg: '0',
+    }
+    this.imgOnClick = this.imgOnClick.bind(this)
   }
 
-  imgOnClick(event) {
+  imgOnClick = (event) => {
     let imgSrc = event.target.getAttribute('src')
-    let previewImg = document.getElementById('previewImg')
-    reactDom.findDOMNode(previewImg).setAttribute('src', imgSrc)
+    this.setState({ previewImg: imgSrc })
   }
 
   render() {
@@ -23,6 +25,11 @@ class ProductDetails extends Component {
     let category = ProductAllData.productList[0].category
     let subcategory = ProductAllData.productList[0].subcategory
     let image = ProductAllData.productList[0].image
+
+    if (this.state.previewImg === '0') {
+      this.setState({ previewImg: image })
+    }
+
     let price = ProductAllData.productList[0].price
     let specialPrice = ProductAllData.productList[0].special_price
     let productCode = ProductAllData.productList[0].product_code
@@ -96,14 +103,14 @@ class ProductDetails extends Component {
             >
               <Row>
                 <Col className="p-3" md={6} lg={6} sm={12} xs={12}>
-                  <img id="previewImg" className="bigimage" src={imageOne} />
+                  {/* <img id="previewImg" className="bigimage" src={imageOne} /> */}
 
-                  <div className="bigimage">
+                  <div className="">
                     <InnerImageZoom
                       zoomScale={1.8}
                       zoomType={'hover'}
-                      src={imageOne}
-                      zoomSrc={imageOne}
+                      src={this.state.previewImg}
+                      zoomSrc={this.state.previewImg}
                     />
                   </div>
 
