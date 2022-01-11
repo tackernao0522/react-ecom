@@ -1,9 +1,20 @@
+# Section39: Product Image Zoom Option Setup
+
+## 377 Product Image Zoom Part1
+
++ 参考: https://www.npmjs.com/package/react-inner-image-zoom <br>
+
++ `$ npm install react-inner-image-zoom`を実行<br>
+
++ `src/components/productDetails/ProductDetails.jsx`を編集<br>
+
+```jsx:ProductDetails.jsx
 import React, { Component, Fragment } from 'react'
 import { Container, Row, Col, Breadcrumb } from 'react-bootstrap'
 import reactDom from 'react-dom'
 import { Link } from 'react-router-dom'
-import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css'
-import InnerImageZoom from 'react-inner-image-zoom'
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css' // 追記
+import InnerImageZoom from 'react-inner-image-zoom' // 追記
 
 class ProductDetails extends Component {
   constructor() {
@@ -98,6 +109,7 @@ class ProductDetails extends Component {
                 <Col className="p-3" md={6} lg={6} sm={12} xs={12}>
                   <img id="previewImg" className="bigimage" src={imageOne} />
 
+                  // 追記
                   <div className="bigimage">
                     <InnerImageZoom
                       zoomScale={1.8}
@@ -279,3 +291,4 @@ class ProductDetails extends Component {
 }
 
 export default ProductDetails
+```
