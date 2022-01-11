@@ -7,7 +7,6 @@ import NavMenuDesktop from '../components/common/NavMenuDesktop'
 import NavMenuMobile from '../components/common/NavMenuMobile'
 import SliderLoading from '../components/placeholder/SliderLoading'
 import ProductDetails from '../components/productDetails/ProductDetails'
-import SuggestedProduct from '../components/productDetails/SuggestedProduct'
 
 class ProductDetailsPage extends Component {
   constructor({ match }) {
@@ -50,7 +49,6 @@ class ProductDetailsPage extends Component {
         ) : (
           <>
             <ProductDetails data={this.state.ProductData} />
-            <SuggestedProduct />
           </>
         )}
         <div className="Desktop">

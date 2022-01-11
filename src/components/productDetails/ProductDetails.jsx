@@ -3,6 +3,7 @@ import { Container, Row, Col, Breadcrumb } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css'
 import InnerImageZoom from 'react-inner-image-zoom'
+import SuggestedProduct from './SuggestedProduct'
 
 class ProductDetails extends Component {
   constructor() {
@@ -277,6 +278,7 @@ class ProductDetails extends Component {
             </Col>
           </Row>
         </Container>
+        <SuggestedProduct subcategory={subcategory} />
       </Fragment>
     )
   }
