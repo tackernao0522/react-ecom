@@ -358,7 +358,7 @@ class ProductDetails extends Component {
 export default ProductDetails
 ```
 
-## 386 Add To Cart Part3
+## 387 Add To Cart Part4
 
 - 参考 1: https://www.npmjs.com/package/cogo-toast <br>
 
