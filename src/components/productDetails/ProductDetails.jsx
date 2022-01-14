@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Container, Row, Col, Breadcrumb } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css'
 import InnerImageZoom from 'react-inner-image-zoom'
 import SuggestedProduct from './SuggestedProduct'
@@ -21,12 +21,14 @@ class ProductDetails extends Component {
       quantity: '',
       productCode: null,
       addToCart: 'Add To Cart',
+      pageRefreshStatus: false,
     }
     this.imgOnClick = this.imgOnClick.bind(this)
     this.colorOnChange = this.colorOnChange.bind(this)
     this.sizeOnChange = this.sizeOnChange.bind(this)
     this.quantityOnChange = this.quantityOnChange.bind(this)
     this.addToCart = this.addToCart.bind(this)
+    this.PageRefresh = this.PageRefresh.bind(this)
   }
 
   imgOnClick = (event) => {
@@ -70,6 +72,7 @@ class ProductDetails extends Component {
               position: 'top-right',
             })
             this.setState({ addToCart: 'Add To Cart' })
+            this.setState({ pageRefreshStatus: true })
           } else {
             cogoToast.error('Your Request is not done! Try Again', {
               position: 'rop-right',
@@ -101,6 +104,13 @@ class ProductDetails extends Component {
   quantityOnChange = (event) => {
     let quantity = event.target.value
     this.setState({ quantity: quantity })
+  }
+
+  PageRefresh = () => {
+    if (this.state.pageRefreshStatus === true) {
+      let URL = window.location
+      return <Redirect to={URL} />
+    }
   }
 
   render() {
@@ -352,6 +362,7 @@ class ProductDetails extends Component {
           </Row>
         </Container>
         <SuggestedProduct subcategory={subcategory} />
+        {this.PageRefresh()}
       </Fragment>
     )
   }

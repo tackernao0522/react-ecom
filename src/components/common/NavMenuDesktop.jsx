@@ -4,6 +4,8 @@ import { Link, Redirect } from 'react-router-dom'
 import Logo from '../../assets/images/easyshop.png'
 import Bars from '../../assets/images/bars.png'
 import MegaMenuAll from '../home/MegaMenuAll'
+import axios from 'axios'
+import AppURL from '../../api/AppURL'
 
 class NavMenuDesktop extends Component {
   constructor() {
@@ -13,6 +15,7 @@ class NavMenuDesktop extends Component {
       ContentOverState: 'ContentOverlayClose',
       SearchKey: '',
       SearchRedirectStatus: false,
+      cartCount: 0,
     }
     this.SearchOnChange = this.SearchOnChange.bind(this)
     this.SearchOnClick = this.SearchOnClick.bind(this)
@@ -21,6 +24,17 @@ class NavMenuDesktop extends Component {
     this.SideNavOpenClose = this.SideNavOpenClose.bind(this)
     this.searchRedirect = this.searchRedirect.bind(this)
     this.logout = this.logout.bind(this)
+  }
+
+  componentDidMount() {
+    let product_code = this.props.product_code
+    console.log(product_code)
+    axios
+      .get(AppURL.CartCount(product_code))
+      .then((resp) => {
+        this.setState({ cartCount: resp.data })
+      })
+      .catch((error) => {})
   }
 
   logout = () => {
@@ -138,7 +152,8 @@ class NavMenuDesktop extends Component {
                     </>
                   )}
                   <Link to="/cart" className="cart-btn">
-                    <i className="fa fa-shopping-cart"></i> 3 Items
+                    <i className="fa fa-shopping-cart"></i>
+                    {this.state.cartCount} Items
                   </Link>
                 </Col>
               </Row>
