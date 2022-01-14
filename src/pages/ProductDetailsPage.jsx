@@ -36,6 +36,8 @@ class ProductDetailsPage extends Component {
   }
 
   render() {
+    const User = this.props.user
+
     return (
       <Fragment>
         <div className="Desktop">
@@ -48,7 +50,7 @@ class ProductDetailsPage extends Component {
           <SliderLoading isLoading={this.state.isLoading} />
         ) : (
           <>
-            <ProductDetails data={this.state.ProductData} />
+            <ProductDetails data={this.state.ProductData} user={User} />
           </>
         )}
         <div className="Desktop">

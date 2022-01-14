@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Container, Row, Col, Breadcrumb } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -6,6 +7,7 @@ import InnerImageZoom from 'react-inner-image-zoom'
 import SuggestedProduct from './SuggestedProduct'
 import ReviewList from './ReviewList'
 import cogoToast from 'cogo-toast'
+import AppURL from '../../api/AppURL'
 
 class ProductDetails extends Component {
   constructor() {
@@ -18,6 +20,7 @@ class ProductDetails extends Component {
       size: '',
       quantity: '',
       productCode: null,
+      addToCart: 'Add To Cart',
     }
     this.imgOnClick = this.imgOnClick.bind(this)
     this.colorOnChange = this.colorOnChange.bind(this)
@@ -38,6 +41,7 @@ class ProductDetails extends Component {
     let size = this.state.size
     let quantity = this.state.quantity
     let productCode = this.state.productCode
+    let email = this.props.user.email
 
     if (isColor === 'YES' && color.length === 0) {
       cogoToast.error('Please Select Color', { position: 'top-right' })
@@ -50,7 +54,35 @@ class ProductDetails extends Component {
         position: 'top-right',
       })
     } else {
-      
+      this.setState({ addToCart: 'Adding...' })
+      let MyFormData = new FormData()
+      MyFormData.append('color', color)
+      MyFormData.append('size', size)
+      MyFormData.append('quantity', quantity)
+      MyFormData.append('product_code', productCode)
+      MyFormData.append('email', email)
+
+      axios
+        .post(AppURL.AddToCard, MyFormData)
+        .then((resp) => {
+          if (resp.data === 1) {
+            cogoToast.success('Product Added Successfully', {
+              position: 'top-right',
+            })
+            this.setState({ addToCart: 'Add To Cart' })
+          } else {
+            cogoToast.error('Your Request is not done! Try Again', {
+              position: 'rop-right',
+            })
+            this.setState({ addToCart: 'Add To Cart' })
+          }
+        })
+        .catch((error) => {
+          cogoToast.error('Your Request is not done! Try Again', {
+            position: 'rop-right',
+          })
+          this.setState({ addToCart: 'Add To Cart' })
+        })
     }
   }
 
@@ -289,8 +321,12 @@ class ProductDetails extends Component {
                   </div>
 
                   <div className="input-group mt-3">
-                    <button className="btn site-btn m-1 ">
-                      <i className="fa fa-shopping-cart"></i> Add To Cart
+                    <button
+                      onClick={this.addToCart}
+                      className="btn site-btn m-1 "
+                    >
+                      <i className="fa fa-shopping-cart"></i>{' '}
+                      {this.state.addToCart}
                     </button>
                     <button className="btn btn-primary m-1">
                       <i className="fa fa-car"></i> Order Now
