@@ -140,6 +140,10 @@ class NavMenuDesktop extends Component {
                       <Link to="/" onClick={this.logout} className="h4 btn">
                         LOGOUT
                       </Link>
+                      <Link to="/cart" className="cart-btn">
+                        <i className="fa fa-shopping-cart"></i>
+                        {` ${this.state.cartCount} Items`}
+                      </Link>
                     </>
                   ) : (
                     <>
@@ -149,12 +153,11 @@ class NavMenuDesktop extends Component {
                       <Link to="/register" className="h4 btn">
                         Register
                       </Link>
+                      <Link to="/cart" className="cart-btn">
+                        <i className="fa fa-shopping-cart"></i> {` 0 Item`}
+                      </Link>
                     </>
                   )}
-                  <Link to="/cart" className="cart-btn">
-                    <i className="fa fa-shopping-cart"></i>
-                    {this.state.cartCount} Items
-                  </Link>
                 </Col>
               </Row>
               {this.searchRedirect()}
