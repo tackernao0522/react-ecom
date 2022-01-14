@@ -3515,6 +3515,11 @@
     "chalk" "^2.4.1"
     "q" "^1.1.2"
 
+"cogo-toast@^4.2.3":
+  "integrity" "sha512-Lp/lPk493MLtkgqHboVJXb5frvLJqUDpIqLh6uCMcNecw0/shikDG+DGsjvmPe5qmorRwxe+6JgfKobRrcvhZQ=="
+  "resolved" "https://registry.npmjs.org/cogo-toast/-/cogo-toast-4.2.3.tgz"
+  "version" "4.2.3"
+
 "collect-v8-coverage@^1.0.0":
   "integrity" "sha512-iBPtljfCNcTKNAto0KEtDfZ3qzjJvqE3aTGZsbhjSBlorqpXJlaWWtPO35D+ZImoC3KWejX64o+yPGxhWSTzfg=="
   "resolved" "https://registry.npmjs.org/collect-v8-coverage/-/collect-v8-coverage-1.0.1.tgz"
