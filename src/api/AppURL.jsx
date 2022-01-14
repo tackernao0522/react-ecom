@@ -34,6 +34,7 @@ class AppURL {
   static ReviewList(code) {
     return `${this.BaseURL}/reviewlist/${code}`
   }
+  static AddToCard = `${this.BaseURL}/addtocart`
 }
 
 export default AppURL
