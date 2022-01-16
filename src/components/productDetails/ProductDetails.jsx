@@ -22,6 +22,7 @@ class ProductDetails extends Component {
       productCode: null,
       addToCart: 'Add To Cart',
       pageRefreshStatus: false,
+      addToFav: 'Favorite',
     }
     this.imgOnClick = this.imgOnClick.bind(this)
     this.colorOnChange = this.colorOnChange.bind(this)
@@ -29,6 +30,7 @@ class ProductDetails extends Component {
     this.quantityOnChange = this.quantityOnChange.bind(this)
     this.addToCart = this.addToCart.bind(this)
     this.PageRefresh = this.PageRefresh.bind(this)
+    this.addToFav = this.addToFav.bind(this)
   }
 
   imgOnClick = (event) => {
@@ -88,6 +90,40 @@ class ProductDetails extends Component {
         })
     }
   }
+
+  addToFav = () => {
+    this.setState({ addToFav: 'Adding...' })
+    let productCode = this.state.productCode
+    let email = this.props.user.email
+
+    if (!localStorage.getItem('token')) {
+      cogoToast.warn('Please You have to Login First', {
+        position: 'top-right',
+      })
+    } else {
+      axios
+        .get(AppURL.AddFavorite(productCode, email))
+        .then((resp) => {
+          if (resp.data === 1) {
+            cogoToast.success('Product Is in Favorite', {
+              position: 'top-right',
+            })
+            this.setState({ addToFav: 'Favouite' })
+          } else {
+            cogoToast.error('Your Request is not done ! Try Again', {
+              position: 'top-right',
+            })
+            this.setState({ addToFav: 'Favorite' })
+          }
+        })
+        .catch((error) => {
+          cogoToast.error('Your Request is not done ! Try Again', {
+            position: 'top-right',
+          })
+          this.setState({ addToFav: 'Favorite' })
+        })
+    }
+  } // end ADD TO FAV
 
   colorOnChange = (event) => {
     let color = event.target.value
@@ -335,14 +371,17 @@ class ProductDetails extends Component {
                       onClick={this.addToCart}
                       className="btn site-btn m-1 "
                     >
-                      <i className="fa fa-shopping-cart"></i>{' '}
+                      <i className="fa fa-shopping-cart"></i>
                       {this.state.addToCart}
                     </button>
                     <button className="btn btn-primary m-1">
                       <i className="fa fa-car"></i> Order Now
                     </button>
-                    <button className="btn btn-primary m-1">
-                      <i className="fa fa-heart"></i> Favourite
+                    <button
+                      onClick={this.addToFav}
+                      className="btn btn-primary m-1"
+                    >
+                      <i className="fa fa-heart"></i> {this.state.addToFav}
                     </button>
                   </div>
                 </Col>
