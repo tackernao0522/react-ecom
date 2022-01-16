@@ -475,3 +475,360 @@ export default ProductDetails
 ## 394 Add To Favorite Part3
 
 - `Laravel Project`を編集<br>
+
+## 395 Add To Favorite Part4
+
+- `src/api/AppURL.jsx`を編集<br>
+
+```jsx:AppURL.jsx
+class AppURL {
+  static BaseURL = 'http://localhost/api'
+  static VisitorDetails = this.BaseURL + '/getvisitor'
+  static AllSiteInfo = this.BaseURL + '/allsiteinfo'
+  static AllCategoryDetails = this.BaseURL + '/allcategory'
+  static ProductListByRemark(remark) {
+    return this.BaseURL + '/productlistbyremark/' + remark
+  }
+  static ProductListByCategory(category) {
+    return this.BaseURL + '/productlistbycategory/' + category
+  }
+  static ProductlistBySubcategory(category, subcategory) {
+    return (
+      this.BaseURL + '/productlistbysubcategory/' + category + '/' + subcategory
+    )
+  }
+  static AllSlider = this.BaseURL + '/allslider'
+  static ProductDetails(code) {
+    return this.BaseURL + '/productdetails/' + code
+  }
+  static NotificationHistory = this.BaseURL + '/notification'
+  static ProductBySearch(searchkey) {
+    return this.BaseURL + '/search/' + searchkey
+  }
+  static UserLogin = this.BaseURL + '/login'
+  static UserData = this.BaseURL + '/user'
+  static UserRegister = `${this.BaseURL}/register`
+  static UserForgetPassword = `${this.BaseURL}/forgetpassword`
+  static UserResetPassword = `${this.BaseURL}/resetpassword`
+
+  static SimilarProduct(code) {
+    return `${this.BaseURL}/similar/${code}`
+  }
+  static ReviewList(code) {
+    return `${this.BaseURL}/reviewlist/${code}`
+  }
+  static AddToCard = `${this.BaseURL}/addtocart`
+  static CartCount(product_code) {
+    return `${this.BaseURL}/cartcount/${product_code}`
+  }
+  static AddFavorite(product_code, email) {
+    return `${this.BaseURL}/favorite/${product_code}/${email}`
+  }
+  static FavoriteList(email) {
+    return `${this.BaseURL}/favoritelist/${email}`
+  }
+}
+
+export default AppURL
+```
+
+- `src/route/AppRoute.js`を編集<br>
+
+```js:AppRoute.js
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Switch, Route } from 'react-router'
+import AppURL from '../api/AppURL'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import AboutPage from '../pages/AboutPage'
+import CartPage from '../pages/CartPage'
+import ContactPage from '../pages/ContactPage'
+import FavoritePage from '../pages/FavoritePage'
+import ForgetPasswordPage from '../pages/ForgetPasswordPage'
+import HomePage from '../pages/HomePage'
+import NotificationPage from '../pages/NotificationPage'
+import PrivacyPage from '../pages/PrivacyPage'
+import ProductCategoryPage from '../pages/ProductCategoryPage'
+import ProductDetailsPage from '../pages/ProductDetailsPage'
+import ProductSubCategoryPage from '../pages/ProductSubCategoryPage'
+import ProfilePage from '../pages/ProfilePage'
+import PurchasePage from '../pages/PurchasePage'
+import RefundPage from '../pages/RefundPage'
+import RegisterPage from '../pages/RegisterPage'
+import ResetPasswordPage from '../pages/ResetPasswordPage'
+import SearchPage from '../pages/SearchPage'
+import UserLoginPage from '../pages/UserLoginPage'
+
+class AppRoute extends Component {
+  constructor() {
+    super()
+    this.state = {
+      user: {},
+    }
+    this.setUser = this.setUser.bind(this)
+  }
+
+  componentDidMount() {
+    // Login User Credentials
+    axios
+      .get(AppURL.UserData)
+      .then((resp) => {
+        this.setUser(resp.data)
+      })
+      .catch((error) => {
+        return console.log(error)
+      })
+  }
+
+  setUser = (user) => {
+    this.setState({ user: user })
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <NavMenuDesktop user={this.state.user} setUser={this.setUser} />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={(props) => <HomePage {...props} key={Date.now()} />}
+          />
+          <Route
+            exact
+            path="/login"
+            render={(props) => (
+              <UserLoginPage
+                user={this.state.user}
+                setUser={this.setUser}
+                {...props}
+                key={Date.now()}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/register"
+            render={(props) => (
+              <RegisterPage
+                user={this.state.user}
+                setUser={this.setUser}
+                {...props}
+                key={Date.now()}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/forget"
+            render={(props) => (
+              <ForgetPasswordPage {...props} key={Date.now()} />
+            )}
+          />
+          <Route
+            exact
+            path="/reset/:id"
+            render={(props) => (
+              <ResetPasswordPage {...props} key={Date.now()} />
+            )}
+          />
+          <Route
+            exact
+            path="/profile"
+            render={(props) => (
+              <ProfilePage
+                user={this.state.user}
+                setUser={this.setUser}
+                {...props}
+                key={Date.now()}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/contact"
+            render={(props) => <ContactPage {...props} key={Date.now()} />}
+          />
+          <Route
+            exact
+            path="/purchase"
+            render={(props) => <PurchasePage {...props} key={Date.now()} />}
+          />
+          <Route
+            exact
+            path="/privacy"
+            render={(props) => <PrivacyPage {...props} key={Date.now()} />}
+          />
+          <Route
+            exact
+            path="/refund"
+            render={(props) => <RefundPage {...props} key={Date.now()} />}
+          />
+          <Route
+            exact
+            path="/about"
+            render={(props) => <AboutPage {...props} key={Date.now()} />}
+          />
+          <Route
+            exact
+            path="/productdetails/:code"
+            render={(props) => (
+              <ProductDetailsPage
+                user={this.state.user}
+                {...props}
+                key={Date.now()}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/notification"
+            render={(props) => <NotificationPage {...props} key={Date.now()} />}
+          />
+          <Route
+            exact
+            path="/favorite"
+            render={(props) => (
+              <FavoritePage
+                user={this.state.user}
+                {...props}
+                key={Date.now()}
+              />
+            )}
+          /> // 編集
+          <Route
+            exact
+            path="/cart"
+            render={(props) => <CartPage {...props} key={Date.now()} />}
+          />
+          <Route
+            exact
+            path="/productcategory/:category"
+            render={(props) => (
+              <ProductCategoryPage {...props} key={Date.now()} />
+            )}
+          />
+          <Route
+            exact
+            path="/productsubcategory/:category/:subcategory"
+            render={(props) => (
+              <ProductSubCategoryPage {...props} key={Date.now()} />
+            )}
+          />
+          <Route exact path="/productbysearch/:searchkey" render={(props) => <SearchPage {...props} key={Date.now()} />} />
+        </Switch>
+      </Fragment>
+    )
+  }
+}
+
+export default AppRoute
+```
+
+- `src/pages/FavoritePage.jsx`を編集<br>
+
+```jsx:FavoritePage.jsx
+import React, { Component, Fragment } from 'react'
+import FooterDesktop from '../components/common/FooterDesktop'
+import FooterMobile from '../components/common/FooterMobile'
+import NavMenuDesktop from '../components/common/NavMenuDesktop'
+import NavMenuMobile from '../components/common/NavMenuMobile'
+import Favorite from '../components/favorite/Favorite'
+
+class FavoritePage extends Component {
+  componentDidMount() {
+    window.scroll(0, 0)
+  }
+
+  render() {
+    const User = this.props.user // 追記
+
+    return (
+      <Fragment>
+        <div className="Desktop">
+          <NavMenuDesktop />
+        </div>
+        <div className="Mobile">
+          <NavMenuMobile />
+        </div>
+        <Favorite user={User} /> // 編集
+        <div className="Desktop">
+          <FooterDesktop />
+        </div>
+        <div className="Mobile">
+          <FooterMobile />
+        </div>
+      </Fragment>
+    )
+  }
+}
+
+export default FavoritePage
+```
+
+- `src/components/favorite/Favorite.jsx`を編集<br>
+
+```jsx:Favorite.jsx
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Button, Card, Col, Container, Row } from 'react-bootstrap'
+import AppURL from '../../api/AppURL'
+
+class Favorite extends Component {
+  constructor() {
+    super()
+    this.state = {
+      ProductData: [],
+      isLoading: '',
+      mainDiv: 'd-none',
+    }
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.FavoriteList(this.props.user.email))
+      .then((res) => {
+        this.setState({
+          ProductData: res.data,
+          isLoading: 'd-none',
+          mainDiv: '',
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    const FavList = this.state.ProductData
+    const MyView = FavList.map((ProductList, i) => (
+      <Col className="p-0" xl={3} lg={3} md={3} sm={6} xs={6}>
+        <Card className="image-box card w-100">
+          <img className="center w-75" src={ProductList.image} />
+          <Card.Body>
+            <p className="product-name-on-card">{ProductList.product_name}</p>
+            <Button className="btn btn-sm">
+              <i className="fa fa-trash-alt"></i> Remove
+            </Button>
+          </Card.Body>
+        </Card>
+      </Col>
+    ))
+
+    return (
+      <Fragment>
+        <Container className="text-center" fluid={true}>
+          <div className="section-title text-center mb-55">
+            <h2>MY FAVORITE ITEMS</h2>
+            <p>Some Of Our Exclusive Collection, You May Like</p>
+          </div>
+
+          <Row>{MyView}</Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Favorite
+```
