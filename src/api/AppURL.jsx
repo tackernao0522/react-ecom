@@ -44,6 +44,9 @@ class AppURL {
   static FavoriteList(email) {
     return `${this.BaseURL}/favoritelist/${email}`
   }
+  static FavoriteRemove(product_code, email) {
+    return `${this.BaseURL}/favoriteremove/${product_code}/${email}`
+  }
 }
 
 export default AppURL

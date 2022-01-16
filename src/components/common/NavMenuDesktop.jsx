@@ -28,7 +28,7 @@ class NavMenuDesktop extends Component {
 
   componentDidMount() {
     let product_code = this.props.product_code
-    console.log(product_code)
+    // console.log(product_code)
     axios
       .get(AppURL.CartCount(product_code))
       .then((resp) => {
