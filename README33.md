@@ -471,3 +471,7 @@ class ProductDetails extends Component {
 
 export default ProductDetails
 ```
+
+## 394 Add To Favorite Part3
+
+- `Laravel Project`を編集<br>
