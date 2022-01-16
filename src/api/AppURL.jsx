@@ -38,6 +38,9 @@ class AppURL {
   static CartCount(product_code) {
     return `${this.BaseURL}/cartcount/${product_code}`
   }
+  static AddFavorite(product_code, email) {
+    return `${this.BaseURL}/favorite/${product_code}/${email}`
+  }
 }
 
 export default AppURL
