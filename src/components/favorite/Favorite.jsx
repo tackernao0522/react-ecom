@@ -58,9 +58,21 @@ class Favorite extends Component {
   }
 
   render() {
+    if (!localStorage.getItem('token')) {
+      return <Redirect to="/login" />
+    }
+
     const FavList = this.state.ProductData
     const MyView = FavList.map((ProductList, i) => (
-      <Col key={i.toString()} className="p-0" xl={3} lg={3} md={3} sm={6} xs={6}>
+      <Col
+        key={i.toString()}
+        className="p-0"
+        xl={3}
+        lg={3}
+        md={3}
+        sm={6}
+        xs={6}
+      >
         <Card className="image-box card w-100">
           <img className="center w-75" src={ProductList.image} />
           <Card.Body>
