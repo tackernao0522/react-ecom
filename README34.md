@@ -284,3 +284,9 @@ class Favorite extends Component {
 
 export default Favorite
 ```
+
+# Section43: Cart List and Cart Item Option Setup
+
+## 399 Cart List Part1
+
+- `Laravel Project`を編集<br>
