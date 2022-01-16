@@ -11,6 +11,8 @@ class FavoritePage extends Component {
   }
 
   render() {
+    const User = this.props.user
+
     return (
       <Fragment>
         <div className="Desktop">
@@ -19,7 +21,7 @@ class FavoritePage extends Component {
         <div className="Mobile">
           <NavMenuMobile />
         </div>
-        <Favorite />
+        <Favorite user={User} />
         <div className="Desktop">
           <FooterDesktop />
         </div>
