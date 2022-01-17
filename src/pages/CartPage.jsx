@@ -11,6 +11,8 @@ class CartPage extends Component {
   }
 
   render() {
+    const User = this.props.user
+
     return (
       <Fragment>
         <div className="Desktop">
@@ -19,7 +21,7 @@ class CartPage extends Component {
         <div className="Mobile">
           <NavMenuMobile />
         </div>
-        <Cart />
+        <Cart user={User} />
         <div className="Desktop">
           <FooterDesktop />
         </div>
