@@ -1,6 +1,8 @@
 import axios from 'axios'
+import cogoToast from 'cogo-toast'
 import React, { Component, Fragment } from 'react'
 import { Button, Card, Col, Container, Row } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom'
 import AppURL from '../../api/AppURL'
 
 class Cart extends Component {
@@ -10,7 +12,10 @@ class Cart extends Component {
       CartListData: [],
       isLoading: '',
       mainDiv: 'd-none',
+      PageRefreshStatus: false,
     }
+    this.removeItem = this.removeItem.bind(this)
+    this.PageRefresh = this.PageRefresh.bind(this)
   }
 
   componentDidMount() {
@@ -26,6 +31,33 @@ class Cart extends Component {
       })
       .catch((error) => {
         console.log(error)
+      })
+  }
+
+  PageRefresh = () => {
+    if (this.state.PageRefreshStatus === true) {
+      let URL = window.location
+      return <Redirect to={URL} />
+    }
+  }
+
+  removeItem = (id) => {
+    axios
+      .get(AppURL.RemoveCartList(id))
+      .then((res) => {
+        if (res.data === 1) {
+          cogoToast.success('Cart Item Remove', { position: 'top-right' })
+          this.setState({ PageRefreshStatus: true })
+        } else {
+          cogoToast.error('Your Request is not done ! Try Again', {
+            position: 'top-right',
+          })
+        }
+      })
+      .catch((error) => {
+        cogoToast.error('Your Request is not done ! Try Again', {
+          position: 'top-right',
+        })
       })
   }
 
@@ -53,7 +85,10 @@ class Cart extends Component {
               </Col>
 
               <Col md={3} lg={3} sm={12} xs={12}>
-                <Button className="btn btn-block w-100 mt-3  site-btn">
+                <Button
+                  onClick={() => this.removeItem(CartList.id)}
+                  className="btn btn-block w-100 mt-3  site-btn"
+                >
                   <i className="fa fa-trash-alt"></i> Remove
                 </Button>
               </Col>
@@ -76,6 +111,7 @@ class Cart extends Component {
             </Col>
           </Row>
         </Container>
+        {this.PageRefresh()}
       </Fragment>
     )
   }
