@@ -729,3 +729,7 @@ class Cart extends Component {
 
 export default Cart
 ```
+
+## 406 Cart List Confirm Order Part1
+
+- `Laravel Project`を編集<br>
