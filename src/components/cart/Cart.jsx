@@ -109,66 +109,70 @@ class Cart extends Component {
 
   render() {
     const CartList = this.state.CartListData
-    const MyView = CartList.map((CartList, i) => (
-      <Col key={i.toString()} className="p-1" lg={12} md={12} sm={12} xs={12}>
-        <Card>
-          <Card.Body>
-            <Row>
-              <Col md={3} lg={3} sm={6} xs={6}>
-                <img className="cart-product-img" src={CartList.image} />
-              </Col>
+    let totalPriceSum = 0
+    const MyView = CartList.map((CartList, i) => {
+      totalPriceSum = totalPriceSum + parseInt(CartList.total_price)
+      return (
+        <Col key={i.toString()} className="p-1" lg={12} md={12} sm={12} xs={12}>
+          <Card>
+            <Card.Body>
+              <Row>
+                <Col md={3} lg={3} sm={6} xs={6}>
+                  <img className="cart-product-img" src={CartList.image} />
+                </Col>
 
-              <Col md={6} lg={6} sm={6} xs={6}>
-                <h5 className="product-name">{CartList.product_name}</h5>
-                <h6> Quantity = {CartList.quantity} </h6>
-                <p>
-                  {CartList.size} | {CartList.color}
-                </p>
-                <h6>
-                  Price = {CartList.unit_price} x {CartList.quantity} ={' '}
-                  {CartList.total_price}$
-                </h6>
-              </Col>
+                <Col md={6} lg={6} sm={6} xs={6}>
+                  <h5 className="product-name">{CartList.product_name}</h5>
+                  <h6> Quantity = {CartList.quantity} </h6>
+                  <p>
+                    {CartList.size} | {CartList.color}
+                  </p>
+                  <h6>
+                    Price = {CartList.unit_price} x {CartList.quantity} =
+                    {CartList.total_price}$
+                  </h6>
+                </Col>
 
-              <Col md={3} lg={3} sm={12} xs={12}>
-                <Button
-                  onClick={() => this.removeItem(CartList.id)}
-                  className="btn mt-2 mx-1 btn-lg site-btn"
-                >
-                  <i className="fa fa-trash-alt"></i>
-                </Button>
+                <Col md={3} lg={3} sm={12} xs={12}>
+                  <Button
+                    onClick={() => this.removeItem(CartList.id)}
+                    className="btn mt-2 mx-1 btn-lg site-btn"
+                  >
+                    <i className="fa fa-trash-alt"></i>
+                  </Button>
 
-                <Button
-                  onClick={() =>
-                    this.itemPlus(
-                      CartList.id,
-                      CartList.quantity,
-                      CartList.unit_price,
-                    )
-                  }
-                  className="btn mt-2 mx-1 btn-lg site-btn"
-                >
-                  <i className="fa fa-plus"></i>
-                </Button>
+                  <Button
+                    onClick={() =>
+                      this.itemPlus(
+                        CartList.id,
+                        CartList.quantity,
+                        CartList.unit_price,
+                      )
+                    }
+                    className="btn mt-2 mx-1 btn-lg site-btn"
+                  >
+                    <i className="fa fa-plus"></i>
+                  </Button>
 
-                <Button
-                  onClick={() =>
-                    this.itemMinus(
-                      CartList.id,
-                      CartList.quantity,
-                      CartList.unit_price,
-                    )
-                  }
-                  className="btn mt-2 mx-1 btn-lg site-btn"
-                >
-                  <i className="fa fa-minus"></i>
-                </Button>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
-      </Col>
-    ))
+                  <Button
+                    onClick={() =>
+                      this.itemMinus(
+                        CartList.id,
+                        CartList.quantity,
+                        CartList.unit_price,
+                      )
+                    }
+                    className="btn mt-2 mx-1 btn-lg site-btn"
+                  >
+                    <i className="fa fa-minus"></i>
+                  </Button>
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+        </Col>
+      )
+    })
 
     return (
       <Fragment>
@@ -178,8 +182,71 @@ class Cart extends Component {
           </div>
 
           <Row>
-            <Col className="p-1" lg={12} md={12} sm={12} xs={12}>
+            <Col className="p-1" lg={7} md={7} sm={12} xs={12}>
               {MyView}
+            </Col>
+
+            <Col className="p-1" lg={5} md={5} sm={12} xs={12}>
+              <div className="card p-2">
+                <div className="card-body">
+                  <div className="container-fluid">
+                    <div className="row">
+                      <div className="col-md-12 p-1  col-lg-12 col-sm-12 col-12">
+                        <h5 className="Product-Name text-danger">
+                          Total Due: {totalPriceSum} $
+                        </h5>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">Choose City</label>
+                        <select className="form-control">
+                          <option value="">Choose</option>
+                          <option value="Dhaka">Assam</option>
+                          <option value="Dhaka">Bihar </option>
+                          <option value="Dhaka">Goa </option>
+                          <option value="Dhaka">Gujarat </option>
+                          <option value="Dhaka">Himachal Pradesh </option>
+                          <option value="Dhaka">Punjab </option>
+                        </select>
+                      </div>
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">
+                          Choose Payment Method
+                        </label>
+                        <select className="form-control">
+                          <option value="">Choose</option>
+                          <option value="Cash On Delivery">
+                            Cash On Delivery
+                          </option>
+                          <option value="Cash On Delivery">Stripe</option>
+                        </select>
+                      </div>
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">Your Name</label>
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder=""
+                        />
+                      </div>
+
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">Delivery Address</label>
+                        <textarea
+                          rows={2}
+                          className="form-control"
+                          type="text"
+                          placeholder=""
+                        />
+                      </div>
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <button className="btn  site-btn">Confirm Order</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </Col>
           </Row>
         </Container>
