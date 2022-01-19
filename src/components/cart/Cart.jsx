@@ -13,6 +13,7 @@ class Cart extends Component {
       isLoading: '',
       mainDiv: 'd-none',
       PageRefreshStatus: false,
+      PageRedirectStaus: false,
       confirmBtn: 'Confirm Order',
       city: '',
       payment: '',
@@ -28,6 +29,7 @@ class Cart extends Component {
     this.nameOnChange = this.nameOnChange.bind(this)
     this.addressOnChange = this.addressOnChange.bind(this)
     this.confirmOnClick = this.confirmOnClick.bind(this)
+    this.PageRedirect = this.PageRedirect.bind(this)
   }
 
   componentDidMount() {
@@ -44,13 +46,6 @@ class Cart extends Component {
       .catch((error) => {
         console.log(error)
       })
-  }
-
-  PageRefresh = () => {
-    if (this.state.PageRefreshStatus === true) {
-      let URL = window.location
-      return <Redirect to={URL} />
-    }
   }
 
   removeItem = (id) => {
@@ -71,6 +66,13 @@ class Cart extends Component {
           position: 'top-right',
         })
       })
+  }
+
+  PageRefresh = () => {
+    if (this.state.PageRefreshStatus === true) {
+      let URL = window.location
+      return <Redirect to={URL} />
+    }
   }
 
   itemPlus = (id, quantity, price) => {
@@ -147,12 +149,47 @@ class Cart extends Component {
     if (city.length === 0) {
       cogoToast.error('Please Select City', { position: 'top-right' })
     } else if (payment.length === 0) {
-      cogoToast.error('Plese Select Payment', { position: 'top-right' })
+      cogoToast.error('Please Select Payment', { position: 'top-right' })
     } else if (name.length === 0) {
-      cogoToast.error('please Select Your Name', { position: 'top-right' })
+      cogoToast.error('Please Select Your Name', { position: 'top-right' })
     } else if (address.length === 0) {
       cogoToast.error('Please Select Your Address', { position: 'top-right' })
     } else {
+      let invoice = new Date().getTime()
+      let MyFormData = new FormData()
+      MyFormData.append('city', city)
+      MyFormData.append('payment_method', payment)
+      MyFormData.append('name', name)
+      MyFormData.append('delivery_address', address)
+      MyFormData.append('email', email)
+      MyFormData.append('invoice_no', invoice)
+      MyFormData.append('delivery_charge', '00')
+
+      axios
+        .post(AppURL.CartOrder, MyFormData)
+        .then((res) => {
+          if (res.data === 1) {
+            cogoToast.success('Order Request Received', {
+              position: 'top-right',
+            })
+            this.setState({ PageRedirectStaus: true })
+          } else {
+            cogoToast.error('Your Request is not done ! Try Again', {
+              position: 'top-right',
+            })
+          }
+        })
+        .catch((error) => {
+          cogoToast.error('Your Request is not done ! Try Again', {
+            position: 'top-right',
+          })
+        })
+    }
+  }
+
+  PageRedirect = () => {
+    if (this.state.PageRedirectStaus === true) {
+      return <Redirect to="/orderlist" />
     }
   }
 
@@ -313,6 +350,7 @@ class Cart extends Component {
           </Row>
         </Container>
         {this.PageRefresh()}
+        {this.PageRedirect()}
       </Fragment>
     )
   }
