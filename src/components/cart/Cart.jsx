@@ -16,6 +16,8 @@ class Cart extends Component {
     }
     this.removeItem = this.removeItem.bind(this)
     this.PageRefresh = this.PageRefresh.bind(this)
+    this.itemPlus = this.itemPlus.bind(this)
+    this.itemMinus = this.itemMinus.bind(this)
   }
 
   componentDidMount() {
@@ -61,6 +63,50 @@ class Cart extends Component {
       })
   }
 
+  itemPlus = (id, quantity, price) => {
+    axios
+      .get(AppURL.CartItemPlus(id, quantity, price))
+      .then((res) => {
+        if (res.data === 1) {
+          cogoToast.success('Item Quantity Increased', {
+            position: 'top-right',
+          })
+          this.setState({ PageRefreshStatus: true })
+        } else {
+          cogoToast.error('Your Request is not done ! Try Again', {
+            position: 'top-right',
+          })
+        }
+      })
+      .catch((error) => {
+        cogoToast.error('Your Request in not done ! Try Again', {
+          position: 'top-right',
+        })
+      })
+  }
+
+  itemMinus = (id, quantity, price) => {
+    axios
+      .get(AppURL.CartItemMinus(id, quantity, price))
+      .then((res) => {
+        if (res.data === 1) {
+          cogoToast.success('Item Quantity Decreased', {
+            position: 'top-right',
+          })
+          this.setState({ PageRefreshStatus: true })
+        } else {
+          cogoToast.error('Your Request is not done ! Try Again', {
+            position: 'top-right',
+          })
+        }
+      })
+      .catch((error) => {
+        cogoToast.error('Your Request in not done ! Try Again', {
+          position: 'top-right',
+        })
+      })
+  }
+
   render() {
     const CartList = this.state.CartListData
     const MyView = CartList.map((CartList, i) => (
@@ -87,9 +133,35 @@ class Cart extends Component {
               <Col md={3} lg={3} sm={12} xs={12}>
                 <Button
                   onClick={() => this.removeItem(CartList.id)}
-                  className="btn btn-block w-100 mt-3  site-btn"
+                  className="btn mt-2 mx-1 btn-lg site-btn"
                 >
-                  <i className="fa fa-trash-alt"></i> Remove
+                  <i className="fa fa-trash-alt"></i>
+                </Button>
+
+                <Button
+                  onClick={() =>
+                    this.itemPlus(
+                      CartList.id,
+                      CartList.quantity,
+                      CartList.unit_price,
+                    )
+                  }
+                  className="btn mt-2 mx-1 btn-lg site-btn"
+                >
+                  <i className="fa fa-plus"></i>
+                </Button>
+
+                <Button
+                  onClick={() =>
+                    this.itemMinus(
+                      CartList.id,
+                      CartList.quantity,
+                      CartList.unit_price,
+                    )
+                  }
+                  className="btn mt-2 mx-1 btn-lg site-btn"
+                >
+                  <i className="fa fa-minus"></i>
                 </Button>
               </Col>
             </Row>
