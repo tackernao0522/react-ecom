@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { Component, Fragment } from 'react'
-import { Button, Card, Col, Container, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Modal, Row } from 'react-bootstrap'
 import AppURL from '../../api/AppURL'
 
 class OrderList extends Component {
@@ -8,7 +8,16 @@ class OrderList extends Component {
     super()
     this.state = {
       OrderListData: [],
+      show: false,
+      NotificationData: [],
+      isLoading: '',
+      mainDiv: 'd-done',
+      Notificationmsg: '',
+      Notificationtitle: '',
+      Notificationdate: '',
     }
+    this.handleClose = this.handleClose.bind(this)
+    this.handleShow = this.handleShow.bind(this)
   }
 
   componentDidMount() {
@@ -22,6 +31,22 @@ class OrderList extends Component {
       .catch((error) => {
         console.log(error)
       })
+  }
+
+  handleClose = () => {
+    this.setState({ show: false })
+  }
+
+  handleShow = (event) => {
+    this.setState({ show: true })
+    let Nmsg = event.target.getAttribute('data-message')
+    let Ntitle = event.target.getAttribute('data-title')
+    let Ndate = event.target.getAttribute('data-date')
+    this.setState({
+      Notificationmsg: Nmsg,
+      Notificationtitle: Ntitle,
+      Notificationdate: Ndate,
+    })
   }
 
   render() {
@@ -41,7 +66,9 @@ class OrderList extends Component {
           </h6>
           <h6>Status = {OrderList.order_status}</h6>
         </Col>
-        <Button className="btn btn-danger">Post Review</Button>
+        <Button onClick={this.handleShow} className="btn btn-danger">
+          Post Review
+        </Button>
         <hr />
       </div>
     ))
@@ -59,6 +86,23 @@ class OrderList extends Component {
             </Card.Body>
           </Card>
         </Container>
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <h6>
+              <i className="fa fa-bell"></i> Post Your Review
+            </h6>
+          </Modal.Header>
+          <Modal.Body>
+            <h6>review</h6>
+            <p>review</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Fragment>
     )
   }
