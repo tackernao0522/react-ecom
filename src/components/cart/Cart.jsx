@@ -200,62 +200,64 @@ class Cart extends Component {
       totalPriceSum = totalPriceSum + parseInt(CartList.total_price)
       return (
         <Col key={i.toString()} className="p-1" lg={12} md={12} sm={12} xs={12}>
-          <Card>
-            <Card.Body>
-              <Row>
-                <Col md={3} lg={3} sm={6} xs={6}>
-                  <img className="cart-product-img" src={CartList.image} />
-                </Col>
+          <div>
+            <Card>
+              <Card.Body>
+                <Row>
+                  <Col md={3} lg={3} sm={6} xs={6}>
+                    <img className="cart-product-img" src={CartList.image} />
+                  </Col>
 
-                <Col md={6} lg={6} sm={6} xs={6}>
-                  <h5 className="product-name">{CartList.product_name}</h5>
-                  <h6> Quantity = {CartList.quantity} </h6>
-                  <p>
-                    {CartList.size} | {CartList.color}
-                  </p>
-                  <h6>
-                    Price = {CartList.unit_price} x {CartList.quantity} =
-                    {CartList.total_price}$
-                  </h6>
-                </Col>
+                  <Col md={6} lg={6} sm={6} xs={6}>
+                    <h5 className="product-name">{CartList.product_name}</h5>
+                    <h6> Quantity = {CartList.quantity} </h6>
+                    <p>
+                      {CartList.size} | {CartList.color}
+                    </p>
+                    <h6>
+                      Price = {CartList.unit_price} x {CartList.quantity} =
+                      {CartList.total_price}$
+                    </h6>
+                  </Col>
 
-                <Col md={3} lg={3} sm={12} xs={12}>
-                  <Button
-                    onClick={() => this.removeItem(CartList.id)}
-                    className="btn mt-2 mx-1 btn-lg site-btn"
-                  >
-                    <i className="fa fa-trash-alt"></i>
-                  </Button>
+                  <Col md={3} lg={3} sm={12} xs={12}>
+                    <Button
+                      onClick={() => this.removeItem(CartList.id)}
+                      className="btn mt-2 mx-1 btn-lg site-btn"
+                    >
+                      <i className="fa fa-trash-alt"></i>
+                    </Button>
 
-                  <Button
-                    onClick={() =>
-                      this.itemPlus(
-                        CartList.id,
-                        CartList.quantity,
-                        CartList.unit_price,
-                      )
-                    }
-                    className="btn mt-2 mx-1 btn-lg site-btn"
-                  >
-                    <i className="fa fa-plus"></i>
-                  </Button>
+                    <Button
+                      onClick={() =>
+                        this.itemPlus(
+                          CartList.id,
+                          CartList.quantity,
+                          CartList.unit_price,
+                        )
+                      }
+                      className="btn mt-2 mx-1 btn-lg site-btn"
+                    >
+                      <i className="fa fa-plus"></i>
+                    </Button>
 
-                  <Button
-                    onClick={() =>
-                      this.itemMinus(
-                        CartList.id,
-                        CartList.quantity,
-                        CartList.unit_price,
-                      )
-                    }
-                    className="btn mt-2 mx-1 btn-lg site-btn"
-                  >
-                    <i className="fa fa-minus"></i>
-                  </Button>
-                </Col>
-              </Row>
-            </Card.Body>
-          </Card>
+                    <Button
+                      onClick={() =>
+                        this.itemMinus(
+                          CartList.id,
+                          CartList.quantity,
+                          CartList.unit_price,
+                        )
+                      }
+                      className="btn mt-2 mx-1 btn-lg site-btn"
+                    >
+                      <i className="fa fa-minus"></i>
+                    </Button>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+          </div>
         </Col>
       )
     })
