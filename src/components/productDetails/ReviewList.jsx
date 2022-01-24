@@ -30,7 +30,7 @@ class ReviewList extends Component {
       ReviewList.reviewer_rating === '1' ? (
         <div key={i.toString()}>
           <p className=" p-0 m-0">
-            <span className="Review-Title">{ReviewList.reviewer_name}</span>
+            <span className="Review-Title">{`${ReviewList.reviewer_name} `}</span>
             <span className="text-success">
               <i className="fa fa-star"></i>
             </span>
@@ -40,9 +40,9 @@ class ReviewList extends Component {
       ) : ReviewList.reviewer_rating === '2' ? (
         <div key={i.toString()}>
           <p className=" p-0 m-0">
-            <span className="Review-Title">{ReviewList.reviewer_name}</span>
+            <span className="Review-Title">{`${ReviewList.reviewer_name} `}</span>
             <span className="text-success">
-              <i className="fa fa-star"></i> <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i><i className="fa fa-star"></i>
             </span>
           </p>
           <p>{ReviewList.reviewer_comments}</p>
@@ -50,9 +50,9 @@ class ReviewList extends Component {
       ) : ReviewList.reviewer_rating === '3' ? (
         <div key={i.toString()}>
           <p className=" p-0 m-0">
-            <span className="Review-Title">{ReviewList.reviewer_name}</span>
+            <span className="Review-Title">{`${ReviewList.reviewer_name} `}</span>
             <span className="text-success">
-              <i className="fa fa-star"></i> <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i><i className="fa fa-star"></i>
               <i className="fa fa-star"></i>
             </span>
           </p>
@@ -61,10 +61,10 @@ class ReviewList extends Component {
       ) : ReviewList.reviewer_rating === '4' ? (
         <div key={i.toString()}>
           <p className=" p-0 m-0">
-            <span className="Review-Title">{ReviewList.reviewer_name}</span>
+            <span className="Review-Title">{`${ReviewList.reviewer_name} `}</span>
             <span className="text-success">
-              <i className="fa fa-star"></i> <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i> <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i><i className="fa fa-star"></i>
+              <i className="fa fa-star"></i><i className="fa fa-star"></i>
             </span>
           </p>
           <p>{ReviewList.reviewer_comments}</p>
@@ -72,10 +72,10 @@ class ReviewList extends Component {
       ) : (
         <div key={i.toString()}>
           <p className=" p-0 m-0">
-            <span className="Review-Title">{ReviewList.reviewer_name}</span>
+            <span className="Review-Title">{`${ReviewList.reviewer_name} `}</span>
             <span className="text-success">
-              <i className="fa fa-star"></i> <i className="fa fa-star"></i>
-              <i className="fa fa-star"></i> <i className="fa fa-star"></i>
+              <i className="fa fa-star"></i><i className="fa fa-star"></i>
+              <i className="fa fa-star"></i><i className="fa fa-star"></i>
               <i className="fa fa-star"></i>
             </span>
           </p>
