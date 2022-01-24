@@ -251,8 +251,6 @@ class AppURL {
 export default AppURL
 ```
 
-## 416 Post Product Review Part3
-
 - `src/components/cart/OrderList.jsx`を編集<br>
 
 ```jsx:OrderList.jsx
