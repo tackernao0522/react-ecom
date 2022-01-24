@@ -519,3 +519,270 @@ class OrderList extends Component {
 
 export default OrderList
 ```
+
+# Section45: Product Review Option Setup
+
+## 413 Update Profile Page
+
+- `src/assets/css/typo.css`を編集<br>
+
+```css:typo.css
+.section-title {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: #051b35;
+  font-size: 20px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 400;
+}
+.section-title-contact {
+  font-size: 18px;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #051b35;
+  font-weight: 400;
+}
+.section-title-login {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  color: #051b35;
+  font-size: 30px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+}
+.section-sub-title {
+  color: #212121;
+  font-size: 15px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 300;
+}
+.product-name-on-card {
+  color: #051b35;
+  font-size: 16px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 400;
+}
+.product-price-on-card {
+  color: #e43023;
+  font-size: 14px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+}
+.category-name {
+  color: #000000;
+  font-size: 13px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 600;
+}
+.text-link {
+  color: inherit;
+  text-decoration: inherit;
+}
+.breadbody {
+  background-color: #e6e6e6;
+  padding-top: 20px;
+  padding-bottom: 7px;
+  padding-left: 30px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+.userprofile {
+  // 追記
+  width: 200px;
+  height: 200px;
+  margin-left: 80px;
+}
+```
+
+- `src/assets/images`にプロフィール画像を設置<br>
+
+* `src/components/cart/OrderList.jsx`を編集<br>
+
+```jsx:OrderList.jsx
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Button, Card, Col, Container, Modal, Row } from 'react-bootstrap'
+import AppURL from '../../api/AppURL'
+
+class OrderList extends Component {
+  constructor() {
+    super()
+    this.state = {
+      OrderListData: [],
+      show: false,
+      NotificationData: [],
+      isLoading: '',
+      mainDiv: 'd-done',
+      Notificationmsg: '',
+      Notificationtitle: '',
+      Notificationdate: '',
+    }
+    this.handleClose = this.handleClose.bind(this)
+    this.handleShow = this.handleShow.bind(this)
+  }
+
+  componentDidMount() {
+    let email = this.props.user.email
+
+    axios
+      .get(AppURL.OrderListByUser(email))
+      .then((res) => {
+        this.setState({ OrderListData: res.data })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  handleClose = () => {
+    this.setState({ show: false })
+  }
+
+  handleShow = (event) => {
+    this.setState({ show: true })
+    let Nmsg = event.target.getAttribute('data-message')
+    let Ntitle = event.target.getAttribute('data-title')
+    let Ndate = event.target.getAttribute('data-date')
+    this.setState({
+      Notificationmsg: Nmsg,
+      Notificationtitle: Ntitle,
+      Notificationdate: Ndate,
+    })
+  }
+
+  render() {
+    const OrderList = this.state.OrderListData
+
+    const MyView = OrderList.map((OrderList, i) => (
+      <div>
+        <Col key={i.toString()} md={6} lg={6} sm={6} xs={6}>
+          <h5 className="product-name">{OrderList.product_name}</h5>
+          <h6> Quantity = {OrderList.quantity} </h6>
+          <p>
+            {OrderList.size} | {OrderList.color}
+          </p>
+          <h6>
+            Price = {OrderList.unit_price} x {OrderList.quantity} =
+            {OrderList.total_price}$
+          </h6>
+          <h6>Status = {OrderList.order_status}</h6>
+        </Col>
+        <Button onClick={this.handleShow} className="btn btn-danger">
+          Post Review
+        </Button>
+        <hr />
+      </div>
+    ))
+
+    return (
+      <Fragment>
+        <Container>
+          <div className="section-title text-center mb-55">
+            <h2>Order History By ( {this.props.user.name} )</h2> // 編集
+          </div>
+
+          <Card>
+            <Card.Body>
+              <Row>{MyView}</Row>
+            </Card.Body>
+          </Card>
+        </Container>
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <h6>
+              <i className="fa fa-bell"></i> Post Your Review
+            </h6>
+          </Modal.Header>
+          <Modal.Body>
+            <h6>review</h6>
+            <p>review</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Fragment>
+    )
+  }
+}
+
+export default OrderList
+```
+
+- `src/components/common/Profile.jsx`を編集<br>
+
+```jsx:Profile.jsx
+import React, { Component, Fragment } from 'react'
+import {
+  Card,
+  Col,
+  Container,
+  ListGroup,
+  ListGroupItem,
+  Row,
+} from 'react-bootstrap'
+import { Link, Redirect } from 'react-router-dom'
+import Taka from '../../assets/images/profile_image.jpg'
+
+class Profile extends Component {
+  render() {
+    let name
+    let email
+
+    if (this.props.user) {
+      name = this.props.user.name
+      email = this.props.user.email
+    }
+
+    if (!localStorage.getItem('token')) {
+      return <Redirect to="/login" />
+    }
+
+    return (
+      <Fragment>
+        <div className="section-title text-center mb-55">
+          <h2>User Profile Page</h2>
+        </div>
+
+        <Container>
+          <Row>
+            <Col lg={4} md={4} sm={12}>
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={Taka} className="userprofile" />
+                <ListGroup className="list-group-flush">
+                  <ListGroupItem>
+                    <Link className="text-link" to="/orderlist">
+                      <p className="product-name-on-card">Order List</p>
+                    </Link>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <Link className="text-link" to="/orderlist">
+                      <p className="product-name-on-card">Order List</p>
+                    </Link>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    <Link className="text-link" to="/orderlist">
+                      <p className="product-name-on-card">Order List</p>
+                    </Link>
+                  </ListGroupItem>
+                </ListGroup>
+              </Card>
+            </Col>
+
+            <Col lg={8} md={8} sm={12}>
+              <ul className="list-group">
+                <li className="list-group-item">Name : {name}</li>
+                <li className="list-group-item">Email : {email}</li>
+              </ul>
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    )
+  }
+}
+
+export default Profile
+```
