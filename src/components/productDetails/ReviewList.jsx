@@ -16,7 +16,7 @@ class ReviewList extends Component {
     axios
       .get(AppURL.ReviewList(code))
       .then((resp) => {
-        console.log(resp.data)
+        // console.log(resp.data)
         this.setState({ ReviewData: resp.data })
       })
       .catch((error) => {

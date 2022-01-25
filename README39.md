@@ -1,3 +1,10 @@
+# Section46: Other Options Setup
+
+## 418 Order Now Option
+
+- `src/components/productDetails/ProductDetails.jsx`を編集<br>
+
+```jsx:ProductDetails.jsx
 import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Container, Row, Col, Breadcrumb } from 'react-bootstrap'
@@ -475,3 +482,4 @@ class ProductDetails extends Component {
 }
 
 export default ProductDetails
+```
