@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Button, Card, Col, Container, Modal, Row } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom'
 import AppURL from '../../api/AppURL'
 
 class Notification extends Component {
@@ -52,6 +53,10 @@ class Notification extends Component {
   }
 
   render() {
+    if (!localStorage.getItem('token')) {
+      return <Redirect to="/login" />
+    }
+
     const NotificationList = this.state.NotificationData
     const MyView = NotificationList.map((NotificationList, i) => (
       <Col key={i.toString()} className=" p-1 " md={6} lg={6} sm={12} xs={12}>

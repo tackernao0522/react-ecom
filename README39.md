@@ -483,3 +483,727 @@ class ProductDetails extends Component {
 
 export default ProductDetails
 ```
+
+## 419 Protect URL
+
+- `src/components/notification/Notification.jsx`を編集<br>
+
+```jsx:Notification.jsx
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Button, Card, Col, Container, Modal, Row } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom'
+import AppURL from '../../api/AppURL'
+
+class Notification extends Component {
+  constructor() {
+    super()
+    this.state = {
+      show: false,
+      NotificationData: [],
+      isLoading: '',
+      mainDiv: 'd-none',
+      NotificationMsg: '',
+      NotificationTitle: '',
+      NotificationDate: '',
+    }
+    this.handleClose = this.handleClose.bind(this)
+    this.handleShow = this.handleShow.bind(this)
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.NotificationHistory)
+      .then((resp) => {
+        console.log(resp)
+        this.setState({
+          NotificationData: resp.data,
+          isLoading: 'd-none',
+          mainDiv: '',
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  handleClose = () => {
+    this.setState({ show: false })
+  }
+
+  handleShow = (event) => {
+    this.setState({ show: true })
+    let Nmsg = event.target.getAttribute('data-message')
+    let Ntitle = event.target.getAttribute('data-title')
+    let Ndate = event.target.getAttribute('data-date')
+    this.setState({
+      NotificationMsg: Nmsg,
+      NotificationTitle: Ntitle,
+      NotificationDate: Ndate,
+    })
+  }
+
+  render() {
+    if (!localStorage.getItem('token')) {
+      return <Redirect to="/login" />
+    } // 追記
+
+    const NotificationList = this.state.NotificationData
+    const MyView = NotificationList.map((NotificationList, i) => (
+      <Col key={i.toString()} className=" p-1 " md={6} lg={6} sm={12} xs={12}>
+        <Card onClick={this.handleShow} className="notification-card">
+          <Card.Body
+            data-title={NotificationList.title}
+            data-date={NotificationList.date}
+            data-message={NotificationList.message}
+          >
+            <h6
+              data-title={NotificationList.title}
+              data-date={NotificationList.date}
+              data-message={NotificationList.message}
+            >
+              {NotificationList.title}
+            </h6>
+            <p
+              data-title={NotificationList.title}
+              data-date={NotificationList.date}
+              data-message={NotificationList.message}
+              className="py-1  px-0 text-primary m-0"
+            >
+              <i className="fa  fa-bell"></i> Date: {NotificationList.date}| Status:
+              Unread
+            </p>
+            <Button
+              data-title={NotificationList.title}
+              data-date={NotificationList.date}
+              data-message={NotificationList.message}
+              className="btn btn-danger"
+            >
+              Details
+            </Button>
+          </Card.Body>
+        </Card>
+      </Col>
+    ))
+    return (
+      <Fragment>
+        <Container className="TopSection">
+          <Row>{MyView}</Row>
+        </Container>
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <h6>
+              <i className="fa fa-bell"></i> Date: {this.state.NotificationDate}
+            </h6>
+          </Modal.Header>
+          <Modal.Body>
+            <h6>{this.state.NotificationTitle}</h6>
+            <p>{this.state.NotificationMsg}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Fragment>
+    )
+  }
+}
+
+export default Notification
+```
+
+- `src/components/cart/Cart.jsx`を編集<br>
+
+```jsx:Cart.jsx
+import axios from 'axios'
+import cogoToast from 'cogo-toast'
+import React, { Component, Fragment } from 'react'
+import { Button, Card, Col, Container, Row } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom'
+import AppURL from '../../api/AppURL'
+
+class Cart extends Component {
+  constructor() {
+    super()
+    this.state = {
+      CartListData: [],
+      isLoading: '',
+      mainDiv: 'd-none',
+      PageRefreshStatus: false,
+      PageRedirectStaus: false,
+      confirmBtn: 'Confirm Order',
+      city: '',
+      payment: '',
+      name: '',
+      address: '',
+    }
+    this.removeItem = this.removeItem.bind(this)
+    this.PageRefresh = this.PageRefresh.bind(this)
+    this.itemPlus = this.itemPlus.bind(this)
+    this.itemMinus = this.itemMinus.bind(this)
+    this.cityOnChange = this.cityOnChange.bind(this)
+    this.paymentMethodOnChange = this.paymentMethodOnChange.bind(this)
+    this.nameOnChange = this.nameOnChange.bind(this)
+    this.addressOnChange = this.addressOnChange.bind(this)
+    this.confirmOnClick = this.confirmOnClick.bind(this)
+    this.PageRedirect = this.PageRedirect.bind(this)
+  }
+
+  componentDidMount() {
+    axios
+      .get(AppURL.CartList(this.props.user.email))
+      .then((res) => {
+        // console.log(res.data)
+        this.setState({
+          CartListData: res.data,
+          isLoading: 'd-none',
+          mainDiv: '',
+        })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  removeItem = (id) => {
+    axios
+      .get(AppURL.RemoveCartList(id))
+      .then((res) => {
+        if (res.data === 1) {
+          cogoToast.success('Cart Item Remove', { position: 'top-right' })
+          this.setState({ PageRefreshStatus: true })
+        } else {
+          cogoToast.error('Your Request is not done ! Try Again', {
+            position: 'top-right',
+          })
+        }
+      })
+      .catch((error) => {
+        cogoToast.error('Your Request is not done ! Try Again', {
+          position: 'top-right',
+        })
+      })
+  }
+
+  PageRefresh = () => {
+    if (this.state.PageRefreshStatus === true) {
+      let URL = window.location
+      return <Redirect to={URL} />
+    }
+  }
+
+  itemPlus = (id, quantity, price) => {
+    axios
+      .get(AppURL.CartItemPlus(id, quantity, price))
+      .then((res) => {
+        if (res.data === 1) {
+          cogoToast.success('Item Quantity Increased', {
+            position: 'top-right',
+          })
+          this.setState({ PageRefreshStatus: true })
+        } else {
+          cogoToast.error('Your Request is not done ! Try Again', {
+            position: 'top-right',
+          })
+        }
+      })
+      .catch((error) => {
+        cogoToast.error('Your Request in not done ! Try Again', {
+          position: 'top-right',
+        })
+      })
+  }
+
+  itemMinus = (id, quantity, price) => {
+    axios
+      .get(AppURL.CartItemMinus(id, quantity, price))
+      .then((res) => {
+        if (res.data === 1) {
+          cogoToast.success('Item Quantity Decreased', {
+            position: 'top-right',
+          })
+          this.setState({ PageRefreshStatus: true })
+        } else {
+          cogoToast.error('Your Request is not done ! Try Again', {
+            position: 'top-right',
+          })
+        }
+      })
+      .catch((error) => {
+        cogoToast.error('Your Request in not done ! Try Again', {
+          position: 'top-right',
+        })
+      })
+  }
+
+  cityOnChange = (event) => {
+    let city = event.target.value
+    this.setState({ city: city })
+  }
+
+  paymentMethodOnChange = (event) => {
+    let payment = event.target.value
+    this.setState({ payment: payment })
+  }
+
+  nameOnChange = (event) => {
+    let name = event.target.value
+    this.setState({ name: name })
+  }
+
+  addressOnChange = (event) => {
+    let address = event.target.value
+    this.setState({ address: address })
+  }
+
+  confirmOnClick = () => {
+    let city = this.state.city
+    let payment = this.state.payment
+    let name = this.state.name
+    let address = this.state.address
+    let email = this.props.user.email
+
+    if (city.length === 0) {
+      cogoToast.error('Please Select City', { position: 'top-right' })
+    } else if (payment.length === 0) {
+      cogoToast.error('Please Select Payment', { position: 'top-right' })
+    } else if (name.length === 0) {
+      cogoToast.error('Please Select Your Name', { position: 'top-right' })
+    } else if (address.length === 0) {
+      cogoToast.error('Please Select Your Address', { position: 'top-right' })
+    } else {
+      let invoice = new Date().getTime()
+      let MyFormData = new FormData()
+      MyFormData.append('city', city)
+      MyFormData.append('payment_method', payment)
+      MyFormData.append('name', name)
+      MyFormData.append('delivery_address', address)
+      MyFormData.append('email', email)
+      MyFormData.append('invoice_no', invoice)
+      MyFormData.append('delivery_charge', '00')
+
+      axios
+        .post(AppURL.CartOrder, MyFormData)
+        .then((res) => {
+          if (res.data === 1) {
+            cogoToast.success('Order Request Received', {
+              position: 'top-right',
+            })
+            this.setState({ PageRedirectStaus: true })
+          } else {
+            cogoToast.error('Your Request is not done ! Try Again', {
+              position: 'top-right',
+            })
+          }
+        })
+        .catch((error) => {
+          cogoToast.error('Your Request is not done ! Try Again', {
+            position: 'top-right',
+          })
+        })
+    }
+  }
+
+  PageRedirect = () => {
+    if (this.state.PageRedirectStaus === true) {
+      return <Redirect to="/orderlist" />
+    }
+  }
+
+  render() {
+    if (!localStorage.getItem('token')) {
+      return <Redirect to="/login" />
+    } // 追記
+
+    const CartList = this.state.CartListData
+    let totalPriceSum = 0
+    const MyView = CartList.map((CartList, i) => {
+      totalPriceSum = totalPriceSum + parseInt(CartList.total_price)
+      return (
+        <Col key={i.toString()} className="p-1" lg={12} md={12} sm={12} xs={12}>
+          <div>
+            <Card>
+              <Card.Body>
+                <Row>
+                  <Col md={3} lg={3} sm={6} xs={6}>
+                    <img className="cart-product-img" src={CartList.image} />
+                  </Col>
+
+                  <Col md={6} lg={6} sm={6} xs={6}>
+                    <h5 className="product-name">{CartList.product_name}</h5>
+                    <h6> Quantity = {CartList.quantity} </h6>
+                    <p>
+                      {CartList.size} | {CartList.color}
+                    </p>
+                    <h6>
+                      Price = {CartList.unit_price} x {CartList.quantity} =
+                      {CartList.total_price}$
+                    </h6>
+                  </Col>
+
+                  <Col md={3} lg={3} sm={12} xs={12}>
+                    <Button
+                      onClick={() => this.removeItem(CartList.id)}
+                      className="btn mt-2 mx-1 btn-lg site-btn"
+                    >
+                      <i className="fa fa-trash-alt"></i>
+                    </Button>
+
+                    <Button
+                      onClick={() =>
+                        this.itemPlus(
+                          CartList.id,
+                          CartList.quantity,
+                          CartList.unit_price,
+                        )
+                      }
+                      className="btn mt-2 mx-1 btn-lg site-btn"
+                    >
+                      <i className="fa fa-plus"></i>
+                    </Button>
+
+                    <Button
+                      onClick={() =>
+                        this.itemMinus(
+                          CartList.id,
+                          CartList.quantity,
+                          CartList.unit_price,
+                        )
+                      }
+                      className="btn mt-2 mx-1 btn-lg site-btn"
+                    >
+                      <i className="fa fa-minus"></i>
+                    </Button>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+          </div>
+        </Col>
+      )
+    })
+
+    return (
+      <Fragment>
+        <Container>
+          <div className="section-title text-center mb-55">
+            <h2>Product Cart List</h2>
+          </div>
+
+          <Row>
+            <Col className="p-1" lg={7} md={7} sm={12} xs={12}>
+              {MyView}
+            </Col>
+
+            <Col className="p-1" lg={5} md={5} sm={12} xs={12}>
+              <div className="card p-2">
+                <div className="card-body">
+                  <div className="container-fluid">
+                    <div className="row">
+                      <div className="col-md-12 p-1  col-lg-12 col-sm-12 col-12">
+                        <h5 className="Product-Name text-danger">
+                          Total Due: {totalPriceSum} $
+                        </h5>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">Choose City</label>
+                        <select
+                          onChange={this.cityOnChange}
+                          className="form-control"
+                        >
+                          <option value="">Choose</option>
+                          <option value="Dhaka">Assam</option>
+                          <option value="Dhaka">Bihar </option>
+                          <option value="Dhaka">Goa </option>
+                          <option value="Dhaka">Gujarat </option>
+                          <option value="Dhaka">Himachal Pradesh </option>
+                          <option value="Dhaka">Punjab </option>
+                        </select>
+                      </div>
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">
+                          Choose Payment Method
+                        </label>
+                        <select
+                          onChange={this.paymentMethodOnChange}
+                          className="form-control"
+                        >
+                          <option value="">Choose</option>
+                          <option value="Cash On Delivery">
+                            Cash On Delivery
+                          </option>
+                          <option value="Cash On Delivery">Stripe</option>
+                        </select>
+                      </div>
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">Your Name</label>
+                        <input
+                          onChange={this.nameOnChange}
+                          className="form-control"
+                          type="text"
+                          placeholder=""
+                        />
+                      </div>
+
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <label className="form-label">Delivery Address</label>
+                        <textarea
+                          onChange={this.addressOnChange}
+                          rows={2}
+                          className="form-control"
+                          type="text"
+                          placeholder=""
+                        />
+                      </div>
+                      <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+                        <button
+                          onClick={this.confirmOnClick}
+                          className="btn site-btn"
+                        >
+                          {this.state.confirmBtn}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        {this.PageRefresh()}
+        {this.PageRedirect()}
+      </Fragment>
+    )
+  }
+}
+
+export default Cart
+```
+
+- `src/components/cart/OrderList.jsx`を編集<br>
+
+```jsx:OrderList.jsx
+import axios from 'axios'
+import cogoToast from 'cogo-toast'
+import React, { Component, Fragment } from 'react'
+import { Button, Card, Col, Container, Modal, Row } from 'react-bootstrap'
+import { Redirect } from 'react-router-dom'
+import AppURL from '../../api/AppURL'
+
+class OrderList extends Component {
+  constructor() {
+    super()
+    this.state = {
+      OrderListData: [],
+      show: false,
+      name: '',
+      rating: '',
+      comment: '',
+      product_name: '',
+      product_code: '',
+      reviewModal: false,
+    }
+    this.reviewModalClose = this.reviewModalClose.bind(this)
+    this.nameOnChange = this.nameOnChange.bind(this)
+    this.ratingOnChange = this.ratingOnChange.bind(this)
+    this.commentOnChange = this.commentOnChange.bind(this)
+    this.postReview = this.postReview.bind(this)
+  }
+
+  componentDidMount() {
+    let email = this.props.user.email
+
+    axios
+      .get(AppURL.OrderListByUser(email))
+      .then((res) => {
+        this.setState({ OrderListData: res.data })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  reviewModalOpen = (product_code, product_name) => {
+    this.setState({
+      reviewModal: true,
+      product_code: product_code,
+      product_name: product_name,
+    })
+  }
+
+  reviewModalClose = () => {
+    this.setState({ reviewModal: false })
+  }
+
+  nameOnChange = (event) => {
+    let name = event.target.value
+    this.setState({ name: name })
+  }
+
+  ratingOnChange = (event) => {
+    let rating = event.target.value
+    this.setState({ rating: rating })
+  }
+
+  commentOnChange = (event) => {
+    let comment = event.target.value
+    this.setState({ comment: comment })
+  }
+
+  postReview = () => {
+    let product_code = this.state.product_code
+    let product_name = this.state.product_name
+    let rating = this.state.rating
+    let comment = this.state.comment
+    let name = this.state.name
+
+    if (name.length === 0) {
+      cogoToast.error('Name Is Required', { position: 'top-right' })
+    } else if (comment.length === 0) {
+      cogoToast.error('Comment Is Required', { position: 'top-right' })
+    } else if (rating.length === 0) {
+      cogoToast.error('Rating Is Required', { position: 'top-right' })
+    } else if (comment.length > 50) {
+      cogoToast.error("Comments can't more then 150 character", {
+        position: 'top-right',
+      })
+    } else {
+      let MyFormData = new FormData()
+
+      MyFormData.append('product_code', product_code)
+      MyFormData.append('product_name', product_name)
+      MyFormData.append('reviewer_name', name)
+      MyFormData.append('reviewer_photo', '')
+      MyFormData.append('reviewer_rating', rating)
+      MyFormData.append('reviewer_comments', comment)
+
+      axios
+        .post(AppURL.PostReview, MyFormData)
+        .then((res) => {
+          if (res.data === 1) {
+            cogoToast.success('Review Submitted', { position: 'top-right' })
+            this.reviewModalClose()
+          } else {
+            cogoToast.error('Your Request is not done ! Try Again', {
+              position: 'top-right',
+            })
+          }
+        })
+        .catch((error) => {
+          cogoToast.error('Your Request is not done ! Try Again', {
+            position: 'top-right',
+          })
+        })
+    }
+  }
+
+  render() {
+    if (!localStorage.getItem('token')) {
+      return <Redirect to="/login" />
+    } // 追記
+
+    const OrderList = this.state.OrderListData
+
+    const MyView = OrderList.map((OrderList, i) => (
+      <div>
+        <Col key={i.toString()} md={6} lg={6} sm={6} xs={6}>
+          <h5 className="product-name">{OrderList.product_name}</h5>
+          <h6> Quantity = {OrderList.quantity} </h6>
+          <p>
+            {OrderList.size} | {OrderList.color}
+          </p>
+          <h6>
+            Price = {OrderList.unit_price} x {OrderList.quantity} =
+            {OrderList.total_price}$
+          </h6>
+          <h6>Status = {OrderList.order_status}</h6>
+        </Col>
+        <Button
+          onClick={this.reviewModalOpen.bind(
+            this,
+            OrderList.product_code,
+            OrderList.product_name,
+          )}
+          className="btn btn-danger"
+        >
+          Post Review
+        </Button>
+        <hr />
+      </div>
+    ))
+
+    return (
+      <Fragment>
+        <Container>
+          <div className="section-title text-center mb-55">
+            <h2>Order History By ( {this.props.user.name} )</h2>
+          </div>
+
+          <Card>
+            <Card.Body>
+              <Row>{MyView}</Row>
+            </Card.Body>
+          </Card>
+        </Container>
+
+        <Modal show={this.state.reviewModal} onHide={this.reviewModalClose}>
+          <Modal.Header closeButton>
+            <h6>
+              <i className="fa fa-bell"></i> Post Your Review
+            </h6>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+              <label className="form-label">Your Name</label>
+              <input
+                onChange={this.nameOnChange}
+                className="form-control"
+                type="text"
+                placeholder={this.props.user.name}
+              />
+            </div>
+
+            <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+              <label className="form-label">Select Product Rating</label>
+              <select onChange={this.ratingOnChange} className="form-control">
+                <option value="">Choose</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div className="col-md-12 p-1 col-lg-12 col-sm-12 col-12">
+              <label className="form-label">Your Comment</label>
+              <textarea
+                onChange={this.commentOnChange}
+                rows={2}
+                className="form-control"
+                type="text"
+                placeholder="Your Comment"
+              />
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.postReview}>
+              Post
+            </Button>
+            <Button variant="secondary" onClick={this.reviewModalClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Fragment>
+    )
+  }
+}
+
+export default OrderList
+```
