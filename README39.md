@@ -1207,3 +1207,9 @@ class OrderList extends Component {
 
 export default OrderList
 ```
+
+# Section47: Backend Admin Panel Setup
+
+## 421 Setup Admin Theme
+
+- `Laravel Project`を編集<br>
