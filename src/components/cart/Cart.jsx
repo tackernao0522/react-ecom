@@ -194,6 +194,10 @@ class Cart extends Component {
   }
 
   render() {
+    if (!localStorage.getItem('token')) {
+      return <Redirect to="/login" />
+    }
+
     const CartList = this.state.CartListData
     let totalPriceSum = 0
     const MyView = CartList.map((CartList, i) => {
