@@ -41,11 +41,11 @@ class Contact extends Component {
     let sendBtn = document.getElementById('sendBtn')
     let contactForm = document.getElementById('contactForm')
 
-    if (message.length == 0) {
+    if (message.length === 0) {
       toast.error('Please Write your message')
-    } else if (name.length == 0) {
+    } else if (name.length === 0) {
       toast.error('Please Write down your name')
-    } else if (email.length == 0) {
+    } else if (email.length === 0) {
       toast.error('Please Write down our Email')
     } else if (!Validation.NameRegex.test(name)) {
       toast.error('Invalid Name')
@@ -59,7 +59,7 @@ class Contact extends Component {
       axios
         .post(AppURL.PostContact, MyFormData)
         .then((resp) => {
-          if (resp.status == 200 && resp.data == 1) {
+          if (resp.status === 200 && resp.data === 1) {
             toast.success('Message Send Successfully')
             sendBtn.innerHTML = 'Send'
             contactForm.reset()

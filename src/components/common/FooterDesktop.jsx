@@ -28,7 +28,7 @@ class FooterDesktop extends Component {
       .get(AppURL.AllSiteInfo)
       .then((resp) => {
         let StatusCode = resp.status
-        if (StatusCode == 200) {
+        if (StatusCode === 200) {
           let JsonData = resp.data[0]
           this.setState({
             address: JsonData.address,
